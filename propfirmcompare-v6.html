@@ -1,0 +1,1534 @@
+<!DOCTYPE html>
+<html lang="fr" data-lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PandaProp 🐼 — Comparatif PropFirm CFD & Futures</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#060a07;--bg1:#09100b;--bg2:#0e1810;--bg3:#141f16;
+  --border:rgba(255,255,255,.06);--border2:rgba(255,255,255,.11);
+  --em:#5ccf7a;--em-dim:rgba(92,207,122,.1);--em-glow:rgba(92,207,122,.28);
+  --gold:#e8e0d0;--gold-dim:rgba(232,224,208,.08);
+  --red:#e05c5c;
+  --t:#dfe9e2;--t2:#6b7f70;--t3:#354039;
+  --fd:'Bebas Neue',sans-serif;--fb:'Outfit',sans-serif;
+  --bamboo:#8bba62;--bamboo-dim:rgba(139,186,98,.12);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--t);font-family:var(--fb);font-size:14px;line-height:1.5;overflow-x:hidden}
+#cv{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.18}
+
+/* ── BAMBOO PATTERN OVERLAY ── */
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:
+    repeating-linear-gradient(
+      180deg,
+      transparent 0px,
+      transparent 28px,
+      rgba(92,207,122,.018) 28px,
+      rgba(92,207,122,.018) 30px
+    );
+  opacity:1;
+}
+
+/* ── BAMBOO STALKS (decorative fixed) ── */
+.bamboo-decor{
+  position:fixed;top:0;bottom:0;z-index:0;pointer-events:none;
+  display:flex;gap:18px;opacity:.07;
+}
+.bamboo-decor.left{left:-10px}
+.bamboo-decor.right{right:-10px}
+.bamboo-stalk{
+  width:14px;background:linear-gradient(180deg,#4a8a3a,#5ca84a,#4a8a3a,#3d7330,#5ca84a);
+  background-size:100% 60px;
+  border-radius:3px;position:relative;
+}
+.bamboo-stalk::before,.bamboo-stalk::after{
+  content:'';position:absolute;left:-2px;right:-2px;
+  height:3px;background:rgba(0,0,0,.3);border-radius:2px;
+}
+.bamboo-stalk::before{top:25%}.bamboo-stalk::after{top:60%}
+
+/* ── PANDA LOGO SVG ── */
+.panda-logo{
+  width:34px;height:34px;flex-shrink:0;
+  animation:pandaBob 3s ease-in-out infinite;
+}
+@keyframes pandaBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+
+/* ── BAMBOO LEAF ACCENT ── */
+.leaf-accent{
+  display:inline-block;font-size:14px;
+  animation:leafSway 2s ease-in-out infinite alternate;
+  transform-origin:bottom center;
+}
+@keyframes leafSway{from{transform:rotate(-6deg)}to{transform:rotate(6deg)}}
+
+/* ── I18N ── */
+[data-fr],[data-en]{transition:opacity .18s}
+html[data-lang="en"] [data-fr]{display:none!important}
+html[data-lang="fr"] [data-en]{display:none!important}
+
+/* ── TOP BAR ── */
+.ptb{position:fixed;top:0;left:0;right:0;z-index:300;height:36px;
+  background:linear-gradient(90deg,#050f06,#07150a 50%,#050f06);
+  border-bottom:1px solid rgba(92,207,122,.18);
+  display:flex;align-items:center;justify-content:center;cursor:pointer;overflow:hidden}
+.ptb::before{content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent,rgba(92,207,122,.07) 50%,transparent);
+  animation:shim 3s ease-in-out infinite}
+@keyframes shim{0%,100%{opacity:0}50%{opacity:1}}
+.ptb-in{display:flex;align-items:center;gap:10px;position:relative;z-index:1;white-space:nowrap}
+.ptb-tag{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--em);
+  background:rgba(92,207,122,.1);border:1px solid rgba(92,207,122,.28);border-radius:4px;padding:2px 7px}
+.ptb-txt{font-size:12px;color:var(--t2)}
+.ptb-sep{color:var(--t3)}
+.ptb-code{font-family:var(--fd);font-size:17px;letter-spacing:3px;color:var(--gold);
+  background:rgba(232,224,208,.08);border:1px solid rgba(232,224,208,.22);border-radius:5px;padding:1px 10px;line-height:1.8}
+.ptb-copy{font-size:10px;color:var(--t2);font-weight:600;letter-spacing:.5px;text-transform:uppercase;
+  border:1px solid var(--border2);border-radius:4px;padding:2px 8px;transition:.18s}
+.ptb:hover .ptb-copy{background:rgba(255,255,255,.07);color:var(--t)}
+
+/* ── NAV ── */
+nav{position:fixed;top:36px;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 32px;height:54px;
+  background:rgba(5,7,9,.9);backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--border)}
+.logo{display:flex;align-items:center;gap:9px;font-family:var(--fd);font-size:19px;letter-spacing:2px;color:#fff;text-decoration:none}
+.ldot{width:7px;height:7px;border-radius:50%;background:var(--em);box-shadow:0 0 8px var(--em);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 8px var(--em)}50%{opacity:.3;box-shadow:none}}
+.nav-mid{display:flex;align-items:center;gap:3px}
+.nl{padding:6px 12px;border-radius:7px;color:var(--t2);font-size:13px;font-weight:500;text-decoration:none;transition:.18s}
+.nl:hover{color:var(--t);background:rgba(255,255,255,.04)}
+.nav-r{display:flex;align-items:center;gap:8px}
+.nav-promo{display:flex;align-items:center;gap:7px;background:var(--gold-dim);
+  border:1px solid rgba(240,192,64,.22);border-radius:8px;padding:5px 12px;
+  font-size:12px;cursor:pointer;transition:.18s}
+.nav-promo:hover{background:rgba(240,192,64,.17)}
+.np-l{color:var(--t2)}.np-v{font-weight:700;color:var(--gold);letter-spacing:.8px}
+/* LANG SWITCHER */
+.lang-sw{display:flex;align-items:center;gap:2px;background:var(--bg2);
+  border:1px solid var(--border2);border-radius:8px;padding:3px;overflow:hidden}
+.lang-btn{padding:5px 10px;border-radius:6px;font-size:13px;cursor:pointer;
+  border:none;background:transparent;transition:.18s;line-height:1}
+.lang-btn.on{background:rgba(255,255,255,.1)}
+.lang-btn:hover:not(.on){background:rgba(255,255,255,.05)}
+.cta{background:var(--em);color:#050709;padding:8px 17px;border-radius:8px;
+  font-weight:700;font-size:13px;text-decoration:none;transition:.18s}
+.cta:hover{background:#78e094;box-shadow:0 4px 16px var(--em-glow)}
+.hbg{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.hbg span{display:block;width:21px;height:2px;background:var(--t);border-radius:2px}
+.mob-nav{display:none;position:fixed;top:90px;left:0;right:0;
+  background:rgba(8,12,16,.97);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);padding:16px;z-index:199;flex-direction:column;gap:3px}
+.mob-nav a{display:block;padding:11px 14px;color:var(--t2);text-decoration:none;
+  font-size:14px;font-weight:500;border-radius:8px;transition:.18s}
+.mob-nav a:hover{color:var(--t);background:rgba(255,255,255,.04)}
+.mob-nav.open{display:flex}
+
+/* ── HERO ── */
+.hero{position:relative;z-index:2;min-height:100vh;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:126px 20px 56px;text-align:center}
+.hero-glow{position:absolute;top:42%;left:50%;transform:translate(-50%,-50%);
+  width:600px;height:480px;
+  background:radial-gradient(ellipse,rgba(0,214,143,.07) 0%,transparent 68%);
+  pointer-events:none}
+.pill{display:inline-flex;align-items:center;gap:8px;
+  background:rgba(255,255,255,.04);border:1px solid var(--border2);
+  border-radius:100px;padding:6px 16px;font-size:11px;font-weight:600;
+  letter-spacing:1.3px;text-transform:uppercase;color:var(--t2);
+  margin-bottom:24px;animation:fup .7s ease forwards}
+.pdot{width:6px;height:6px;border-radius:50%;background:var(--em);box-shadow:0 0 7px var(--em);animation:pulse 2s infinite}
+h1{font-family:var(--fd);font-size:clamp(50px,8vw,106px);line-height:.93;
+  letter-spacing:2px;color:#fff;animation:fup .7s .08s ease forwards;opacity:0}
+h1 .ac{color:var(--em)}
+h1 .gh{-webkit-text-stroke:1px rgba(255,255,255,.22);color:transparent}
+.hero-sub{color:var(--t2);font-size:15px;font-weight:300;max-width:420px;
+  margin:18px auto 36px;animation:fup .7s .16s ease forwards;opacity:0}
+@keyframes fup{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.tabs{display:flex;background:var(--bg2);border:1px solid var(--border);
+  border-radius:10px;padding:4px;gap:4px;margin-bottom:36px;
+  animation:fup .7s .22s ease forwards;opacity:0}
+.tab{padding:10px 28px;border-radius:7px;font-size:13px;font-weight:600;
+  letter-spacing:.4px;text-transform:uppercase;border:none;cursor:pointer;
+  transition:.22s;background:transparent;color:var(--t2);font-family:var(--fb)}
+.tab.on{background:var(--em);color:#050709;box-shadow:0 3px 14px var(--em-glow)}
+.stats{display:flex;background:var(--bg1);border:1px solid var(--border);
+  border-radius:12px;overflow:hidden;animation:fup .7s .28s ease forwards;opacity:0}
+.stat{flex:1;padding:18px 20px;text-align:center;border-right:1px solid var(--border)}
+.stat:last-child{border-right:none}
+.sn{display:block;font-family:var(--fd);font-size:32px;letter-spacing:.5px;line-height:1;margin-bottom:3px}
+.ng{color:var(--em)}.ny{color:var(--gold)}.nw{color:#fff}
+.sl{font-size:10px;color:var(--t2);text-transform:uppercase;letter-spacing:.9px}
+
+/* ── SECTION ── */
+.sec{position:relative;z-index:2;padding:52px 32px}
+.inner{max-width:1160px;margin:0 auto}
+.sh{margin-bottom:22px}
+.slbl{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:var(--em);margin-bottom:7px;display:flex;align-items:center;gap:7px}
+.slbl::before{content:'';display:block;width:20px;height:1px;background:var(--em)}
+.sttl{font-family:var(--fd);font-size:clamp(26px,4vw,48px);letter-spacing:1px;color:#fff;line-height:1}
+.sttl .ac{color:var(--em)}.sttl .ay{color:var(--gold)}
+
+/* ── PROMO BAND ── */
+.pb{position:relative;z-index:2;
+  background:linear-gradient(135deg,rgba(240,192,64,.08),rgba(240,192,64,.03));
+  border-top:1px solid rgba(240,192,64,.12);border-bottom:1px solid rgba(240,192,64,.12);
+  padding:14px 32px}
+.pb-in{max-width:1160px;margin:0 auto;display:flex;align-items:center;
+  justify-content:space-between;gap:12px;flex-wrap:wrap}
+.pb-left{display:flex;align-items:center;gap:12px}
+.pb-ico{width:36px;height:36px;border-radius:8px;background:var(--gold-dim);
+  border:1px solid rgba(240,192,64,.18);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.pb-t strong{font-size:13px;color:var(--gold);font-weight:700;display:block}
+.pb-t span{font-size:11px;color:var(--t2)}
+.pb-btn{display:flex;align-items:center;gap:10px;background:var(--bg1);
+  border:1px dashed rgba(240,192,64,.38);border-radius:9px;padding:9px 18px;
+  cursor:pointer;transition:.18s;user-select:none}
+.pb-btn:hover{background:var(--gold-dim)}
+.pb-code{font-family:var(--fd);font-size:22px;letter-spacing:3px;color:var(--gold);line-height:1}
+.pb-act{font-size:11px;color:var(--t2);display:flex;flex-direction:column;gap:0}
+.pb-act strong{font-size:11px;color:var(--t);font-weight:600}
+
+/* ══════════════════════════════════
+   URGENCY DEAL CARDS
+══════════════════════════════════ */
+.deals-section{position:relative;z-index:2;padding:48px 32px 0}
+.deals-inner{max-width:1160px;margin:0 auto}
+.deals-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:22px;flex-wrap:wrap;gap:12px}
+.deals-tabs{display:flex;background:var(--bg2);border:1px solid var(--border);border-radius:9px;padding:3px;gap:3px}
+.dtab{padding:7px 20px;border-radius:6px;font-size:12px;font-weight:600;letter-spacing:.5px;
+  text-transform:uppercase;border:none;cursor:pointer;transition:.2s;
+  background:transparent;color:var(--t2);font-family:var(--fb)}
+.dtab.on{background:var(--em);color:#050709;box-shadow:0 2px 12px var(--em-glow)}
+.deal-panel{display:none}
+.deal-panel.on{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+
+/* DEAL CARD */
+.dc{background:var(--bg1);border:1px solid var(--border2);border-radius:16px;
+  overflow:hidden;position:relative;transition:transform .22s,box-shadow .22s;display:flex;flex-direction:column}
+.dc:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,.4)}
+.dc.hot{border-color:rgba(0,214,143,.3)}
+
+/* TIMER BAR */
+.dc-timer{background:linear-gradient(90deg,#061a09,#0d3016,#061a09);
+  padding:8px 14px;display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid rgba(92,207,122,.15)}
+.dt-left{display:flex;align-items:center;gap:7px;font-size:11px;font-weight:700;
+  color:#8bba62;letter-spacing:1px;text-transform:uppercase}
+.dt-icon{font-size:13px;animation:bzz .8s ease-in-out infinite alternate}
+@keyframes bzz{from{transform:rotate(-8deg)}to{transform:rotate(8deg)}}
+.dt-count{font-family:var(--fd);font-size:15px;letter-spacing:1px;color:#8bba62}
+
+/* CARD BODY */
+.dc-body{padding:16px 16px 12px;flex:1;display:flex;flex-direction:column;gap:0}
+.dc-top{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px}
+.dc-logo{width:50px;height:50px;border-radius:11px;background:var(--bg3);
+  border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;
+  overflow:hidden;flex-shrink:0;font-size:13px;font-weight:700;color:#fff}
+.dc-logo img{width:100%;height:100%;object-fit:contain;padding:6px}
+.dc-name{font-weight:700;font-size:15px;color:#fff;line-height:1.2;margin-bottom:4px}
+.dc-meta{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.dc-country{font-size:11px;color:var(--t2)}
+.dc-stars{color:var(--gold);font-size:11px;letter-spacing:-1px}
+.dc-rating{font-weight:700;font-size:11px;color:#fff}
+.dc-feat{display:inline-block;padding:2px 8px;border-radius:100px;font-size:10px;
+  font-weight:700;letter-spacing:.4px;
+  background:rgba(0,214,143,.15);border:1px solid rgba(0,214,143,.25);color:var(--em)}
+
+/* SIZE SELECTOR */
+.dc-sizes{display:flex;gap:5px;margin-bottom:12px;flex-wrap:wrap}
+.dc-size-btn{padding:5px 12px;border-radius:7px;font-size:12px;font-weight:600;
+  border:1px solid var(--border2);background:transparent;color:var(--t2);
+  cursor:pointer;transition:.18s;font-family:var(--fb)}
+.dc-size-btn.on{background:rgba(0,214,143,.12);border-color:rgba(0,214,143,.4);color:var(--em)}
+.dc-size-btn:hover:not(.on){border-color:var(--t2);color:var(--t)}
+
+/* PRICING BOX */
+.dc-pricing{background:var(--bg2);border-radius:11px;padding:13px 15px;
+  margin-bottom:12px;position:relative;overflow:hidden}
+.dc-pricing::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,#2e8b4a,#5ccf7a)}
+.dc-deal-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px}
+.dc-dlabel{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--t2)}
+.dc-orig{font-size:11px;color:var(--red);text-decoration:line-through}
+.dc-main{display:flex;align-items:center;justify-content:space-between}
+.dc-pct{font-family:var(--fd);font-size:40px;letter-spacing:-1px;color:#fff;line-height:1}
+.dc-pct em{color:var(--em);font-style:normal}
+.dc-right{text-align:right}
+.dc-price{font-family:var(--fd);font-size:38px;color:var(--em);letter-spacing:-1px;line-height:1}
+.dc-price small{font-size:20px}
+.dc-act{display:inline-block;margin-top:4px;font-size:10px;font-weight:600;
+  padding:2px 9px;border-radius:100px;
+  background:rgba(0,214,143,.12);border:1px solid rgba(0,214,143,.2);color:var(--em)}
+.dc-act.warn{background:rgba(255,77,106,.08);border-color:rgba(255,77,106,.2);color:var(--red)}
+
+/* FEATURE TAGS */
+.dc-tags{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px}
+.dc-tag{display:inline-block;padding:3px 8px;border-radius:100px;font-size:10px;
+  font-weight:600;background:rgba(255,255,255,.05);border:1px solid var(--border2);color:var(--t2)}
+
+/* CTA BUTTON */
+.dc-cta{display:flex;align-items:center;justify-content:space-between;
+  background:linear-gradient(90deg,#1a6b2a,#2e8b4a);
+  border-radius:10px;padding:12px 16px;text-decoration:none;cursor:pointer;
+  border:none;width:100%;transition:.2s;font-family:var(--fb)}
+.dc-cta:hover{filter:brightness(1.12);transform:translateY(-1px);box-shadow:0 4px 20px rgba(46,139,74,.4)}
+.dc-cta-l{font-weight:700;font-size:13px;color:#fff}
+.dc-cta-r{font-size:12px;color:rgba(255,255,255,.85);font-weight:600}
+
+/* PROMO ROW */
+.dc-promo{display:flex;align-items:center;justify-content:space-between;
+  padding:10px 16px;border-top:1px solid var(--border)}
+.dc-plabel{font-size:11px;color:var(--t2)}
+.dc-pcode{display:flex;align-items:center;gap:6px;font-family:var(--fd);
+  font-size:15px;letter-spacing:2px;color:var(--gold);cursor:pointer;transition:.18s}
+.dc-pcode:hover{opacity:.8}
+
+/* ── FILTERS + TABLE (same as v5) ── */
+.filters-wrap{display:flex;flex-direction:column;gap:10px;margin-bottom:18px}
+.search-row{display:flex;align-items:center;gap:8px}
+.search-box{flex:1;max-width:280px;background:var(--bg2);border:1px solid var(--border2);
+  border-radius:8px;padding:8px 14px;font-family:var(--fb);font-size:13px;color:var(--t);
+  outline:none;transition:.18s}
+.search-box::placeholder{color:var(--t3)}
+.search-box:focus{border-color:rgba(0,214,143,.4);box-shadow:0 0 0 2px rgba(0,214,143,.07)}
+.filter-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.fl{font-size:11px;color:var(--t3);text-transform:uppercase;letter-spacing:.7px;margin-right:2px;flex-shrink:0}
+.fb{padding:5px 12px;border-radius:6px;border:1px solid var(--border);
+  background:transparent;color:var(--t2);font-size:12px;font-weight:500;
+  font-family:var(--fb);cursor:pointer;transition:.18s;white-space:nowrap}
+.fb.on{border-color:rgba(0,214,143,.4);color:var(--em);background:var(--em-dim)}
+.fb:hover:not(.on){border-color:var(--border2);color:var(--t)}
+.rc{font-size:12px;color:var(--t2);margin-bottom:10px}
+.rc span{color:var(--em);font-weight:600}
+.tw{overflow-x:auto;border-radius:12px;border:1px solid var(--border);-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;min-width:700px}
+thead th{padding:11px 13px;background:var(--bg2);font-size:10px;font-weight:700;
+  letter-spacing:1px;text-transform:uppercase;color:var(--t3);text-align:left;
+  border-bottom:1px solid var(--border);white-space:nowrap;cursor:pointer;user-select:none}
+thead th:first-child{padding-left:17px}
+thead th:hover{color:var(--t2)}
+thead th.sa::after{content:' ↑';color:var(--em)}
+thead th.sd::after{content:' ↓';color:var(--em)}
+tbody tr{background:var(--bg1);border-bottom:1px solid var(--border);transition:background .12s}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:var(--bg2)}
+tbody tr.ft{background:linear-gradient(90deg,rgba(0,214,143,.05),var(--bg1));border-left:2px solid var(--em)}
+tbody tr.ft:hover{background:linear-gradient(90deg,rgba(0,214,143,.08),var(--bg2))}
+tbody tr.row-hidden{display:none}
+td{padding:13px 13px;vertical-align:middle;font-size:13px}
+td:first-child{padding-left:17px}
+.fc{display:flex;align-items:center;gap:9px}
+.fav{width:34px;height:34px;border-radius:8px;background:var(--bg3);
+  border:1px solid var(--border2);display:flex;align-items:center;
+  justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;overflow:hidden;color:#fff}
+.fav img{width:100%;height:100%;object-fit:contain;padding:4px}
+.ftag{font-size:9px;font-weight:700;color:var(--em);letter-spacing:.9px;text-transform:uppercase;margin-bottom:1px;line-height:1}
+.fn{font-weight:700;font-size:13px;color:#fff;line-height:1.2}
+.fco{font-size:11px;color:var(--t2);margin-top:1px}
+.po{font-size:10px;color:var(--t3);text-decoration:line-through;display:block;line-height:1}
+.pn{font-family:var(--fd);font-size:18px;color:#fff;line-height:1.1}
+.px{font-size:10px;color:var(--em);display:block;margin-top:1px}
+.px.warn{color:var(--t2)}
+.b{display:inline-block;padding:3px 8px;border-radius:5px;font-size:11px;font-weight:600}
+.bg{background:rgba(0,214,143,.1);color:var(--em);border:1px solid rgba(0,214,143,.2)}
+.br{background:rgba(255,77,106,.1);color:var(--red);border:1px solid rgba(255,77,106,.2)}
+.by{background:rgba(240,192,64,.1);color:var(--gold);border:1px solid rgba(240,192,64,.2)}
+.bb{background:rgba(79,156,249,.1);color:#4f9cf9;border:1px solid rgba(79,156,249,.2)}
+.bx{background:rgba(255,255,255,.05);color:var(--t2);border:1px solid var(--border)}
+.sr{display:flex;align-items:center;gap:4px}
+.ss{color:var(--gold);font-size:11px;letter-spacing:-1px}
+.snum{font-weight:700;font-size:12px;color:#fff}
+.pt{display:inline-flex;align-items:center;background:var(--gold-dim);
+  border:1px solid rgba(240,192,64,.22);color:var(--gold);padding:3px 9px;
+  border-radius:6px;font-size:11px;font-weight:700;letter-spacing:.6px;cursor:pointer;transition:.18s}
+.pt:hover{background:rgba(240,192,64,.18)}
+.btn{display:inline-flex;align-items:center;gap:4px;background:var(--em);
+  color:#050709;padding:7px 13px;border-radius:7px;font-weight:700;font-size:12px;
+  text-decoration:none;border:none;cursor:pointer;transition:.18s;white-space:nowrap}
+.btn:hover{background:#78e094;transform:translateY(-1px);box-shadow:0 3px 12px var(--em-glow)}
+.btn2{display:inline-flex;align-items:center;padding:7px 10px;border-radius:7px;
+  border:1px solid var(--border2);background:transparent;color:var(--t2);
+  font-size:12px;font-weight:500;cursor:pointer;transition:.18s;text-decoration:none;
+  white-space:nowrap;font-family:var(--fb)}
+.btn2:hover{border-color:var(--t2);color:var(--t)}
+.brow{display:flex;align-items:center;gap:5px}
+.bbn{display:inline-flex;align-items:center;gap:3px;padding:3px 7px;
+  border-radius:5px;font-size:11px;color:var(--red);
+  background:rgba(255,77,106,.08);border:1px solid rgba(255,77,106,.18);cursor:pointer;
+  transition:.18s;font-weight:600}
+.bbn:hover{background:rgba(255,77,106,.15)}
+.no-res{text-align:center;padding:48px 20px;color:var(--t2);font-size:15px;display:none}
+.no-res strong{color:var(--t);display:block;font-size:18px;margin-bottom:6px}
+
+/* MODAL */
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.72);
+  z-index:500;backdrop-filter:blur(5px);align-items:center;justify-content:center;padding:20px}
+.overlay.open{display:flex}
+.modal{background:var(--bg2);border:1px solid var(--border2);border-radius:14px;
+  padding:26px;max-width:560px;width:100%;max-height:82vh;overflow-y:auto;position:relative}
+.modal h3{font-family:var(--fd);font-size:21px;letter-spacing:1px;color:#fff;margin-bottom:3px}
+.modal-sub{font-size:12px;color:var(--t2);margin-bottom:18px;line-height:1.6}
+.mclose{position:absolute;top:14px;right:14px;background:rgba(255,255,255,.06);
+  border:1px solid var(--border2);border-radius:7px;width:30px;height:30px;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  color:var(--t2);font-size:16px;transition:.18s}
+.mclose:hover{background:rgba(255,255,255,.1);color:var(--t)}
+.cgrid{display:flex;flex-wrap:wrap;gap:5px}
+.ctag{display:inline-block;padding:3px 9px;background:rgba(255,77,106,.07);
+  border:1px solid rgba(255,77,106,.14);border-radius:5px;font-size:11px;color:var(--red);font-weight:500}
+
+/* VS */
+.vs{display:grid;grid-template-columns:1fr auto 1fr;background:var(--bg1);
+  border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.vc{padding:24px 24px}
+.vc.l{border-right:1px solid var(--border)}
+.vc.r{border-left:1px solid var(--border)}
+.vd{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:14px;position:relative}
+.vl{position:absolute;top:0;bottom:0;left:50%;width:1px;background:var(--border)}
+.vc2{width:40px;height:40px;border-radius:50%;background:var(--bg);border:1px solid var(--border2);
+  display:flex;align-items:center;justify-content:center;font-family:var(--fd);
+  font-size:14px;color:var(--t2);position:relative;z-index:1}
+.vh{display:flex;align-items:center;gap:9px;margin-bottom:18px;padding-bottom:15px;border-bottom:1px solid var(--border)}
+.vi{width:38px;height:38px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:17px}
+.vi.c{background:rgba(79,156,249,.1)}.vi.f{background:var(--gold-dim)}
+.vt{font-family:var(--fd);font-size:19px;letter-spacing:1px}
+.vs2{font-size:11px;color:var(--t2);margin-top:1px}
+.vr{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);gap:10px}
+.vr:last-child{border-bottom:none}
+.vk{font-size:12px;color:var(--t2);flex-shrink:0}
+.vv{font-size:12px;font-weight:500;text-align:right;color:var(--t)}
+.vv.g{color:var(--em)}.vv.y{color:var(--gold)}
+
+/* TOOLS */
+.tg{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}
+.tc{background:var(--bg1);border:1px solid var(--border);border-radius:12px;
+  padding:20px 17px;transition:.22s;cursor:pointer;position:relative;overflow:hidden}
+.tc::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--em),transparent);opacity:0;transition:.22s}
+.tc:hover{border-color:rgba(0,214,143,.2);transform:translateY(-2px)}
+.tc:hover::before{opacity:1}
+.tc-i{font-size:24px;margin-bottom:9px;display:block}
+.tc-t{font-weight:700;font-size:14px;color:#fff;margin-bottom:4px}
+.tc-d{font-size:12px;color:var(--t2);line-height:1.5}
+.tc-a{margin-top:12px;font-size:12px;color:var(--em);font-weight:600;
+  display:flex;align-items:center;gap:3px;transition:gap .18s}
+.tc:hover .tc-a{gap:7px}
+
+/* TRUST */
+.tru{display:grid;grid-template-columns:repeat(4,1fr);gap:11px}
+.trc{background:var(--bg1);border:1px solid var(--border);border-radius:11px;padding:17px 15px;transition:.18s}
+.trc:hover{border-color:var(--border2)}
+.tri{font-size:21px;margin-bottom:9px}
+.trt{font-weight:700;font-size:13px;color:#fff;margin-bottom:4px}
+.trd{font-size:12px;color:var(--t2);line-height:1.5}
+
+/* FOOTER */
+footer{position:relative;z-index:2;background:var(--bg1);border-top:1px solid var(--border);padding:32px 32px 22px}
+.fi{max-width:1160px;margin:0 auto}
+.ftg{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:28px;margin-bottom:26px}
+.ft-logo{font-family:var(--fd);font-size:19px;letter-spacing:2px;color:#fff;
+  display:flex;align-items:center;gap:7px;margin-bottom:8px}
+.ft-desc{font-size:12px;color:var(--t2);line-height:1.7;max-width:230px}
+.ftct{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.3px;color:var(--t2);margin-bottom:10px}
+.ftl{list-style:none;display:flex;flex-direction:column;gap:7px}
+.ftl a{color:var(--t2);text-decoration:none;font-size:12px;transition:.18s}
+.ftl a:hover{color:var(--t)}
+.ft-bot{display:flex;align-items:center;justify-content:space-between;
+  padding-top:18px;border-top:1px solid var(--border);flex-wrap:wrap;gap:10px}
+.ft-disc{font-size:11px;color:var(--t3);max-width:560px;line-height:1.6}
+.ft-sc{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--t2)}
+.scv{font-family:var(--fd);font-size:14px;letter-spacing:2px;color:var(--gold);
+  background:var(--gold-dim);padding:3px 10px;border-radius:5px;border:1px solid rgba(240,192,64,.18)}
+
+/* PANEL */
+.panel{display:none}.panel.on{display:block}
+.rev{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease}
+.rev.in{opacity:1;transform:translateY(0)}
+
+/* TOAST */
+.toast{position:fixed;bottom:18px;right:18px;z-index:999;background:var(--bg2);
+  border:1px solid var(--em);border-radius:9px;padding:11px 17px;
+  display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--t);
+  transform:translateY(60px) scale(.95);opacity:0;transition:.3s cubic-bezier(.34,1.56,.64,1);pointer-events:none}
+.toast.on{transform:translateY(0) scale(1);opacity:1}
+.tdot{width:7px;height:7px;border-radius:50%;background:var(--em);flex-shrink:0}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  nav{padding:0 14px;height:50px}
+  .nav-mid,.nav-promo{display:none}
+  .hbg{display:flex}
+  .hero{padding:108px 14px 40px;min-height:auto}
+  .stats{flex-direction:row;flex-wrap:wrap}
+  .stat{flex:1 1 50%;border-right:1px solid var(--border);border-bottom:1px solid var(--border);padding:13px 10px}
+  .stat:nth-child(2){border-right:none}
+  .stat:nth-child(3){border-bottom:none}
+  .stat:nth-child(4){border-right:none;border-bottom:none}
+  .sn{font-size:26px}
+  .sec{padding:36px 14px}
+  .deals-section{padding:36px 14px 0}
+  .deal-panel.on{grid-template-columns:1fr 1fr}
+  .vs{grid-template-columns:1fr}
+  .vc{padding:18px 15px}
+  .vc.l{border-right:none;border-bottom:1px solid var(--border)}
+  .vc.r{border-left:none;border-top:1px solid var(--border)}
+  .vd{display:none}
+  .tg{grid-template-columns:1fr 1fr}
+  .tru{grid-template-columns:1fr 1fr}
+  .ftg{grid-template-columns:1fr 1fr}
+  .pb{padding:12px 14px}
+  .pb-in{flex-direction:column;align-items:flex-start;gap:10px}
+  .ft-bot{flex-direction:column;align-items:flex-start;gap:8px}
+  table{min-width:640px}
+  td,thead th{padding:10px 9px;font-size:12px}
+  td:first-child,thead th:first-child{padding-left:13px}
+  .fav{width:30px;height:30px;border-radius:6px;font-size:10px}
+  .fn{font-size:12px}.fco{font-size:10px}
+  .pn{font-size:16px}
+  .btn{padding:6px 11px;font-size:11px}
+  .btn2{display:none}
+}
+@media(max-width:560px){
+  h1{font-size:clamp(40px,13vw,62px)}
+  .tabs{width:100%}.tab{flex:1;padding:8px 8px;font-size:11px;text-align:center}
+  .stats{flex-direction:column}
+  .stat{flex:1 1 100%;border-right:none;border-bottom:1px solid var(--border)}
+  .stat:last-child{border-bottom:none}
+  .deal-panel.on{grid-template-columns:1fr}
+  .tg{grid-template-columns:1fr}
+  .tru{grid-template-columns:1fr}
+  .ftg{grid-template-columns:1fr}
+  footer{padding:24px 14px 18px}
+  .ptb-txt,.ptb-sep{display:none}
+  .search-box{max-width:100%}
+  .lang-btn{padding:5px 7px;font-size:12px}
+}
+</style>
+</head>
+<body>
+<canvas id="cv"></canvas>
+
+<!-- BAMBOO DECORATIONS -->
+<div class="bamboo-decor left" aria-hidden="true">
+  <div class="bamboo-stalk" style="height:100vh;opacity:.6"></div>
+  <div class="bamboo-stalk" style="height:100vh;margin-top:80px;opacity:.4"></div>
+  <div class="bamboo-stalk" style="height:100vh;margin-top:40px;opacity:.3"></div>
+</div>
+<div class="bamboo-decor right" aria-hidden="true">
+  <div class="bamboo-stalk" style="height:100vh;margin-top:60px;opacity:.3"></div>
+  <div class="bamboo-stalk" style="height:100vh;opacity:.5"></div>
+  <div class="bamboo-stalk" style="height:100vh;margin-top:100px;opacity:.35"></div>
+</div>
+
+<!-- TOP BAR -->
+<div class="ptb" onclick="copy()">
+  <div class="ptb-in">
+    <span class="ptb-tag" data-fr>Exclusif</span>
+    <span class="ptb-tag" data-en>Exclusive</span>
+    <span class="ptb-txt" data-fr>Code promo sur toutes les propfirms</span>
+    <span class="ptb-txt" data-en>Promo code on all prop firms</span>
+    <span class="ptb-sep">·</span>
+    <span class="ptb-code">PANDA</span>
+    <span class="ptb-copy" data-fr>Copier</span>
+    <span class="ptb-copy" data-en>Copy</span>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a class="logo" href="#">
+    <!-- PANDA SVG LOGO -->
+    <svg class="panda-logo" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Ears -->
+      <circle cx="9" cy="10" r="6" fill="#1a1a1a"/>
+      <circle cx="31" cy="10" r="6" fill="#1a1a1a"/>
+      <circle cx="9" cy="10" r="3.5" fill="#2d2d2d"/>
+      <circle cx="31" cy="10" r="3.5" fill="#2d2d2d"/>
+      <!-- Head -->
+      <circle cx="20" cy="22" r="14" fill="#f0ece4"/>
+      <!-- Eye patches -->
+      <ellipse cx="14" cy="19" rx="4.5" ry="4" fill="#1a1a1a" transform="rotate(-10 14 19)"/>
+      <ellipse cx="26" cy="19" rx="4.5" ry="4" fill="#1a1a1a" transform="rotate(10 26 19)"/>
+      <!-- Eyes -->
+      <circle cx="13.5" cy="19" r="2" fill="white"/>
+      <circle cx="26.5" cy="19" r="2" fill="white"/>
+      <circle cx="14" cy="19" r="1" fill="#1a1a1a"/>
+      <circle cx="27" cy="19" r="1" fill="#1a1a1a"/>
+      <circle cx="14.5" cy="18.5" r=".4" fill="white"/>
+      <circle cx="27.5" cy="18.5" r=".4" fill="white"/>
+      <!-- Nose -->
+      <ellipse cx="20" cy="25" rx="3" ry="2" fill="#333"/>
+      <!-- Mouth -->
+      <path d="M17 27 Q20 30 23 27" stroke="#555" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+      <!-- Bamboo in mouth -->
+      <rect x="18" y="26" width="4" height="10" rx="2" fill="#5ccf7a" opacity=".8"/>
+      <line x1="18" y1="29" x2="22" y2="29" stroke="#3da85a" stroke-width=".8"/>
+      <line x1="18" y1="32" x2="22" y2="32" stroke="#3da85a" stroke-width=".8"/>
+    </svg>
+    PANDA<span style="color:var(--t2);font-weight:300">PROP</span>
+  </a>
+  <div class="nav-mid">
+    <a href="#deals" class="nl">🔥 <span data-fr>Deals</span><span data-en>Deals</span></a>
+    <a href="#futures" class="nl">Futures</a>
+    <a href="#cfd" class="nl">CFD Forex</a>
+    <a href="#vs" class="nl"><span data-fr>CFD vs Futures</span><span data-en>CFD vs Futures</span></a>
+    <a href="#tools" class="nl"><span data-fr>Outils</span><span data-en>Tools</span></a>
+  </div>
+  <div class="nav-r">
+    <div class="lang-sw">
+      <button class="lang-btn on" onclick="setLang('fr',this)">🇫🇷</button>
+      <button class="lang-btn" onclick="setLang('en',this)">🇬🇧</button>
+    </div>
+    <div class="nav-promo" onclick="copy()"><span class="np-l" data-fr>Code :</span><span class="np-l" data-en>Code:</span><span class="np-v">PANDA</span></div>
+    <a href="#" class="cta" data-fr>Commencer →</a>
+    <a href="#" class="cta" data-en>Get Started →</a>
+    <div class="hbg" onclick="tMob()"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+<div class="mob-nav" id="mn">
+  <a href="#deals" onclick="tMob()">🔥 Deals</a>
+  <a href="#futures" onclick="tMob()">⚙ Futures</a>
+  <a href="#cfd" onclick="tMob()">💱 CFD Forex</a>
+  <a href="#vs" onclick="tMob()"><span data-fr>CFD vs Futures</span><span data-en>CFD vs Futures</span></a>
+  <a href="#tools" onclick="tMob()"><span data-fr>Outils</span><span data-en>Tools</span></a>
+  <div style="display:flex;gap:6px;padding:8px 14px">
+    <button class="lang-btn on" onclick="setLang('fr',this);tMob()" style="background:rgba(255,255,255,.08);border-radius:7px;padding:8px 14px;border:1px solid var(--border2);color:var(--t);font-size:14px;cursor:pointer;font-family:var(--fb)">🇫🇷 Français</button>
+    <button class="lang-btn" onclick="setLang('en',this);tMob()" style="background:transparent;border-radius:7px;padding:8px 14px;border:1px solid var(--border2);color:var(--t2);font-size:14px;cursor:pointer;font-family:var(--fb)">🇬🇧 English</button>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <!-- Panda floating hero icon -->
+  <div style="margin-bottom:16px;animation:fup .6s ease forwards;opacity:0">
+    <svg width="80" height="80" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter:drop-shadow(0 0 20px rgba(92,207,122,.3))">
+      <circle cx="9" cy="10" r="6" fill="#1a1a1a"/>
+      <circle cx="31" cy="10" r="6" fill="#1a1a1a"/>
+      <circle cx="9" cy="10" r="3.5" fill="#2a2a2a"/>
+      <circle cx="31" cy="10" r="3.5" fill="#2a2a2a"/>
+      <circle cx="20" cy="22" r="14" fill="#f0ece4"/>
+      <ellipse cx="14" cy="19" rx="4.5" ry="4" fill="#1a1a1a" transform="rotate(-10 14 19)"/>
+      <ellipse cx="26" cy="19" rx="4.5" ry="4" fill="#1a1a1a" transform="rotate(10 26 19)"/>
+      <circle cx="13.5" cy="19" r="2" fill="white"/>
+      <circle cx="26.5" cy="19" r="2" fill="white"/>
+      <circle cx="14" cy="19" r="1" fill="#1a1a1a"/>
+      <circle cx="27" cy="19" r="1" fill="#1a1a1a"/>
+      <circle cx="14.5" cy="18.5" r=".4" fill="white"/>
+      <circle cx="27.5" cy="18.5" r=".4" fill="white"/>
+      <ellipse cx="20" cy="25" rx="3" ry="2" fill="#333"/>
+      <path d="M17 27 Q20 30 23 27" stroke="#555" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+      <rect x="18" y="25" width="4" height="12" rx="2" fill="#5ccf7a"/>
+      <line x1="18" y1="28" x2="22" y2="28" stroke="#3da85a" stroke-width=".8"/>
+      <line x1="18" y1="31" x2="22" y2="31" stroke="#3da85a" stroke-width=".8"/>
+    </svg>
+  </div>
+  <div class="pill"><span class="pdot"></span><span data-fr>🎋 Données vérifiées · Mai 2026</span><span data-en>🎋 Verified data · May 2026</span></div>
+  <h1 data-fr>TROUVE TON<br><span class="ac">BAMBOO</span><br><span class="gh">FUNDED</span></h1>
+  <h1 data-en>FIND YOUR<br><span class="ac">BAMBOO</span><br><span class="gh">FUNDED</span></h1>
+  <p class="hero-sub" data-fr>Comparatif complet CFD & Futures — prix réels, filtres avancés, pays bannis, code promo exclusif.</p>
+  <p class="hero-sub" data-en>Complete CFD & Futures comparison — real prices, advanced filters, banned countries, exclusive promo code.</p>
+  <div class="tabs">
+    <button class="tab on" onclick="swPanel('futures',this)">⚙ Futures</button>
+    <button class="tab" onclick="swPanel('cfd',this)">💱 CFD Forex</button>
+  </div>
+  <div class="stats">
+    <div class="stat"><span class="sn ng">13+</span><span class="sl" data-fr>Firms Futures</span><span class="sl" data-en>Futures Firms</span></div>
+    <div class="stat"><span class="sn ny">-90%</span><span class="sl" data-fr>Réduction max</span><span class="sl" data-en>Max discount</span></div>
+    <div class="stat"><span class="sn nw">15min</span><span class="sl" data-fr>Payout express</span><span class="sl" data-en>Fastest payout</span></div>
+    <div class="stat"><span class="sn ng">100%</span><span class="sl" data-fr>Données vérifiées</span><span class="sl" data-en>Verified data</span></div>
+  </div>
+</section>
+
+<!-- PROMO BAND -->
+<div class="pb">
+  <div class="pb-in">
+    <div class="pb-left">
+      <div class="pb-ico">🏷️</div>
+      <div class="pb-t">
+        <strong data-fr>Code promo PANDA — exclusif sur toutes les firms</strong>
+        <strong data-en>Exclusive promo code PANDA — valid on all firms</strong>
+        <span data-fr>Clique pour copier · Colle au paiement pour ta réduction</span>
+        <span data-en>Click to copy · Paste at checkout for your discount</span>
+      </div>
+    </div>
+    <div class="pb-btn" onclick="copy()">
+      <div class="pb-code">PANDA</div>
+      <div class="pb-act">
+        <span data-fr>Ton code exclusif</span><span data-en>Your exclusive code</span>
+        <strong data-fr>👆 Copier</strong><strong data-en>👆 Copy</strong>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     URGENCY DEAL CARDS
+══════════════════════════════ -->
+<div class="deals-section" id="deals">
+  <div class="deals-inner">
+    <div class="deals-header rev">
+      <div>
+        <div class="slbl">⚡ <span data-fr>Offres limitées</span><span data-en>Limited time offers</span></div>
+        <div class="sttl"><span data-fr>MEILLEURES <span class="ac">DEALS</span> DU MOMENT 🎋</span><span data-en>BEST <span class="ac">DEALS</span> RIGHT NOW 🎋</span></div>
+      </div>
+      <div class="deals-tabs">
+        <button class="dtab on" onclick="swDeals('futures',this)">⚙ Futures</button>
+        <button class="dtab" onclick="swDeals('cfd',this)">💱 CFD</button>
+      </div>
+    </div>
+
+    <!-- FUTURES DEALS -->
+    <div class="deal-panel on" id="deal-futures">
+
+      <!-- TRADEIFY -->
+      <div class="dc hot rev" id="dc-tradeify">
+        <div class="dc-timer">
+          <div class="dt-left"><span class="dt-icon">⚡</span>LIMITED TIME</div>
+          <div class="dt-count" data-seconds="1144800"></div>
+        </div>
+        <div class="dc-body">
+          <div class="dc-top">
+            <div class="dc-logo"><img src="https://www.google.com/s2/favicons?domain=tradeify.co&sz=64" alt="" onerror="this.parentNode.innerText='TY'"></div>
+            <div>
+              <div class="dc-name">Tradeify</div>
+              <div class="dc-meta">
+                <span class="dc-country">🇺🇸 US</span>
+                <span class="dc-stars">★★★★★</span>
+                <span class="dc-rating">4.7</span>
+                <span class="dc-feat">Daily Payouts</span>
+              </div>
+            </div>
+          </div>
+          <!-- SIZE SELECTOR -->
+          <div class="dc-sizes" data-firm="tradeify">
+            <button class="dc-size-btn on" data-size="50k" onclick="selSize('tradeify','50k',this)">$50k</button>
+            <button class="dc-size-btn" data-size="100k" onclick="selSize('tradeify','100k',this)">$100k</button>
+            <button class="dc-size-btn" data-size="150k" onclick="selSize('tradeify','150k',this)">$150k</button>
+          </div>
+          <div class="dc-pricing">
+            <div class="dc-deal-top">
+              <span class="dc-dlabel">LIMITED DEAL · UP TO</span>
+              <span class="dc-orig" id="tradeify-orig">$50k only: $145</span>
+            </div>
+            <div class="dc-main">
+              <div class="dc-pct"><em id="tradeify-pct">40%</em> Off</div>
+              <div class="dc-right">
+                <div class="dc-price" id="tradeify-price">$<span style="font-size:46px">87</span></div>
+                <span class="dc-act">✓ No Activation Fee</span>
+              </div>
+            </div>
+          </div>
+          <div class="dc-tags">
+            <span class="dc-tag">Daily Payout</span><span class="dc-tag">NQ100 ✓</span>
+            <span class="dc-tag">Gold GC ✓</span><span class="dc-tag">Bots OK</span><span class="dc-tag">News OK</span>
+          </div>
+          <a href="#" class="dc-cta" id="tradeify-cta">
+            <span class="dc-cta-l">GET FUNDED</span>
+            <span class="dc-cta-r">Up to 40% OFF →</span>
+          </a>
+        </div>
+        <div class="dc-promo">
+          <span class="dc-plabel" data-fr>Code Promo :</span><span class="dc-plabel" data-en>Promo Code:</span>
+          <span class="dc-pcode" onclick="copy()">PANDA <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></span>
+        </div>
+      </div>
+
+      <!-- APEX -->
+      <div class="dc rev" style="transition-delay:.06s" id="dc-apex">
+        <div class="dc-timer">
+          <div class="dt-left"><span class="dt-icon">⚡</span>LIMITED TIME</div>
+          <div class="dt-count" data-seconds="86400"></div>
+        </div>
+        <div class="dc-body">
+          <div class="dc-top">
+            <div class="dc-logo"><img src="https://www.google.com/s2/favicons?domain=apextraderfunding.com&sz=64" alt="" onerror="this.parentNode.innerText='AP'"></div>
+            <div>
+              <div class="dc-name">Apex Trader Funding</div>
+              <div class="dc-meta">
+                <span class="dc-country">🇺🇸 US</span>
+                <span class="dc-stars">★★★★☆</span>
+                <span class="dc-rating">4.4</span>
+                <span class="dc-feat">Most Popular</span>
+              </div>
+            </div>
+          </div>
+          <div class="dc-sizes" data-firm="apex">
+            <button class="dc-size-btn on" data-size="25k" onclick="selSize('apex','25k',this)">$25k</button>
+            <button class="dc-size-btn" data-size="50k" onclick="selSize('apex','50k',this)">$50k</button>
+            <button class="dc-size-btn" data-size="100k" onclick="selSize('apex','100k',this)">$100k</button>
+            <button class="dc-size-btn" data-size="150k" onclick="selSize('apex','150k',this)">$150k</button>
+          </div>
+          <div class="dc-pricing">
+            <div class="dc-deal-top">
+              <span class="dc-dlabel">LIMITED DEAL · UP TO</span>
+              <span class="dc-orig" id="apex-orig">$25k only: $299</span>
+            </div>
+            <div class="dc-main">
+              <div class="dc-pct"><em id="apex-pct">90%</em> Off</div>
+              <div class="dc-right">
+                <div class="dc-price" id="apex-price">$<span style="font-size:46px">30</span></div>
+                <span class="dc-act warn" id="apex-act">+ $109 Activation Fee</span>
+              </div>
+            </div>
+          </div>
+          <div class="dc-tags">
+            <span class="dc-tag">100% Split</span><span class="dc-tag">NQ100 ✓</span>
+            <span class="dc-tag">ES ✓</span><span class="dc-tag">Payout 5j</span><span class="dc-tag">20 accounts</span>
+          </div>
+          <a href="#" class="dc-cta" id="apex-cta">
+            <span class="dc-cta-l">GET FUNDED</span>
+            <span class="dc-cta-r">Up to 90% OFF →</span>
+          </a>
+        </div>
+        <div class="dc-promo">
+          <span class="dc-plabel" data-fr>Code Promo :</span><span class="dc-plabel" data-en>Promo Code:</span>
+          <span class="dc-pcode" onclick="copy()">PANDA <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></span>
+        </div>
+      </div>
+
+      <!-- LUCID -->
+      <div class="dc hot rev" style="transition-delay:.12s" id="dc-lucid">
+        <div class="dc-timer">
+          <div class="dt-left"><span class="dt-icon">⚡</span>LIMITED TIME</div>
+          <div class="dt-count" data-seconds="3888000"></div>
+        </div>
+        <div class="dc-body">
+          <div class="dc-top">
+            <div class="dc-logo"><img src="https://www.google.com/s2/favicons?domain=lucidtrading.com&sz=64" alt="" onerror="this.parentNode.innerText='LT'"></div>
+            <div>
+              <div class="dc-name">Lucid Trading</div>
+              <div class="dc-meta">
+                <span class="dc-country">🇺🇸 US</span>
+                <span class="dc-stars">★★★★★</span>
+                <span class="dc-rating">4.7</span>
+                <span class="dc-feat">15 Min Payouts</span>
+              </div>
+            </div>
+          </div>
+          <div class="dc-sizes" data-firm="lucid">
+            <button class="dc-size-btn on" data-size="25k" onclick="selSize('lucid','25k',this)">$25k</button>
+            <button class="dc-size-btn" data-size="50k" onclick="selSize('lucid','50k',this)">$50k</button>
+            <button class="dc-size-btn" data-size="100k" onclick="selSize('lucid','100k',this)">$100k</button>
+            <button class="dc-size-btn" data-size="150k" onclick="selSize('lucid','150k',this)">$150k</button>
+          </div>
+          <div class="dc-pricing">
+            <div class="dc-deal-top">
+              <span class="dc-dlabel">LIMITED DEAL · UP TO</span>
+              <span class="dc-orig" id="lucid-orig">$25k only: $100</span>
+            </div>
+            <div class="dc-main">
+              <div class="dc-pct"><em id="lucid-pct">40%</em> Off</div>
+              <div class="dc-right">
+                <div class="dc-price" id="lucid-price">$<span style="font-size:46px">60</span></div>
+                <span class="dc-act">✓ No Activation Fee</span>
+              </div>
+            </div>
+          </div>
+          <div class="dc-tags">
+            <span class="dc-tag">Fastest Payouts</span><span class="dc-tag">One-Time Fee</span>
+            <span class="dc-tag">NQ100 ✓</span><span class="dc-tag">Gold GC ✓</span><span class="dc-tag">90% Split</span>
+          </div>
+          <a href="#" class="dc-cta" id="lucid-cta">
+            <span class="dc-cta-l">GET FUNDED</span>
+            <span class="dc-cta-r">Up to 40% OFF →</span>
+          </a>
+        </div>
+        <div class="dc-promo">
+          <span class="dc-plabel" data-fr>Code Promo :</span><span class="dc-plabel" data-en>Promo Code:</span>
+          <span class="dc-pcode" onclick="copy()">PANDA <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></span>
+        </div>
+      </div>
+
+    </div><!-- /deal-futures -->
+
+    <!-- CFD DEALS -->
+    <div class="deal-panel" id="deal-cfd">
+
+      <!-- FTMO -->
+      <div class="dc hot rev" id="dc-ftmo">
+        <div class="dc-timer">
+          <div class="dt-left"><span class="dt-icon">⚡</span>LIMITED TIME</div>
+          <div class="dt-count" data-seconds="604800"></div>
+        </div>
+        <div class="dc-body">
+          <div class="dc-top">
+            <div class="dc-logo"><img src="https://www.google.com/s2/favicons?domain=ftmo.com&sz=64" alt="" onerror="this.parentNode.innerText='FT'"></div>
+            <div>
+              <div class="dc-name">FTMO</div>
+              <div class="dc-meta">
+                <span class="dc-country">🇨🇿 CZ</span>
+                <span class="dc-stars">★★★★★</span>
+                <span class="dc-rating">4.8</span>
+                <span class="dc-feat">Top Rated</span>
+              </div>
+            </div>
+          </div>
+          <div class="dc-sizes" data-firm="ftmo">
+            <button class="dc-size-btn on" data-size="10k" onclick="selSize('ftmo','10k',this)">€10k</button>
+            <button class="dc-size-btn" data-size="25k" onclick="selSize('ftmo','25k',this)">€25k</button>
+            <button class="dc-size-btn" data-size="50k" onclick="selSize('ftmo','50k',this)">€50k</button>
+            <button class="dc-size-btn" data-size="100k" onclick="selSize('ftmo','100k',this)">€100k</button>
+            <button class="dc-size-btn" data-size="200k" onclick="selSize('ftmo','200k',this)">€200k</button>
+          </div>
+          <div class="dc-pricing">
+            <div class="dc-deal-top">
+              <span class="dc-dlabel">LIMITED DEAL · UP TO</span>
+              <span class="dc-orig" id="ftmo-orig">€10k only: €155</span>
+            </div>
+            <div class="dc-main">
+              <div class="dc-pct"><em id="ftmo-pct">55%</em> Off</div>
+              <div class="dc-right">
+                <div class="dc-price" id="ftmo-price">€<span style="font-size:46px">70</span></div>
+                <span class="dc-act">✓ No Activation Fee</span>
+              </div>
+            </div>
+          </div>
+          <div class="dc-tags">
+            <span class="dc-tag">Gold ✓</span><span class="dc-tag">NAS100 ✓</span>
+            <span class="dc-tag">90% Split</span><span class="dc-tag">Swing OK</span><span class="dc-tag">News OK</span>
+          </div>
+          <a href="#" class="dc-cta" id="ftmo-cta">
+            <span class="dc-cta-l">GET FUNDED</span>
+            <span class="dc-cta-r">Up to 55% OFF →</span>
+          </a>
+        </div>
+        <div class="dc-promo">
+          <span class="dc-plabel" data-fr>Code Promo :</span><span class="dc-plabel" data-en>Promo Code:</span>
+          <span class="dc-pcode" onclick="copy()">PANDA <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></span>
+        </div>
+      </div>
+
+      <!-- FUNDING PIPS -->
+      <div class="dc rev" style="transition-delay:.06s" id="dc-fpips">
+        <div class="dc-timer">
+          <div class="dt-left"><span class="dt-icon">⚡</span>LIMITED TIME</div>
+          <div class="dt-count" data-seconds="259200"></div>
+        </div>
+        <div class="dc-body">
+          <div class="dc-top">
+            <div class="dc-logo"><img src="https://www.google.com/s2/favicons?domain=fundingpips.com&sz=64" alt="" onerror="this.parentNode.innerText='FP'"></div>
+            <div>
+              <div class="dc-name">Funding Pips</div>
+              <div class="dc-meta">
+                <span class="dc-country">🇦🇪 UAE</span>
+                <span class="dc-stars">★★★★☆</span>
+                <span class="dc-rating">4.4</span>
+                <span class="dc-feat">Best Value</span>
+              </div>
+            </div>
+          </div>
+          <div class="dc-sizes" data-firm="fpips">
+            <button class="dc-size-btn on" data-size="5k" onclick="selSize('fpips','5k',this)">$5k</button>
+            <button class="dc-size-btn" data-size="10k" onclick="selSize('fpips','10k',this)">$10k</button>
+            <button class="dc-size-btn" data-size="25k" onclick="selSize('fpips','25k',this)">$25k</button>
+            <button class="dc-size-btn" data-size="50k" onclick="selSize('fpips','50k',this)">$50k</button>
+            <button class="dc-size-btn" data-size="100k" onclick="selSize('fpips','100k',this)">$100k</button>
+          </div>
+          <div class="dc-pricing">
+            <div class="dc-deal-top">
+              <span class="dc-dlabel">LIMITED DEAL · UP TO</span>
+              <span class="dc-orig" id="fpips-orig">$5k only: $32</span>
+            </div>
+            <div class="dc-main">
+              <div class="dc-pct"><em id="fpips-pct">56%</em> Off</div>
+              <div class="dc-right">
+                <div class="dc-price" id="fpips-price">$<span style="font-size:46px">14</span></div>
+                <span class="dc-act">✓ No Activation Fee</span>
+              </div>
+            </div>
+          </div>
+          <div class="dc-tags">
+            <span class="dc-tag">Gold ✓</span><span class="dc-tag">NAS100 ✓</span>
+            <span class="dc-tag">90% Split</span><span class="dc-tag">4% / 8% DD</span><span class="dc-tag">News OK</span>
+          </div>
+          <a href="#" class="dc-cta" id="fpips-cta">
+            <span class="dc-cta-l">GET FUNDED</span>
+            <span class="dc-cta-r">Up to 56% OFF →</span>
+          </a>
+        </div>
+        <div class="dc-promo">
+          <span class="dc-plabel" data-fr>Code Promo :</span><span class="dc-plabel" data-en>Promo Code:</span>
+          <span class="dc-pcode" onclick="copy()">PANDA <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></span>
+        </div>
+      </div>
+
+      <!-- THE 5%ERS -->
+      <div class="dc rev" style="transition-delay:.12s" id="dc-5ers">
+        <div class="dc-timer">
+          <div class="dt-left"><span class="dt-icon">⚡</span>LIMITED TIME</div>
+          <div class="dt-count" data-seconds="1728000"></div>
+        </div>
+        <div class="dc-body">
+          <div class="dc-top">
+            <div class="dc-logo"><img src="https://www.google.com/s2/favicons?domain=the5ers.com&sz=64" alt="" onerror="this.parentNode.innerText='5%'"></div>
+            <div>
+              <div class="dc-name">The 5%ers</div>
+              <div class="dc-meta">
+                <span class="dc-country">🇮🇱 IL</span>
+                <span class="dc-stars">★★★★☆</span>
+                <span class="dc-rating">4.5</span>
+                <span class="dc-feat">100% Split</span>
+              </div>
+            </div>
+          </div>
+          <div class="dc-sizes" data-firm="5ers">
+            <button class="dc-size-btn on" data-size="20k" onclick="selSize('5ers','20k',this)">$20k</button>
+            <button class="dc-size-btn" data-size="40k" onclick="selSize('5ers','40k',this)">$40k</button>
+            <button class="dc-size-btn" data-size="100k" onclick="selSize('5ers','100k',this)">$100k</button>
+            <button class="dc-size-btn" data-size="250k" onclick="selSize('5ers','250k',this)">$250k</button>
+          </div>
+          <div class="dc-pricing">
+            <div class="dc-deal-top">
+              <span class="dc-dlabel">LIMITED DEAL · UP TO</span>
+              <span class="dc-orig" id="5ers-orig">$20k only: $95</span>
+            </div>
+            <div class="dc-main">
+              <div class="dc-pct"><em id="5ers-pct">48%</em> Off</div>
+              <div class="dc-right">
+                <div class="dc-price" id="5ers-price">$<span style="font-size:46px">49</span></div>
+                <span class="dc-act">✓ No Activation Fee</span>
+              </div>
+            </div>
+          </div>
+          <div class="dc-tags">
+            <span class="dc-tag">100% Split</span><span class="dc-tag">Gold ✓</span>
+            <span class="dc-tag">NAS100 ✓</span><span class="dc-tag">Swing OK</span><span class="dc-tag">4% / 8% DD</span>
+          </div>
+          <a href="#" class="dc-cta" id="5ers-cta">
+            <span class="dc-cta-l">GET FUNDED</span>
+            <span class="dc-cta-r">Up to 48% OFF →</span>
+          </a>
+        </div>
+        <div class="dc-promo">
+          <span class="dc-plabel" data-fr>Code Promo :</span><span class="dc-plabel" data-en>Promo Code:</span>
+          <span class="dc-pcode" onclick="copy()">PANDA <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></span>
+        </div>
+      </div>
+
+    </div><!-- /deal-cfd -->
+  </div>
+</div>
+
+<!-- ═══════ FUTURES TABLE PANEL ═══════ -->
+<div id="panel-futures" class="panel on">
+<section class="sec" id="futures">
+  <div class="inner">
+    <div class="sh rev">
+      <div class="slbl">NQ · ES · MNQ · MES · GC · CL · YM</div>
+      <div class="sttl"><span data-fr>PROPFIRMS <span class="ay">FUTURES</span></span><span data-en>FUTURES <span class="ay">PROP FIRMS</span></span></div>
+    </div>
+    <div class="filters-wrap rev">
+      <div class="search-row">
+        <input type="text" class="search-box" placeholder="🔍 Search / Rechercher..." oninput="applyFilters('futures')" id="search-futures">
+        <span class="rc"><span id="rc-fut-n">9</span> <span data-fr>firms affichées</span><span data-en>firms shown</span></span>
+      </div>
+      <div class="filter-row">
+        <span class="fl" data-fr>Filtrer :</span><span class="fl" data-en>Filter:</span>
+        <button class="fb on" data-f="all" onclick="setFilter('futures','all',this)" data-fr>Toutes</button>
+        <button class="fb on" data-f="all" onclick="setFilter('futures','all',this)" data-en>All</button>
+        <button class="fb" data-f="nq" onclick="setFilter('futures','nq',this)">NQ100</button>
+        <button class="fb" data-f="gc" onclick="setFilter('futures','gc',this)">Gold GC</button>
+        <button class="fb" data-f="es" onclick="setFilter('futures','es',this)">ES / S&P500</button>
+        <button class="fb" data-f="daily" onclick="setFilter('futures','daily',this)">Daily Payout</button>
+        <button class="fb" data-f="instant" onclick="setFilter('futures','instant',this)">Instant Funding</button>
+        <button class="fb" data-f="no-act" onclick="setFilter('futures','no-act',this)" data-fr>Sans activation</button>
+        <button class="fb" data-f="no-act" onclick="setFilter('futures','no-act',this)" data-en>No activation</button>
+        <button class="fb" data-f="ninja" onclick="setFilter('futures','ninja',this)">NinjaTrader</button>
+        <button class="fb" data-f="rithmic" onclick="setFilter('futures','rithmic',this)">Rithmic</button>
+        <button class="fb" data-f="split100" onclick="setFilter('futures','split100',this)">100% Split</button>
+        <button class="fb" data-f="bots" onclick="setFilter('futures','bots',this)" data-fr>Bots OK</button>
+        <button class="fb" data-f="bots" onclick="setFilter('futures','bots',this)" data-en>Bots OK</button>
+        <button class="fb" data-f="news" onclick="setFilter('futures','news',this)" data-fr>News OK</button>
+        <button class="fb" data-f="news" onclick="setFilter('futures','news',this)" data-en>News OK</button>
+      </div>
+    </div>
+    <div class="tw rev">
+      <table id="tbl-futures">
+        <thead><tr>
+          <th onclick="sortTable('futures',0)"><span data-fr>Firm</span><span data-en>Firm</span></th>
+          <th onclick="sortTable('futures',1)"><span data-fr>$50k avec code</span><span data-en>$50k with code</span></th>
+          <th onclick="sortTable('futures',2)">DD Type</th>
+          <th onclick="sortTable('futures',3)">Split</th>
+          <th onclick="sortTable('futures',4)">Payout</th>
+          <th onclick="sortTable('futures',5)"><span data-fr>Plateformes</span><span data-en>Platforms</span></th>
+          <th onclick="sortTable('futures',6)"><span data-fr>Note</span><span data-en>Rating</span></th>
+          <th><span data-fr>Règles clés</span><span data-en>Key rules</span></th>
+          <th><span data-fr>Pays bannis</span><span data-en>Banned countries</span></th>
+          <th>Code</th><th></th>
+        </tr></thead>
+        <tbody id="tbody-futures">
+<tr class="ft" data-tags="nq gc es daily ninja no-act bots news"><td><div class="fc"><div class="fav"><img src="https://www.google.com/s2/favicons?domain=tradeify.co&sz=64" onerror="this.parentNode.innerText='TY'"></div><div><div class="ftag">★ Top</div><div class="fn">Tradeify</div><div class="fco">🇺🇸 2023</div></div></div></td><td><span class="po">$145</span><span class="pn">$87</span><span class="px">-40% · sans activation</span></td><td><span class="b bx">EOD Trail</span></td><td><span class="b bg">90%</span></td><td><span class="b bg">Daily</span></td><td><span class="b bb">NinjaTrader</span> <span class="b bx">Tradovate</span></td><td><div class="sr"><span class="ss">★★★★★</span><span class="snum">4.7</span></div></td><td><span class="b bg">Bots ✓</span> <span class="b bg">News ✓</span></td><td><span class="bbn" onclick="openModal('tradeify')">🚫 58</span></td><td><div class="pt" onclick="copy()">PANDA</div></td><td><a href="#" class="btn">→</a></td></tr>
+<tr data-tags="nq gc es ninja rithmic no-act news"><td><div class="fc"><div class="fav"><img src="https://www.google.com/s2/favicons?domain=lucidtrading.com&sz=64" onerror="this.parentNode.innerText='LT'"></div><div><div class="fn">Lucid Trading</div><div class="fco">🇺🇸 2025</div></div></div></td><td><span class="po">$140</span><span class="pn">$84</span><span class="px">-40%</span></td><td><span class="b bx">EOD Trail</span></td><td><span class="b bg">90%</span></td><td><span class="b by">~15 min</span></td><td><span class="b bb">NinjaTrader</span> <span class="b bx">Rithmic</span></td><td><div class="sr"><span class="ss">★★★★★</span><span class="snum">4.7</span></div></td><td><span class="b br">No bots</span> <span class="b bg">News ✓</span></td><td><span class="bbn" onclick="openModal('lucid')">🚫 ~40</span></td><td><div class="pt" onclick="copy()">PANDA</div></td><td><div class="brow"><a href="#" class="btn">→</a><button class="btn2" data-fr>Détails</button><button class="btn2" data-en>Details</button></div></td></tr>
+<tr data-tags="nq es ninja rithmic split100 news"><td><div class="fc"><div class="fav"><img src="https://www.google.com/s2/favicons?domain=apextraderfunding.com&sz=64" onerror="this.parentNode.innerText='AP'"></div><div><div class="fn">Apex Trader Funding</div><div class="fco">🇺🇸 2021</div></div></div></td><td><span class="po">$249</span><span class="pn">$25</span><span class="px warn">-90% +$99 act.</span></td><td><span class="b bx">EOD / Intra</span></td><td><span class="b bg">100%</span></td><td><span class="b bg">5j</span></td><td><span class="b bb">NinjaTrader</span> <span class="b bx">Rithmic</span></td><td><div class="sr"><span class="ss">★★★★☆</span><span class="snum">4.4</span></div></td><td><span class="b br">No bots</span> <span class="b bg">News ✓</span></td><td><span class="bbn" onclick="openModal('apex')">🚫 77+</span></td><td><div class="pt" onclick="copy()">PANDA</div></td><td><div class="brow"><a href="#" class="btn">→</a><button class="btn2" data-fr>Détails</button><button class="btn2" data-en>Details</button></div></td></tr>
+<tr data-tags="nq gc es ninja no-act news"><td><div class="fc"><div class="fav"><img src="https://www.google.com/s2/favicons?domain=takeprofittrader.com&sz=64" onerror="this.parentNode.innerText='TP'"></div><div><div class="fn">TakeProfit Trader</div><div class="fco">🇺🇸 2020</div></div></div></td><td><span class="po">$150</span><span class="pn">$90</span><span class="px">-40%</span></td><td><span class="b bx">EOD Trail</span></td><td><span class="b bg">80%</span></td><td><span class="b bg">7j</span></td><td><span class="b bb">NinjaTrader</span></td><td><div class="sr"><span class="ss">★★★★☆</span><span class="snum">4.3</span></div></td><td><span class="b br">No bots</span> <span class="b bg">News ✓</span></td><td><span class="bbn" onclick="openModal('tpt')">🚫 ~45</span></td><td><div class="pt" onclick="copy()">PANDA</div></td><td><div class="brow"><a href="#" class="btn">→</a><button class="btn2" data-fr>Détails</button><button class="btn2" data-en>Details</button></div></td></tr>
+<tr data-tags="nq gc es rithmic no-act news"><td><div class="fc"><div class="fav"><img src="https://www.google.com/s2/favicons?domain=tradeday.com&sz=64" onerror="this.parentNode.innerText='TD'"></div><div><div class="fn">TradeDay</div><div class="fco">🇺🇸 2020</div></div></div></td><td><span class="po">$169</span><span class="pn">$99</span><span class="px">-41%</span></td><td><span class="b bx">EOD / Intra</span></td><td><span class="b by">80–95%</span></td><td><span class="b bg">5j</span></td><td><span class="b bx">Rithmic</span></td><td><div class="sr"><span class="ss">★★★★☆</span><span class="snum">4.2</span></div></td><td><span class="b br">No bots</span> <span class="b bg">News ✓</span></td><td><span class="bbn" onclick="openModal('tradeday')">🚫 100+</span></td><td><div class="pt" onclick="copy()">PANDA</div></td><td><div class="brow"><a href="#" class="btn">→</a><button class="btn2" data-fr>Détails</button><button class="btn2" data-en>Details</button></div></td></tr>
+<tr data-tags="nq gc es ninja no-act news"><td><div class="fc"><div class="fav"><img src="https://www.google.com/s2/favicons?domain=earn2trade.com&sz=64" onerror="this.parentNode.innerText='E2'"></div><div><div class="fn">Earn2Trade</div><div class="fco">🇺🇸 2018</div></div></div></td><td><span class="po">$185</span><span class="pn">$111</span><span class="px">-40%</span></td><td><span class="b bx">EOD Trail</span></td><td><span class="b bg">80%</span></td><td><span class="b bg">7j</span></td><td><span class="b bb">NinjaTrader</span></td><td><div class="sr"><span class="ss">★★★★☆</span><span class="snum">4.1</span></div></td><td><span class="b br">No bots</span> <span class="b bg">News ✓</span></td><td><span class="bbn" onclick="openModal('earn2trade')">🚫 ~30</span></td><td><div class="pt" onclick="copy()">PANDA</div></td><td><div class="brow"><a href="#" class="btn">→</a><button class="btn2" data-fr>Détails</button><button class="btn2" data-en>Details</button></div></td></tr>
+<tr data-tags="nq gc es ninja rithmic no-act news"><td><div class="fc"><div class="fav"><img src="https://www.google.com/s2/favicons?domain=e8markets.com&sz=64" onerror="this.parentNode.innerText='E8'"></div><div><div class="fn">E8 Markets Futures</div><div class="fco">🇺🇸 2022</div></div></div></td><td><span class="po">$148</span><span class="pn">$89</span><span class="px">-40%</span></td><td><span class="b bx">EOD Trail</span></td><td><span class="b bg">85%</span></td><td><span class="b bg">7j</span></td><td><span class="b bb">NinjaTrader</span> <span class="b bx">Rithmic</span></td><td><div class="sr"><span class="ss">★★★★☆</span><span class="snum">4.2</span></div></td><td><span class="b br">No bots</span> <span class="b bg">News ✓</span></td><td><span class="bbn" onclick="openModal('e8f')">🚫 ~40</span></td><td><div class="pt" onclick="copy()">PANDA</div></td><td><div class="brow"><a href="#" class="btn">→</a><button class="btn2" data-fr>Détails</button><button class="btn2" data-en>Details</button></div></td></tr>
+<tr data-tags="nq gc es ninja no-act instant news bots"><td><div class="fc"><div class="fav"><img src="https://www.google.com/s2/favicons?domain=bulenox.com&sz=64" onerror="this.parentNode.innerText='BN'"></div><div><div class="fn">Bulenox</div><div class="fco">🇺🇸 2021</div></div></div></td><td><span class="po">$119</span><span class="pn">$71</span><span class="px">-40%</span></td><td><span class="b bx">EOD Trail</span></td><td><span class="b bg">80%</span></td><td><span class="b bg">7j</span></td><td><span class="b bb">NinjaTrader</span></td><td><div class="sr"><span class="ss">★★★★☆</span><span class="snum">4.1</span></div></td><td><span class="b br">No bots</span> <span class="b bg">News ✓</span></td><td><span class="bbn" onclick="openModal('bulenox')">🚫 ~35</span></td><td><div class="pt" onclick="copy()">PANDA</div></td><td><div class="brow"><a href="#" class="btn">→</a><button class="btn2" data-fr>Détails</button><button class="btn2" data-en>Details</button></div></td></tr>
+<tr data-tags="nq gc es ninja rithmic no-act bots news"><td><div class="fc"><div class="fav"><img src="https://www.google.com/s2/favicons?domain=toponefutures.com&sz=64" onerror="this.parentNode.innerText='T1'"></div><div><div class="fn">Top One Futures</div><div class="fco">🇺🇸 2022</div></div></div></td><td><span class="po">$132</span><span class="pn">$79</span><span class="px">-40%</span></td><td><span class="b bx">EOD Trail</span></td><td><span class="b bg">90%</span></td><td><span class="b by">On-demand</span></td><td><span class="b bb">NinjaTrader</span> <span class="b bx">Rithmic</span></td><td><div class="sr"><span class="ss">★★★★☆</span><span class="snum">4.3</span></div></td><td><span class="b bg">Bots ✓</span> <span class="b bg">News ✓</span></td><td><span class="bbn" onclick="openModal('topone')">🚫 ~40</span></td><td><div class="pt" onclick="copy()">PANDA</div></td><td><div class="brow"><a href="#" class="btn">→</a><button class="btn2" data-fr>Détails</button><button class="btn2" data-en>Details</button></div></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="no-res" id="nores-futures"><strong data-fr>Aucune firm trouvée</strong><strong data-en>No firm found</strong><span data-fr>Essaie un autre filtre.</span><span data-en>Try another filter.</span></div>
+  </div>
+</section>
+</div>
+
+<!-- ═══════ CFD TABLE PANEL ═══════ -->
+<div id="panel-cfd" class="panel">
+<section class="sec" id="cfd">
+  <div class="inner">
+    <div class="sh rev">
+      <div class="slbl">Forex · XAUUSD · NAS100 · Indices</div>
+      <div class="sttl"><span data-fr>PROPFIRMS <span class="ac">CFD</span></span><span data-en>CFD <span class="ac">PROP FIRMS</span></span></div>
+    </div>
+    <div class="filters-wrap rev">
+      <div class="search-row">
+        <input type="text" class="search-box" placeholder="🔍 Search / Rechercher..." oninput="applyFilters('cfd')" id="search-cfd">
+        <span class="rc"><span id="rc-cfd-n">7</span> <span data-fr>firms affichées</span><span data-en>firms shown</span></span>
+      </div>
+      <div class="filter-row">
+        <span class="fl" data-fr>Filtrer :</span><span class="fl" data-en>Filter:</span>
+        <button class="fb on" data-f="all" onclick="setFilter('cfd','all',this)" data-fr>Toutes</button>
+        <button class="fb on" data-f="all" onclick="setFilter('cfd','all',this)" data-en>All</button>
+        <button class="fb" data-f="1phase" onclick="setFilter('cfd','1phase',this)">1-Phase</button>
+        <button class="fb" data-f="2phase" onclick="setFilter('cfd','2phase',this)">2-Phase</button>
+        <button class="fb" data-f="instant" onclick="setFilter('cfd','instant',this)">Instant</button>
+        <button class="fb" data-f="gold" onclick="setFilter('cfd','gold',this)">Gold XAUUSD</button>
+        <button class="fb" data-f="nas100" onclick="setFilter('cfd','nas100',this)">NAS100</button>
+        <button class="fb" data-f="fast" onclick="setFilter('cfd','fast',this)" data-fr>Payout rapide</button>
+        <button class="fb" data-f="fast" onclick="setFilter('cfd','fast',this)" data-en>Fast payout</button>
+        <button class="fb" data-f="split100" onclick="setFilter('cfd','split100',this)">100% Split</button>
+        <button class="fb" data-f="mt5" onclick="setFilter('cfd','mt5',this)">MT5</button>
+        <button class="fb" data-f="swing" onclick="setFilter('cfd','swing',this)">Swing OK</button>
+        <button class="fb" data-f="news" onclick="setFilter('cfd','news',this)">News OK</button>
+      </div>
+    </div>
+    <div class="tw rev">
+      <table id="tbl-cfd">
+        <thead><tr>
+          <th onclick="sortTable('cfd',0)">Firm</th>
+          <th onclick="sortTable('cfd',1)">Type</th>
+          <th onclick="sortTable('cfd',2)"><span data-fr>$100k avec code</span><span data-en>$100k with code</span></th>
+          <th onclick="sortTable('cfd',3)">Drawdown</th>
+          <th onclick="sortTable('cfd',4)">Split</th>
+          <th onclick="sortTable('cfd',5)">Payout</th>
+          <th onclick="sortTable('cfd',6)"><span data-fr>Note</span><span data-en>Rating</span></th>
+          <th><span data-fr>Règles</span><span data-en>Rules</span></th>
+          <th><span data-fr>Pays bannis</span><span data-en>Banned</span></th>
+          <th>Code</th><th></th>
+        </tr></thead>
+        <tbody id="tbody-cfd">
+<tr class="ft" data-tags="2phase gold nas100 fast news swing mt5"><td><div class="fc"><div class="fav"><img src="https://www.google.com/s2/favicons?domain=ftmo.com&sz=64" onerror="this.parentNode.innerText='FT'"></div><div><div class="ftag">★ Top</div><div class="fn">FTMO</div><div class="fco">🇨🇿 2015</div></div></div></td><td><span class="b bb">2-Phase</span></td><td><span class="po">€540</span><span class="pn">€243</span><span class="px">-55%</span></td><td><span class="b br">5%/10%</span></td><td><span class="b bg">90%</span></td><td><span class="b bg">14j</span></td><td><div class="sr"><span class="ss">★★★★★</span><span class="snum">4.8</span></div></td><td><span class="b bg">News ✓</span> <span class="b bg">Swing ✓</span></td><td><span class="bbn" onclick="openModal('ftmo')">🚫 ~20</span></td><td><div class="pt" onclick="copy()">PANDA</div></td><td><a href="#" class="btn">→</a></td></tr>
+<tr data-tags="2phase gold nas100 split100 news swing mt5"><td><div class="fc"><div class="fav"><img src="https://www.google.com/s2/favicons?domain=the5ers.com&sz=64" onerror="this.parentNode.innerText='5%'"></div><div><div class="fn">The 5%ers</div><div class="fco">🇮🇱 2016</div></div></div></td><td><span class="b bb">2-Phase</span></td><td><span class="po">$299</span><span class="pn">$155</span><span class="px">-48%</span></td><td><span class="b br">4%/8%</span></td><td><span class="b bg">100%</span></td><td><span class="b by">7j</span></td><td><div class="sr"><span class="ss">★★★★☆</span><span class="snum">4.5</span></div></td><td><span class="b bg">News ✓</span> <span class="b bg">Swing ✓</span></td><td><span class="bbn" onclick="openModal('5ers')">🚫 ~25</span></td><td><div class="pt" onclick="copy()">PANDA</div></td><td><div class="brow"><a href="#" class="btn">→</a><button class="btn2" data-fr>Détails</button><button class="btn2" data-en>Details</button></div></td></tr>
+<tr data-tags="1phase gold nas100 fast news swing mt5"><td><div class="fc"><div class="fav"><img src="https://www.google.com/s2/favicons?domain=myfundedfx.com&sz=64" onerror="this.parentNode.innerText='MF'"></div><div><div class="fn">MyFundedFX</div><div class="fco">🇬🇧 2022</div></div></div></td><td><span class="b bg">1-Phase</span></td><td><span class="po">$588</span><span class="pn">$294</span><span class="px">-50%</span></td><td><span class="b br">5%/10%</span></td><td><span class="b bg">85%</span></td><td><span class="b bg">48h</span></td><td><div class="sr"><span class="ss">★★★★☆</span><span class="snum">4.3</span></div></td><td><span class="b bg">News ✓</span> <span class="b bg">Swing ✓</span></td><td><span class="bbn" onclick="openModal('myfunded')">🚫 ~30</span></td><td><div class="pt" onclick="copy()">PANDA</div></td><td><div class="brow"><a href="#" class="btn">→</a><button class="btn2" data-fr>Détails</button><button class="btn2" data-en>Details</button></div></td></tr>
+<tr data-tags="2phase gold nas100 fast news swing mt5"><td><div class="fc"><div class="fav"><img src="https://www.google.com/s2/favicons?domain=fundingpips.com&sz=64" onerror="this.parentNode.innerText='FP'"></div><div><div class="fn">Funding Pips</div><div class="fco">🇦🇪 2022</div></div></div></td><td><span class="b bb">2-Phase</span></td><td><span class="po">$499</span><span class="pn">$219</span><span class="px">-56%</span></td><td><span class="b br">4%/8%</span></td><td><span class="b bg">90%</span></td><td><span class="b by">7j</span></td><td><div class="sr"><span class="ss">★★★★☆</span><span class="snum">4.4</span></div></td><td><span class="b bg">News ✓</span> <span class="b bg">Swing ✓</span></td><td><span class="bbn" onclick="openModal('fundingpips')">🚫 ~15</span></td><td><div class="pt" onclick="copy()">PANDA</div></td><td><div class="brow"><a href="#" class="btn">→</a><button class="btn2" data-fr>Détails</button><button class="btn2" data-en>Details</button></div></td></tr>
+<tr data-tags="2phase gold nas100 mt5"><td><div class="fc"><div class="fav"><img src="https://www.google.com/s2/favicons?domain=e8markets.com&sz=64" onerror="this.parentNode.innerText='E8'"></div><div><div class="fn">E8 Markets CFD</div><div class="fco">🇺🇸 2022</div></div></div></td><td><span class="b bb">2-Phase</span></td><td><span class="po">$248</span><span class="pn">$124</span><span class="px">-50%</span></td><td><span class="b br">5%/8%</span></td><td><span class="b bg">80%</span></td><td><span class="b bg">14j</span></td><td><div class="sr"><span class="ss">★★★★☆</span><span class="snum">4.2</span></div></td><td><span class="b bg">News ✓</span> <span class="b bg">Swing ✓</span></td><td><span class="bbn" onclick="openModal('e8cfd')">🚫 ~35</span></td><td><div class="pt" onclick="copy()">PANDA</div></td><td><div class="brow"><a href="#" class="btn">→</a><button class="btn2" data-fr>Détails</button><button class="btn2" data-en>Details</button></div></td></tr>
+<tr data-tags="instant gold nas100 fast news mt5"><td><div class="fc"><div class="fav"><img src="https://www.google.com/s2/favicons?domain=instantfunding.com&sz=64" onerror="this.parentNode.innerText='IF'"></div><div><div class="fn">Instant Funding</div><div class="fco">🇨🇾 2021</div></div></div></td><td><span class="b by">Instant</span></td><td><span class="po">$999</span><span class="pn">$599</span><span class="px">-40%</span></td><td><span class="b br">5%/10%</span></td><td><span class="b bg">75%</span></td><td><span class="b bg">48h</span></td><td><div class="sr"><span class="ss">★★★★☆</span><span class="snum">4.1</span></div></td><td><span class="b bg">News ✓</span> <span class="b br">No swing</span></td><td><span class="bbn" onclick="openModal('instantcfd')">🚫 ~30</span></td><td><div class="pt" onclick="copy()">PANDA</div></td><td><div class="brow"><a href="#" class="btn">→</a><button class="btn2" data-fr>Détails</button><button class="btn2" data-en>Details</button></div></td></tr>
+<tr data-tags="2phase gold nas100 news swing mt5"><td><div class="fc"><div class="fav"><img src="https://www.google.com/s2/favicons?domain=trueforexfunds.com&sz=64" onerror="this.parentNode.innerText='TF'"></div><div><div class="fn">True Forex Funds</div><div class="fco">🇭🇺 2021</div></div></div></td><td><span class="b bb">2-Phase</span></td><td><span class="po">$490</span><span class="pn">$220</span><span class="px">-55%</span></td><td><span class="b br">5%/10%</span></td><td><span class="b bg">85%</span></td><td><span class="b by">7j</span></td><td><div class="sr"><span class="ss">★★★★☆</span><span class="snum">4.0</span></div></td><td><span class="b bg">News ✓</span> <span class="b bg">Swing ✓</span></td><td><span class="bbn" onclick="openModal('tff')">🚫 ~25</span></td><td><div class="pt" onclick="copy()">PANDA</div></td><td><div class="brow"><a href="#" class="btn">→</a><button class="btn2" data-fr>Détails</button><button class="btn2" data-en>Details</button></div></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="no-res" id="nores-cfd"><strong data-fr>Aucune firm trouvée</strong><strong data-en>No firm found</strong></div>
+  </div>
+</section>
+</div>
+
+<!-- VS -->
+<section class="sec" id="vs" style="background:linear-gradient(180deg,var(--bg) 0%,var(--bg1) 100%)">
+  <div class="inner">
+    <div class="sh rev"><div class="slbl"><span data-fr>Guide de choix</span><span data-en>Selection guide</span></div>
+      <div class="sttl">CFD <span style="color:var(--t3)">vs</span> <span class="ay">FUTURES</span></div></div>
+    <div class="vs rev">
+      <div class="vc l">
+        <div class="vh"><div class="vi c">💱</div><div><div class="vt">CFD FOREX</div><div class="vs2">Forex · Gold · Indices</div></div></div>
+        <div class="vr"><span class="vk" data-fr>Marché</span><span class="vk" data-en>Market</span><span class="vv">OTC</span></div>
+        <div class="vr"><span class="vk">Instruments</span><span class="vv">EUR/USD, XAUUSD, NAS100</span></div>
+        <div class="vr"><span class="vk">Drawdown</span><span class="vv"><span data-fr>% du solde</span><span data-en>% of balance</span></span></div>
+        <div class="vr"><span class="vk"><span data-fr>Comptes</span><span data-en>Accounts</span></span><span class="vv g">$5k → $400k</span></div>
+        <div class="vr"><span class="vk"><span data-fr>Plateformes</span><span data-en>Platforms</span></span><span class="vv">MT4 / MT5 / cTrader</span></div>
+        <div class="vr"><span class="vk">Profit Split</span><span class="vv g">75% — 100%</span></div>
+        <div class="vr"><span class="vk">Payout</span><span class="vv">48h — 30j</span></div>
+        <div class="vr"><span class="vk"><span data-fr>Idéal pour</span><span data-en>Best for</span></span><span class="vv g">Swing Gold & Forex</span></div>
+      </div>
+      <div class="vd"><div class="vl"></div><div class="vc2">VS</div></div>
+      <div class="vc r">
+        <div class="vh"><div class="vi f">⚙️</div><div><div class="vt">FUTURES</div><div class="vs2">NQ · ES · GC · CL · YM</div></div></div>
+        <div class="vr"><span class="vk" data-fr>Marché</span><span class="vk" data-en>Market</span><span class="vv">CME</span></div>
+        <div class="vr"><span class="vk">Instruments</span><span class="vv">NQ, MNQ, ES, GC, CL</span></div>
+        <div class="vr"><span class="vk">Drawdown</span><span class="vv y"><span data-fr>Trailing ou EOD en $</span><span data-en>Trailing or EOD in $</span></span></div>
+        <div class="vr"><span class="vk"><span data-fr>Comptes</span><span data-en>Accounts</span></span><span class="vv g">$25k → $300k</span></div>
+        <div class="vr"><span class="vk"><span data-fr>Plateformes</span><span data-en>Platforms</span></span><span class="vv">NinjaTrader / Rithmic</span></div>
+        <div class="vr"><span class="vk">Profit Split</span><span class="vv g">80% — 100%</span></div>
+        <div class="vr"><span class="vk">Payout</span><span class="vv g">15 min — 7j</span></div>
+        <div class="vr"><span class="vk"><span data-fr>Idéal pour</span><span data-en>Best for</span></span><span class="vv y">Scalp NQ100 US session</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLS -->
+<section class="sec" id="tools">
+  <div class="inner">
+    <div class="sh rev"><div class="slbl" data-fr>Gratuit</div><div class="slbl" data-en>Free</div>
+      <div class="sttl"><span data-fr>OUTILS <span class="ac">TRADERS</span></span><span data-en>TRADING <span class="ac">TOOLS</span></span></div></div>
+    <div class="tg">
+      <div class="tc rev"><span class="tc-i">📐</span><div class="tc-t" data-fr>Calculateur de Lot</div><div class="tc-t" data-en>Lot Size Calculator</div><div class="tc-d" data-fr>Position optimale selon ton drawdown et % de risque.</div><div class="tc-d" data-en>Optimal position size based on your drawdown and risk %.</div><div class="tc-a" data-fr>Utiliser →</div><div class="tc-a" data-en>Use →</div></div>
+      <div class="tc rev" style="transition-delay:.04s"><span class="tc-i">📉</span><div class="tc-t" data-fr>Simulateur Drawdown</div><div class="tc-t" data-en>Drawdown Simulator</div><div class="tc-d" data-fr>Courbe d'évolution du compte face à des pertes.</div><div class="tc-d" data-en>Account curve simulation against consecutive losses.</div><div class="tc-a" data-fr>Utiliser →</div><div class="tc-a" data-en>Use →</div></div>
+      <div class="tc rev" style="transition-delay:.08s"><span class="tc-i">⚖️</span><div class="tc-t">Consistency Checker</div><div class="tc-d" data-fr>Vérifie tes stats avant de demander un payout.</div><div class="tc-d" data-en>Check your stats before requesting a payout.</div><div class="tc-a" data-fr>Utiliser →</div><div class="tc-a" data-en>Use →</div></div>
+      <div class="tc rev" style="transition-delay:.04s"><span class="tc-i">🧮</span><div class="tc-t">Tick Value Futures</div><div class="tc-d" data-fr>Valeur du tick et marge de chaque contrat CME.</div><div class="tc-d" data-en>Tick value and margin for each CME contract.</div><div class="tc-a" data-fr>Utiliser →</div><div class="tc-a" data-en>Use →</div></div>
+      <div class="tc rev" style="transition-delay:.08s"><span class="tc-i">📊</span><div class="tc-t" data-fr>Comparateur de Règles</div><div class="tc-t" data-en>Rules Comparator</div><div class="tc-d" data-fr>2 firms côte à côte — drawdown, objectif, règles.</div><div class="tc-d" data-en>2 firms side by side — drawdown, target, rules.</div><div class="tc-a" data-fr>Utiliser →</div><div class="tc-a" data-en>Use →</div></div>
+      <div class="tc rev" style="transition-delay:.12s"><span class="tc-i">💰</span><div class="tc-t" data-fr>Calcul Payout Net</div><div class="tc-t" data-en>Net Payout Calculator</div><div class="tc-d" data-fr>Gains nets après split et frais selon la firm.</div><div class="tc-d" data-en>Net gains after split and fees per firm.</div><div class="tc-a" data-fr>Utiliser →</div><div class="tc-a" data-en>Use →</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<section class="sec" style="padding-top:0">
+  <div class="inner">
+    <div class="tru">
+      <div class="trc rev"><div class="tri">🐼</div><div class="trt" data-fr>Données indépendantes</div><div class="trt" data-en>Independent data</div><div class="trd" data-fr>Aucune firm ne paie pour être mieux classée.</div><div class="trd" data-en>No firm pays to be ranked higher.</div></div>
+      <div class="trc rev" style="transition-delay:.04s"><div class="tri">🎋</div><div class="trt" data-fr>Actualisé chaque semaine</div><div class="trt" data-en>Updated every week</div><div class="trd" data-fr>Prix et règles vérifiés manuellement.</div><div class="trd" data-en>Prices and rules manually verified.</div></div>
+      <div class="trc rev" style="transition-delay:.08s"><div class="tri">🏷️</div><div class="trt" data-fr>Code PANDA actif</div><div class="trt" data-en>PANDA code active</div><div class="trd" data-fr>Testé sur chaque firm du comparatif.</div><div class="trd" data-en>Tested on every firm in the comparison.</div></div>
+      <div class="trc rev" style="transition-delay:.12s"><div class="tri">🌿</div><div class="trt" data-fr>100% en français</div><div class="trt" data-en>Available in French</div><div class="trd" data-fr>Conçu par des traders francophones.</div><div class="trd" data-en>Built by French-speaking traders.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="fi">
+    <div class="ftg">
+      <div>
+        <div class="ft-logo">🐼 PANDAPROP</div>
+        <div class="ft-desc" data-fr>Comparatif indépendant CFD & Futures. Données vérifiées, outils gratuits, code promo PANDA.</div>
+        <div class="ft-desc" data-en>Independent CFD & Futures comparison. Verified data, free tools, exclusive promo code PANDA.</div>
+      </div>
+      <div><div class="ftct">Futures</div><ul class="ftl">
+        <li><a href="#">Tradeify</a></li><li><a href="#">Lucid Trading</a></li>
+        <li><a href="#">Apex Trader Funding</a></li><li><a href="#">TakeProfit Trader</a></li><li><a href="#">TradeDay</a></li>
+      </ul></div>
+      <div><div class="ftct">CFD Forex</div><ul class="ftl">
+        <li><a href="#">FTMO</a></li><li><a href="#">The 5%ers</a></li>
+        <li><a href="#">MyFundedFX</a></li><li><a href="#">Funding Pips</a></li><li><a href="#">E8 Markets</a></li>
+      </ul></div>
+      <div><div class="ftct" data-fr>Outils</div><div class="ftct" data-en>Tools</div><ul class="ftl">
+        <li><a href="#" data-fr>Calculateur de lot</a><a href="#" data-en>Lot calculator</a></li>
+        <li><a href="#" data-fr>Simulateur drawdown</a><a href="#" data-en>Drawdown simulator</a></li>
+        <li><a href="#">Consistency checker</a></li>
+        <li><a href="#">Tick value futures</a></li>
+        <li><a href="#" data-fr>Comparateur</a><a href="#" data-en>Comparator</a></li>
+      </ul></div>
+    </div>
+    <div class="ft-bot">
+      <div class="ft-disc" data-fr>Site comparatif indépendant. Non affilié aux firms listées. Prix indicatifs. Le trading comporte des risques.</div>
+      <div class="ft-disc" data-en>Independent comparison site. Not affiliated with listed firms. Prices are indicative. Trading involves risk.</div>
+      <div class="ft-sc"><span data-fr>Code actif :</span><span data-en>Active code:</span> <span class="scv">PANDA</span></div>
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast"><div class="tdot"></div><span data-fr>Code <strong style="color:var(--gold);margin:0 3px">PANDA</strong> copié !</span><span data-en>Code <strong style="color:var(--gold);margin:0 3px">PANDA</strong> copied!</span></div>
+
+<!-- BANNED MODAL -->
+<div class="overlay" id="overlay" onclick="closeMod(event)">
+  <div class="modal" id="modBox">
+    <div class="mclose" id="mcloseBtn">✕</div>
+    <h3 id="modTitle"></h3>
+    <div class="modal-sub" id="modSub"></div>
+    <div class="cgrid" id="modCountries"></div>
+  </div>
+</div>
+
+<script>
+/* ══ PRICING DATA ══ */
+const PRICING={
+  tradeify:{
+    '50k':{orig:'$145',price:'$87',pct:'40%',act:'✓ No Activation Fee',warn:false,cta:'Up to 40% OFF →'},
+    '100k':{orig:'$249',price:'$174',pct:'30%',act:'✓ No Activation Fee',warn:false,cta:'Up to 30% OFF →'},
+    '150k':{orig:'$359',price:'$251',pct:'30%',act:'✓ No Activation Fee',warn:false,cta:'Up to 30% OFF →'},
+  },
+  apex:{
+    '25k':{orig:'$299',price:'$30',pct:'90%',act:'+ $109 Activation',warn:true,cta:'Up to 90% OFF →'},
+    '50k':{orig:'$349',price:'$35',pct:'90%',act:'+ $119 Activation',warn:true,cta:'Up to 90% OFF →'},
+    '100k':{orig:'$599',price:'$60',pct:'90%',act:'+ $139 Activation',warn:true,cta:'Up to 90% OFF →'},
+    '150k':{orig:'$799',price:'$80',pct:'90%',act:'+ $159 Activation',warn:true,cta:'Up to 90% OFF →'},
+  },
+  lucid:{
+    '25k':{orig:'$100',price:'$60',pct:'40%',act:'✓ No Activation Fee',warn:false,cta:'Up to 40% OFF →'},
+    '50k':{orig:'$140',price:'$84',pct:'40%',act:'✓ No Activation Fee',warn:false,cta:'Up to 40% OFF →'},
+    '100k':{orig:'$225',price:'$135',pct:'40%',act:'✓ No Activation Fee',warn:false,cta:'Up to 40% OFF →'},
+    '150k':{orig:'$420',price:'$252',pct:'40%',act:'✓ No Activation Fee',warn:false,cta:'Up to 40% OFF →'},
+  },
+  ftmo:{
+    '10k':{orig:'€155',price:'€70',pct:'55%',act:'✓ No Activation Fee',warn:false,cta:'Up to 55% OFF →'},
+    '25k':{orig:'€250',price:'€112',pct:'55%',act:'✓ No Activation Fee',warn:false,cta:'Up to 55% OFF →'},
+    '50k':{orig:'€345',price:'€155',pct:'55%',act:'✓ No Activation Fee',warn:false,cta:'Up to 55% OFF →'},
+    '100k':{orig:'€540',price:'€243',pct:'55%',act:'✓ No Activation Fee',warn:false,cta:'Up to 55% OFF →'},
+    '200k':{orig:'€1080',price:'€486',pct:'55%',act:'✓ No Activation Fee',warn:false,cta:'Up to 55% OFF →'},
+  },
+  fpips:{
+    '5k':{orig:'$32',price:'$14',pct:'56%',act:'✓ No Activation Fee',warn:false,cta:'Up to 56% OFF →'},
+    '10k':{orig:'$48',price:'$21',pct:'56%',act:'✓ No Activation Fee',warn:false,cta:'Up to 56% OFF →'},
+    '25k':{orig:'$108',price:'$47',pct:'56%',act:'✓ No Activation Fee',warn:false,cta:'Up to 56% OFF →'},
+    '50k':{orig:'$188',price:'$83',pct:'56%',act:'✓ No Activation Fee',warn:false,cta:'Up to 56% OFF →'},
+    '100k':{orig:'$499',price:'$219',pct:'56%',act:'✓ No Activation Fee',warn:false,cta:'Up to 56% OFF →'},
+  },
+  '5ers':{
+    '20k':{orig:'$95',price:'$49',pct:'48%',act:'✓ No Activation Fee',warn:false,cta:'Up to 48% OFF →'},
+    '40k':{orig:'$175',price:'$91',pct:'48%',act:'✓ No Activation Fee',warn:false,cta:'Up to 48% OFF →'},
+    '100k':{orig:'$299',price:'$155',pct:'48%',act:'✓ No Activation Fee',warn:false,cta:'Up to 48% OFF →'},
+    '250k':{orig:'$625',price:'$325',pct:'48%',act:'✓ No Activation Fee',warn:false,cta:'Up to 48% OFF →'},
+  },
+};
+
+function selSize(firm, size, btn){
+  // update button active state
+  btn.closest('.dc-sizes').querySelectorAll('.dc-size-btn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  const d=PRICING[firm]?.[size];
+  if(!d)return;
+  // update orig label
+  const origEl=document.getElementById(firm+'-orig');
+  if(origEl) origEl.textContent=`${size.toUpperCase()} only: ${d.orig}`;
+  // update pct
+  const pctEl=document.getElementById(firm+'-pct');
+  if(pctEl) pctEl.textContent=d.pct;
+  // update price
+  const priceEl=document.getElementById(firm+'-price');
+  if(priceEl){
+    const sym=d.price.startsWith('€')?'€':'$';
+    const num=d.price.replace(/[^0-9]/g,'');
+    priceEl.innerHTML=`${sym}<span style="font-size:46px">${num}</span>`;
+  }
+  // update activation badge
+  const actEl=document.getElementById(firm+'-act');
+  if(actEl){
+    actEl.textContent=d.act;
+    actEl.className=d.warn?'dc-act warn':'dc-act';
+  }
+  // update CTA
+  const ctaEl=document.getElementById(firm+'-cta');
+  if(ctaEl) ctaEl.querySelector('.dc-cta-r').textContent=d.cta;
+}
+
+/* ══ LANG SWITCH ══ */
+function setLang(lang,btn){
+  document.documentElement.setAttribute('data-lang',lang);
+  document.querySelectorAll('.lang-btn,.lang-btn').forEach(b=>{
+    b.classList.toggle('on', b===btn||b.textContent.startsWith(lang==='fr'?'🇫🇷':'🇬🇧'));
+  });
+}
+
+/* ══ DEALS TAB ══ */
+function swDeals(type,btn){
+  document.querySelectorAll('.dtab').forEach(b=>b.classList.remove('on'));
+  document.querySelectorAll('.deal-panel').forEach(p=>p.classList.remove('on'));
+  btn.classList.add('on');
+  document.getElementById('deal-'+type).classList.add('on');
+}
+
+/* ══ COUNTDOWN ══ */
+(()=>{
+  const baseTs=Math.floor(Date.now()/1000);
+  document.querySelectorAll('.dt-count').forEach(el=>{
+    const sec=parseInt(el.dataset.seconds)||86400;
+    const end=baseTs+sec;
+    const tick=()=>{
+      const rem=end-Math.floor(Date.now()/1000);
+      if(rem<=0){el.textContent='EXPIRED';return;}
+      const d=Math.floor(rem/86400);
+      const h=Math.floor((rem%86400)/3600);
+      const m=Math.floor((rem%3600)/60);
+      el.textContent=`${String(d).padStart(2,'0')}d : ${String(h).padStart(2,'0')}h : ${String(m).padStart(2,'0')}m`;
+      setTimeout(tick,30000);
+    };
+    tick();
+  });
+})();
+
+/* ══ CANVAS — BAMBOO GROVE ══ */
+(()=>{
+  const cv=document.getElementById('cv'),ctx=cv.getContext('2d');
+  let W,H,stalks=[];
+  const resize=()=>{W=cv.width=innerWidth;H=cv.height=innerHeight;init()};
+  const init=()=>{
+    stalks=[];
+    const count=Math.floor(W/38)+4;
+    for(let i=0;i<count;i++){
+      const x=i*38+Math.random()*20-10;
+      const w=8+Math.random()*10;
+      const speed=.15+Math.random()*.25;
+      const phase=Math.random()*Math.PI*2;
+      const nodes=Math.floor(H/55)+2;
+      const col=`rgba(${60+Math.random()*40},${140+Math.random()*60},${50+Math.random()*40},`;
+      stalks.push({x,w,speed,phase,nodes,col,sway:0,swayTarget:0,swayTimer:0});
+    }
+  };
+  const draw=(ts)=>{
+    ctx.clearRect(0,0,W,H);
+    stalks.forEach(s=>{
+      // gentle sway
+      s.swayTimer--;
+      if(s.swayTimer<=0){s.swayTarget=(Math.random()-.5)*12;s.swayTimer=80+Math.random()*120;}
+      s.sway+=(s.swayTarget-s.sway)*.02;
+      const lean=s.sway;
+      // draw stalk
+      ctx.beginPath();
+      ctx.moveTo(s.x,H);
+      ctx.quadraticCurveTo(s.x+lean*.5,H*.5,s.x+lean,0);
+      ctx.lineWidth=s.w;
+      ctx.strokeStyle=s.col+'.22)';
+      ctx.stroke();
+      // draw internodes
+      for(let n=0;n<s.nodes;n++){
+        const pct=(n+1)/s.nodes;
+        const nx=s.x+lean*pct;
+        const ny=H-(pct*H);
+        ctx.fillStyle=s.col+'.35)';
+        ctx.fillRect(nx-s.w*.6,ny-2,s.w*1.2,3);
+      }
+      // draw leaves
+      for(let n=1;n<s.nodes;n++){
+        const pct=n/s.nodes;
+        const lx=s.x+lean*pct;
+        const ly=H-(pct*H);
+        const dir=n%2===0?1:-1;
+        ctx.save();
+        ctx.translate(lx,ly);
+        ctx.rotate(dir*(.4+Math.sin(ts*.001+s.phase)*0.15));
+        ctx.beginPath();
+        ctx.ellipse(dir*22,0,22,5,0,0,Math.PI*2);
+        ctx.fillStyle=s.col+'.28)';
+        ctx.fill();
+        ctx.restore();
+      }
+    });
+    requestAnimationFrame(draw);
+  };
+  addEventListener('resize',resize);resize();requestAnimationFrame(draw);
+})();
+
+/* ══ PANEL SWITCH ══ */
+function swPanel(type,btn){
+  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
+  btn.classList.add('on');
+  document.getElementById('panel-'+type).classList.add('on');
+  setTimeout(rc,50);
+}
+
+/* ══ FILTER STATE ══ */
+const ST={futures:{filter:'all',search:''},cfd:{filter:'all',search:''}};
+function setFilter(panel,tag,btn){
+  // only toggle the button in the active panel's filter row
+  document.querySelectorAll('#panel-'+panel+' .fb').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  ST[panel].filter=tag;
+  applyFilters(panel);
+}
+function applyFilters(panel){
+  const sv=document.getElementById('search-'+panel).value.toLowerCase().trim();
+  ST[panel].search=sv;
+  const tag=ST[panel].filter;
+  const rows=document.querySelectorAll('#tbody-'+panel+' tr');
+  let vis=0;
+  rows.forEach(r=>{
+    const tags=(r.dataset.tags||'').split(' ');
+    const txt=r.textContent.toLowerCase();
+    const tm=tag==='all'||tags.includes(tag);
+    const sm=sv===''||txt.includes(sv);
+    if(tm&&sm){r.classList.remove('row-hidden');vis++;}
+    else r.classList.add('row-hidden');
+  });
+  const nId=panel==='futures'?'rc-fut-n':'rc-cfd-n';
+  document.getElementById(nId).textContent=vis;
+  document.getElementById('nores-'+panel).style.display=vis===0?'block':'none';
+}
+
+/* ══ SORT ══ */
+const SS={futures:{col:-1,asc:true},cfd:{col:-1,asc:true}};
+function sortTable(panel,col){
+  const s=SS[panel];
+  s.col===col?s.asc=!s.asc:(s.col=col,s.asc=true);
+  const tbody=document.getElementById('tbody-'+panel);
+  const rows=Array.from(tbody.querySelectorAll('tr'));
+  document.querySelectorAll('#tbl-'+panel+' thead th').forEach((th,i)=>{
+    th.classList.remove('sa','sd');
+    if(i===col)th.classList.add(s.asc?'sa':'sd');
+  });
+  rows.sort((a,b)=>{
+    let av=a.cells[col]?.textContent.trim()||'',bv=b.cells[col]?.textContent.trim()||'';
+    const an=parseFloat(av.replace(/[^0-9.]/g,'')),bn=parseFloat(bv.replace(/[^0-9.]/g,''));
+    if(!isNaN(an)&&!isNaN(bn))return s.asc?an-bn:bn-an;
+    return s.asc?av.localeCompare(bv,'fr'):bv.localeCompare(av,'fr');
+  });
+  rows.forEach(r=>tbody.appendChild(r));
+}
+
+/* ══ BANNED COUNTRIES ══ */
+const BANNED={
+  tradeify:{name:'Tradeify',n:58,note:'Source officielle Tradeify Mai 2026',list:['Afghanistan','Albanie','Algérie','Andorre','Angola','Bahamas','Barbade','Biélorussie','Bosnie','Botswana','Bulgarie','Birmanie','Burundi','Cambodge','Centrafrique','Congo (Rép. Dém.)','Côte d\'Ivoire','Crimée','Cuba','Corée du Nord','Équateur','Éthiopie','Ghana','Islande','Indonésie','Iran','Irak','Israël','Jamaïque','Kosovo','Laos','Liban','Libéria','Libye','Malaisie','Mongolie','Monténégro','Maroc','Nicaragua','Pakistan','Panama','Papouasie-N-G','Russie','Somalie','Soudan du Sud','Sri Lanka','Soudan','Syrie','Trinité-et-Tobago','Tunisie','Turquie','Ouganda','Ukraine','Venezuela','Vietnam','Yémen','Zimbabwe']},
+  lucid:{name:'Lucid Trading',n:'~40',note:'Politique de conformité OFAC + interne',list:['Iran','Corée du Nord','Russie','Syrie','Cuba','Biélorussie','Crimée','Venezuela','Soudan','Myanmar','Yémen','Afghanistan','Irak','Zimbabwe','Libye','Somalie','Haïti','Éthiopie','Burundi','Centrafrique','Congo (Rép. Dém.)','Mali','Niger','Tchad','Érythrée','Libéria','Sierra Leone','Guinée','Mauritanie','Djibouti','Comores','Mozambique','Tanzanie','Ouganda','Rwanda','Guinée-Bissau']},
+  apex:{name:'Apex Trader Funding',n:77,note:'Apex Help Center officiel Avril 2026',list:['Afghanistan','Algérie','Azerbaïdjan','Bahreïn','Bangladesh','Biélorussie','Bénin','Brunéi','Burkina Faso','Cameroun','Centrafrique','Tchad','Chine','Congo (Rép.)','Congo (Rép. Dém.)','Côte d\'Ivoire','Cuba','Curaçao','Chypre','Égypte','Gabon','Grenade','Haïti','Iran','Irak','Jersey','Jordanie','Kazakhstan','Kenya','Kosovo','Koweït','Lettonie','Liban','Lesotho','Libye','Madagascar','Maldives','Mauritanie','Maurice','Moldavie','Mongolie','Maroc','Mozambique','Namibie','Népal','Nouvelle-Calédonie','Niger','Nigéria','Territoires palestiniens','Oman','Pakistan','Qatar','Réunion','Russie','Rwanda','Saint-Pierre','Arabie Saoudite','Sénégal','Serbie','Somalie','Afrique du Sud','Sri Lanka','Syrie','Tanzanie','Togo','Trinité-et-Tobago','Tunisie','Turquie','Ouganda','Ukraine','Ouzbékistan','Venezuela','Vietnam','Sahara Occidental','Yémen','Zambie','Zimbabwe']},
+  tpt:{name:'TakeProfit Trader',n:'~45',note:'Terms of Service TakeProfit Trader',list:['Iran','Corée du Nord','Russie','Syrie','Cuba','Biélorussie','Ukraine','Venezuela','Chine','Irak','Afghanistan','Pakistan','Birmanie','Soudan','Libye','Somalie','Zimbabwe','Haïti','Éthiopie','Congo (Rép. Dém.)','Centrafrique','Crimée','Kosovo','Mali','Nigéria','Sénégal','Cameroun','Côte d\'Ivoire','Ghana','Tanzanie','Kenya','Ouganda','Rwanda','Mozambique','Zambie','Namibie','Angola','Mauritanie','Niger','Tchad','Érythrée','Djibouti','Soudan du Sud','Yémen','Myanmar']},
+  tradeday:{name:'TradeDay',n:'100+',note:'TradeDay Freshdesk officiel Janvier 2026',list:['Afghanistan','Albanie','Algérie','Angola','Balkans','Barbade','Biélorussie','Îles Vierges brit.','Bosnie','Botswana','Bulgarie','Burkina Faso','Burundi','Cameroun','Îles Caïman','Centrafrique','Côte d\'Ivoire','Crimée','Croatie','Cuba','Corée du Nord','Congo (Rép. Dém.)','Équateur','Éthiopie','Ghana','Gibraltar','Guam','Guyane','Haïti','Islande','Indonésie','Iran','Irak','Jamaïque','Jordanie','Kosovo','Laos','Liban','Libéria','Libye','Macédoine','Mali','Malte','Maurice','Monaco','Mongolie','Monténégro','Maroc','Mozambique','Myanmar','Namibie','Népal','Nicaragua','Nigéria','Pakistan','Panama','Papouasie-N-G','Philippines','Porto Rico','Roumanie','Russie','Sénégal','Serbie','Slovénie','Somalie','Afrique du Sud','Soudan du Sud','Sri Lanka','Soudan','Syrie','Tanzanie','Trinité-et-Tobago','Tunisie','Ouganda','Ukraine','Îles Vierges US','Venezuela','Vietnam','Yémen','Zimbabwe']},
+  earn2trade:{name:'Earn2Trade',n:'~30',note:'Earn2Trade Terms of Service',list:['Iran','Corée du Nord','Russie','Syrie','Cuba','Biélorussie','Venezuela','Afghanistan','Irak','Soudan','Libye','Somalie','Zimbabwe','Myanmar','Yémen','Haïti','Éthiopie','Congo (Rép. Dém.)','Centrafrique','Mali','Niger','Tchad','Érythrée','Libéria','Sierra Leone','Burundi','Rwanda','Mozambique','Tanzanie','Guinée-Bissau']},
+  e8f:{name:'E8 Markets Futures',n:'~40',note:'E8 Markets Compliance Policy',list:['Iran','Corée du Nord','Russie','Syrie','Cuba','Biélorussie','Venezuela','Chine','Irak','Afghanistan','Pakistan','Birmanie','Soudan','Libye','Somalie','Zimbabwe','Haïti','Éthiopie','Congo (Rép. Dém.)','Centrafrique','Crimée','Kosovo','Turquie','Algérie','Maroc','Égypte','Nigéria','Ghana','Kenya','Tanzanie','Ouganda','Rwanda','Mozambique','Zambie','Namibie','Angola','Mauritanie','Niger','Tchad','Soudan du Sud']},
+  bulenox:{name:'Bulenox',n:'~35',note:'Bulenox Terms of Service',list:['Iran','Corée du Nord','Russie','Syrie','Cuba','Biélorussie','Venezuela','Chine','Irak','Afghanistan','Pakistan','Birmanie','Soudan','Libye','Somalie','Zimbabwe','Haïti','Éthiopie','Congo (Rép. Dém.)','Centrafrique','Crimée','Kosovo','Mali','Niger','Tchad','Mauritanie','Érythrée','Djibouti','Comores','Mozambique','Tanzanie','Ouganda','Rwanda','Burundi','Soudan du Sud']},
+  topone:{name:'Top One Futures',n:'~40',note:'Top One Futures Compliance',list:['Iran','Corée du Nord','Russie','Syrie','Cuba','Biélorussie','Venezuela','Chine','Irak','Afghanistan','Pakistan','Birmanie','Soudan','Libye','Somalie','Zimbabwe','Haïti','Éthiopie','Congo (Rép. Dém.)','Centrafrique','Crimée','Kosovo','Mali','Nigéria','Cameroun','Côte d\'Ivoire','Ghana','Tanzanie','Kenya','Ouganda','Rwanda','Mozambique','Zambie','Namibie','Angola','Mauritanie','Niger','Tchad','Soudan du Sud','Yémen']},
+  ftmo:{name:'FTMO',n:'~20',note:'OFAC/UE sanctions + politique FTMO',list:['Iran','Corée du Nord','Russie','Syrie','Cuba','Biélorussie','Myanmar','Soudan','Libye','Zimbabwe','Afghanistan','Irak','Yémen','Haïti','Éthiopie','Congo (Rép. Dém.)','Somalie','Centrafrique','Crimée','Venezuela']},
+  '5ers':{name:'The 5%ers',n:'~25',note:'The 5%ers Terms of Service',list:['Iran','Corée du Nord','Russie','Syrie','Cuba','Biélorussie','Venezuela','Chine','Irak','Afghanistan','Pakistan','Birmanie','Soudan','Libye','Somalie','Zimbabwe','Haïti','Éthiopie','Congo (Rép. Dém.)','Centrafrique','Crimée','Kosovo','Turquie','Algérie','Maroc']},
+  myfunded:{name:'MyFundedFX',n:'~30',note:'MyFundedFX Terms of Service',list:['Iran','Corée du Nord','Russie','Syrie','Cuba','Biélorussie','Venezuela','Chine','Irak','Afghanistan','Pakistan','Birmanie','Soudan','Libye','Somalie','Zimbabwe','Haïti','Éthiopie','Congo (Rép. Dém.)','Centrafrique','Crimée','Kosovo','Algérie','Maroc','Égypte','Nigéria','Ghana','Kenya','Tanzanie','Ouganda']},
+  fundingpips:{name:'Funding Pips',n:'~15',note:'OFAC sanctions + restrictions régionales',list:['Iran','Corée du Nord','Russie','Syrie','Cuba','Biélorussie','Myanmar','Soudan','Libye','Zimbabwe','Afghanistan','Irak','Yémen','Venezuela','Centrafrique']},
+  e8cfd:{name:'E8 Markets CFD',n:'~35',note:'E8 Markets Compliance',list:['Iran','Corée du Nord','Russie','Syrie','Cuba','Biélorussie','Venezuela','Chine','Irak','Afghanistan','Pakistan','Birmanie','Soudan','Libye','Somalie','Zimbabwe','Haïti','Éthiopie','Congo (Rép. Dém.)','Centrafrique','Crimée','Kosovo','Turquie','Algérie','Maroc','Égypte','Nigéria','Ghana','Kenya','Tanzanie','Ouganda','Rwanda','Mozambique','Zambie','Namibie']},
+  instantcfd:{name:'Instant Funding',n:'~30',note:'Instant Funding Terms of Service',list:['Iran','Corée du Nord','Russie','Syrie','Cuba','Biélorussie','Venezuela','Chine','Irak','Afghanistan','Pakistan','Birmanie','Soudan','Libye','Somalie','Zimbabwe','Haïti','Éthiopie','Congo (Rép. Dém.)','Centrafrique','Crimée','Kosovo','Mali','Niger','Tchad','Mauritanie','Érythrée','Djibouti','Comores','Mozambique']},
+  tff:{name:'True Forex Funds',n:'~25',note:'True Forex Funds Terms of Service',list:['Iran','Corée du Nord','Russie','Syrie','Cuba','Biélorussie','Venezuela','Chine','Irak','Afghanistan','Pakistan','Birmanie','Soudan','Libye','Somalie','Zimbabwe','Haïti','Éthiopie','Congo (Rép. Dém.)','Centrafrique','Crimée','Kosovo','Mali','Niger','Tchad']},
+};
+function openModal(key){
+  const d=BANNED[key];if(!d)return;
+  const lang=document.documentElement.getAttribute('data-lang');
+  const isEn=lang==='en';
+  document.getElementById('modTitle').textContent=d.name+' — '+(isEn?'Banned Countries':'Pays bannis');
+  document.getElementById('modSub').innerHTML=`<strong style="color:var(--red)">${d.n} ${isEn?'restricted countries':'pays restreints'}</strong><br>${d.note}<br><br>${isEn?'These traders cannot participate in evaluations or hold funded accounts. Always verify on the official website before purchase.':'Ces traders ne peuvent pas participer aux évaluations. Vérifiez sur le site officiel avant achat.'}`;
+  document.getElementById('modCountries').innerHTML=d.list.map(c=>`<span class="ctag">${c}</span>`).join('');
+  document.getElementById('overlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeMod(e){
+  if(e&&e.target!==document.getElementById('overlay'))return;
+  document.getElementById('overlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.getElementById('mcloseBtn').onclick=()=>{document.getElementById('overlay').classList.remove('open');document.body.style.overflow=''};
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){document.getElementById('overlay').classList.remove('open');document.body.style.overflow=''}});
+
+/* ══ COPY ══ */
+function copy(){
+  navigator.clipboard.writeText('PANDA').catch(()=>{});
+  const t=document.getElementById('toast');
+  t.classList.add('on');setTimeout(()=>t.classList.remove('on'),2400);
+}
+
+/* ══ MOB ══ */
+function tMob(){document.getElementById('mn').classList.toggle('open')}
+
+/* ══ REVEAL ══ */
+function rc(){document.querySelectorAll('.rev:not(.in)').forEach(el=>{if(el.getBoundingClientRect().top<innerHeight-40)el.classList.add('in')})}
+addEventListener('scroll',rc,{passive:true});rc();
+
+/* ══ NAV SHADOW ══ */
+addEventListener('scroll',()=>{document.getElementById('nav').style.boxShadow=scrollY>10?'0 1px 20px rgba(0,0,0,.5)':'none'},{passive:true});
+</script>
+</body>
+</html>
