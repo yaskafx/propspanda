@@ -179,11 +179,12 @@ h1 .gh{-webkit-text-stroke:1px rgba(255,255,255,.22);color:transparent}
 
 /* ── PROMO BAND ── */
 .pb{position:relative;z-index:2;
-  background:linear-gradient(135deg,rgba(232,224,208,.07),rgba(232,224,208,.02));
-  border-top:1px solid rgba(232,224,208,.12);border-bottom:1px solid rgba(232,224,208,.12);
-  padding:14px 32px}
-.pb-in{max-width:860px;margin:0 auto;display:flex;align-items:center;
-  justify-content:center;gap:24px;flex-wrap:wrap}
+  background:linear-gradient(135deg,rgba(92,207,122,.07),rgba(92,207,122,.02));
+  border-top:1px solid rgba(92,207,122,.15);border-bottom:1px solid rgba(92,207,122,.15);
+  padding:18px 32px}
+.pb-in{max-width:780px;margin:0 auto;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:14px;text-align:center}
+.pb-left{justify-content:center}
 .pb-left{display:flex;align-items:center;gap:12px}
 .pb-ico{width:36px;height:36px;border-radius:8px;background:var(--gold-dim);
   border:1px solid rgba(240,192,64,.18);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
@@ -208,8 +209,8 @@ h1 .gh{-webkit-text-stroke:1px rgba(255,255,255,.22);color:transparent}
   text-transform:uppercase;border:none;cursor:pointer;transition:.2s;
   background:transparent;color:var(--t2);font-family:var(--fb)}
 .dtab.on{background:var(--em);color:#050709;box-shadow:0 2px 12px var(--em-glow)}
-.deal-panel{display:none}
-.deal-panel.on{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.deal-panel{display:none!important}
+.deal-panel.on{display:grid!important;grid-template-columns:repeat(3,1fr);gap:16px}
 
 /* DEAL CARD */
 .dc{background:var(--bg1);border:1px solid var(--border2);border-radius:16px;
@@ -230,7 +231,7 @@ h1 .gh{-webkit-text-stroke:1px rgba(255,255,255,.22);color:transparent}
 /* CARD BODY */
 .dc-body{padding:16px 16px 12px;flex:1;display:flex;flex-direction:column;gap:0}
 .dc-top{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px}
-.dc-logo{width:58px;height:58px;border-radius:12px;background:#fff;
+.dc-logo{width:58px;height:58px;border-radius:12px;background:var(--bg3);
   border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;
   overflow:hidden;flex-shrink:0;font-size:13px;font-weight:700;color:#333}
 .dc-logo img{width:100%;height:100%;object-fit:contain;padding:6px}
@@ -327,7 +328,7 @@ tbody tr.row-hidden{display:none}
 td{padding:13px 13px;vertical-align:middle;font-size:13px}
 td:first-child{padding-left:17px}
 .fc{display:flex;align-items:center;gap:9px}
-.fav{width:40px;height:40px;border-radius:9px;background:#fff;
+.fav{width:40px;height:40px;border-radius:9px;background:var(--bg3);
   border:1px solid var(--border2);display:flex;align-items:center;
   justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;overflow:hidden;color:#333}
 .fav img{width:100%;height:100%;object-fit:contain;padding:4px}
@@ -476,7 +477,7 @@ footer{position:relative;z-index:2;background:var(--bg1);border-top:1px solid va
   .sn{font-size:26px}
   .sec{padding:36px 14px}
   .deals-section{padding:36px 14px 0}
-  .deal-panel.on{grid-template-columns:1fr 1fr}
+  .deal-panel.on{grid-template-columns:1fr 1fr!important}
   .vs{grid-template-columns:1fr}
   .vc{padding:18px 15px}
   .vc.l{border-right:none;border-bottom:1px solid var(--border)}
@@ -503,7 +504,7 @@ footer{position:relative;z-index:2;background:var(--bg1);border-top:1px solid va
   .stats{flex-direction:column}
   .stat{flex:1 1 100%;border-right:none;border-bottom:1px solid var(--border)}
   .stat:last-child{border-bottom:none}
-  .deal-panel.on{grid-template-columns:1fr}
+  .deal-panel.on{grid-template-columns:1fr!important}
   .tg{grid-template-columns:1fr}
   .tru{grid-template-columns:1fr}
   .ftg{grid-template-columns:1fr}
@@ -698,7 +699,10 @@ footer{position:relative;z-index:2;background:var(--bg1);border-top:1px solid va
         </div>
         <div class="dc-body">
           <div class="dc-top">
-            <div class="dc-logo"><img style="width:100%;height:100%;object-fit:contain;padding:3px" src="https://logo.clearbit.com/tradeify.co" alt="" onerror="this.src=\'https://www.google.com/s2/favicons?domain=tradeify.co&sz=128\';this.onerror=function(){this.parentNode.innerText=\'TY\'}"></div>
+            <div class="dc-logo"><div style="width:100%;height:100%;background:#0d1a2e;border-radius:8px;display:flex;align-items:center;justify-content:center;overflow:hidden">
+<svg viewBox="0 0 60 40" width="56" height="38" xmlns="http://www.w3.org/2000/svg">
+  <text x="4" y="26" font-family="Arial Black,sans-serif" font-weight="900" font-size="13" fill="white" letter-spacing="-0.5">Tradeify</text>
+</svg></div> alt="" onerror="this.src=\'https://www.google.com/s2/favicons?domain=tradeify.co&sz=128\';this.onerror=function(){this.parentNode.innerText=\'TY\'}"></div>
             <div>
               <div class="dc-name">Tradeify</div>
               <div class="dc-meta">
@@ -751,7 +755,12 @@ footer{position:relative;z-index:2;background:var(--bg1);border-top:1px solid va
         </div>
         <div class="dc-body">
           <div class="dc-top">
-            <div class="dc-logo"><img style="width:100%;height:100%;object-fit:contain;padding:3px" src="https://logo.clearbit.com/apextraderfunding.com" alt="" onerror="this.src=\'https://www.google.com/s2/favicons?domain=apextraderfunding.com&sz=128\';this.onerror=function(){this.parentNode.innerText=\'AP\'}"></div>
+            <div class="dc-logo"><div style="width:100%;height:100%;background:linear-gradient(135deg,#0a0e1a,#141e35);border-radius:8px;display:flex;align-items:center;justify-content:center;overflow:hidden">
+<svg viewBox="0 0 56 56" width="48" height="48" xmlns="http://www.w3.org/2000/svg">
+  <polygon points="28,6 50,46 6,46" fill="none" stroke="#ff6b00" stroke-width="4"/>
+  <polygon points="28,16 42,42 14,42" fill="none" stroke="#ff8c00" stroke-width="2.5"/>
+  <line x1="28" y1="18" x2="28" y2="38" stroke="#ff6b00" stroke-width="3"/>
+</svg></div> alt="" onerror="this.src=\'https://www.google.com/s2/favicons?domain=apextraderfunding.com&sz=128\';this.onerror=function(){this.parentNode.innerText=\'AP\'}"></div>
             <div>
               <div class="dc-name">Apex Trader Funding</div>
               <div class="dc-meta">
@@ -804,7 +813,19 @@ footer{position:relative;z-index:2;background:var(--bg1);border-top:1px solid va
         </div>
         <div class="dc-body">
           <div class="dc-top">
-            <div class="dc-logo"><img style="width:100%;height:100%;object-fit:contain;padding:3px" src="https://logo.clearbit.com/lucidtrading.com" alt="" onerror="this.src=\'https://www.google.com/s2/favicons?domain=lucidtrading.com&sz=128\';this.onerror=function(){this.parentNode.innerText=\'LT\'}"></div>
+            <div class="dc-logo"><div style="width:100%;height:100%;background:linear-gradient(135deg,#0d1117,#1a2030);border-radius:8px;display:flex;align-items:center;justify-content:center;overflow:hidden">
+<svg viewBox="0 0 56 56" width="48" height="48" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="28" cy="28" r="20" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+  <circle cx="28" cy="28" r="20" fill="url(#lg)"/>
+  <defs>
+    <radialGradient id="lg" cx="35%" cy="30%">
+      <stop offset="0%" stop-color="#4a5568"/>
+      <stop offset="40%" stop-color="#1a202c"/>
+      <stop offset="100%" stop-color="#0d1117"/>
+    </radialGradient>
+  </defs>
+  <ellipse cx="22" cy="22" rx="8" ry="7" fill="rgba(255,255,255,0.25)" transform="rotate(-20,22,22)"/>
+</svg></div> alt="" onerror="this.src=\'https://www.google.com/s2/favicons?domain=lucidtrading.com&sz=128\';this.onerror=function(){this.parentNode.innerText=\'LT\'}"></div>
             <div>
               <div class="dc-name">Lucid Trading</div>
               <div class="dc-meta">
@@ -852,7 +873,7 @@ footer{position:relative;z-index:2;background:var(--bg1);border-top:1px solid va
     </div><!-- /deal-futures -->
 
     <!-- CFD DEALS -->
-    <div class="deal-panel" id="deal-cfd">
+    <div class="deal-panel" id="deal-cfd" style="display:none">
 
       <!-- FTMO -->
       <div class="dc hot rev" id="dc-ftmo">
@@ -862,7 +883,13 @@ footer{position:relative;z-index:2;background:var(--bg1);border-top:1px solid va
         </div>
         <div class="dc-body">
           <div class="dc-top">
-            <div class="dc-logo"><img style="width:100%;height:100%;object-fit:contain;padding:3px" src="https://logo.clearbit.com/ftmo.com" alt="" onerror="this.src=\'https://www.google.com/s2/favicons?domain=ftmo.com&sz=128\';this.onerror=function(){this.parentNode.innerText=\'FT\'}"></div>
+            <div class="dc-logo"><div style="width:100%;height:100%;background:#1a1a1a;border-radius:8px;display:flex;align-items:center;justify-content:center;overflow:hidden">
+<svg viewBox="0 0 56 56" width="48" height="48" xmlns="http://www.w3.org/2000/svg">
+  <rect x="20" y="8" width="16" height="16" transform="rotate(45,28,16)" fill="none" stroke="white" stroke-width="2.5"/>
+  <line x1="28" y1="12" x2="28" y2="24" stroke="white" stroke-width="2"/>
+  <line x1="22" y1="18" x2="34" y2="18" stroke="white" stroke-width="2"/>
+  <text x="50%" y="80%" font-family="Arial Black,sans-serif" font-weight="900" font-size="10" fill="white" text-anchor="middle" dominant-baseline="middle" letter-spacing="1">FTMO</text>
+</svg></div> alt="" onerror="this.src=\'https://www.google.com/s2/favicons?domain=ftmo.com&sz=128\';this.onerror=function(){this.parentNode.innerText=\'FT\'}"></div>
             <div>
               <div class="dc-name">FTMO</div>
               <div class="dc-meta">
@@ -916,7 +943,14 @@ footer{position:relative;z-index:2;background:var(--bg1);border-top:1px solid va
         </div>
         <div class="dc-body">
           <div class="dc-top">
-            <div class="dc-logo"><img style="width:100%;height:100%;object-fit:contain;padding:3px" src="https://logo.clearbit.com/fundingpips.com" alt="" onerror="this.src=\'https://www.google.com/s2/favicons?domain=fundingpips.com&sz=128\';this.onerror=function(){this.parentNode.innerText=\'FP\'}"></div>
+            <div class="dc-logo"><div style="width:100%;height:100%;background:linear-gradient(135deg,#001420,#002040);border-radius:8px;display:flex;align-items:center;justify-content:center;overflow:hidden">
+<svg viewBox="0 0 56 56" width="48" height="48" xmlns="http://www.w3.org/2000/svg">
+  <rect x="6" y="6" width="44" height="44" rx="10" fill="#0a3060"/>
+  <circle cx="20" cy="22" r="6" fill="white" opacity="0.9"/>
+  <circle cx="20" cy="22" r="3" fill="#0a3060"/>
+  <path d="M26 22 Q36 14 44 22 Q44 36 26 44 Q26 36 26 22" fill="white" opacity="0.9"/>
+  <circle cx="20" cy="38" r="4" fill="white" opacity="0.5"/>
+</svg></div> alt="" onerror="this.src=\'https://www.google.com/s2/favicons?domain=fundingpips.com&sz=128\';this.onerror=function(){this.parentNode.innerText=\'FP\'}"></div>
             <div>
               <div class="dc-name">Funding Pips</div>
               <div class="dc-meta">
@@ -970,7 +1004,11 @@ footer{position:relative;z-index:2;background:var(--bg1);border-top:1px solid va
         </div>
         <div class="dc-body">
           <div class="dc-top">
-            <div class="dc-logo"><img style="width:100%;height:100%;object-fit:contain;padding:3px" src="https://logo.clearbit.com/the5ers.com" alt="" onerror="this.src=\'https://www.google.com/s2/favicons?domain=the5ers.com&sz=128\';this.onerror=function(){this.parentNode.innerText=\'5%\'}"></div>
+            <div class="dc-logo"><div style="width:100%;height:100%;background:#1a1f4a;border-radius:8px;display:flex;align-items:center;justify-content:center;overflow:hidden">
+<svg viewBox="0 0 56 56" width="48" height="48" xmlns="http://www.w3.org/2000/svg">
+  <text x="6" y="26" font-family="Arial Black,sans-serif" font-weight="900" font-size="11" fill="#8899cc">The</text>
+  <text x="50%" y="72%" font-family="Arial Black,sans-serif" font-weight="900" font-size="22" fill="#f0c040" text-anchor="middle" dominant-baseline="middle">5%</text>
+</svg></div> alt="" onerror="this.src=\'https://www.google.com/s2/favicons?domain=the5ers.com&sz=128\';this.onerror=function(){this.parentNode.innerText=\'5%\'}"></div>
             <div>
               <div class="dc-name">The 5%ers</div>
               <div class="dc-meta">
@@ -1067,15 +1105,57 @@ footer{position:relative;z-index:2;background:var(--bg1);border-top:1px solid va
           <th>Code</th><th></th>
         </tr></thead>
         <tbody id="tbody-futures">
-<tr class="ft" data-tags="nq gc es daily ninja no-act bots news"><td><div class="fc"><div class="fav"><img style="width:100%;height:100%;object-fit:contain;padding:3px" src="https://logo.clearbit.com/tradeify.co" onerror="this.src=\'https://www.google.com/s2/favicons?domain=tradeify.co&sz=128\';this.onerror=function(){this.parentNode.innerText=\'TY\'}"></div><div><div class="ftag">★ Top</div><div class="fn">Tradeify</div><div class="fco">🇺🇸 2023</div></div></div></td><td><span class="po">$145</span><span class="pn">$87</span><span class="px">-40% · sans activation</span></td><td><span class="b bx">EOD Trail</span></td><td><span class="b bg">90%</span></td><td><span class="b bg">Daily</span></td><td><span class="b bb">NinjaTrader</span> <span class="b bx">Tradovate</span></td><td><div class="sr"><span class="ss">★★★★★</span><span class="snum">4.7</span></div></td><td><span class="b bg">Bots ✓</span> <span class="b bg">News ✓</span></td><td><span class="bbn" onclick="openModal('tradeify')">🚫 58</span></td><td><div class="pt" onclick="copy()">PANDA</div></td><td><a href="#" class="btn">→</a></td></tr>
-<tr data-tags="nq gc es ninja rithmic no-act news"><td><div class="fc"><div class="fav"><img style="width:100%;height:100%;object-fit:contain;padding:3px" src="https://logo.clearbit.com/lucidtrading.com" onerror="this.src=\'https://www.google.com/s2/favicons?domain=lucidtrading.com&sz=128\';this.onerror=function(){this.parentNode.innerText=\'LT\'}"></div><div><div class="fn">Lucid Trading</div><div class="fco">🇺🇸 2025</div></div></div></td><td><span class="po">$140</span><span class="pn">$84</span><span class="px">-40%</span></td><td><span class="b bx">EOD Trail</span></td><td><span class="b bg">90%</span></td><td><span class="b by">~15 min</span></td><td><span class="b bb">NinjaTrader</span> <span class="b bx">Rithmic</span></td><td><div class="sr"><span class="ss">★★★★★</span><span class="snum">4.7</span></div></td><td><span class="b br">No bots</span> <span class="b bg">News ✓</span></td><td><span class="bbn" onclick="openModal('lucid')">🚫 ~40</span></td><td><div class="pt" onclick="copy()">PANDA</div></td><td><div class="brow"><a href="#" class="btn">→</a><button class="btn2" data-fr>Détails</button><button class="btn2" data-en>Details</button></div></td></tr>
-<tr data-tags="nq es ninja rithmic split100 news"><td><div class="fc"><div class="fav"><img style="width:100%;height:100%;object-fit:contain;padding:3px" src="https://logo.clearbit.com/apextraderfunding.com" onerror="this.src=\'https://www.google.com/s2/favicons?domain=apextraderfunding.com&sz=128\';this.onerror=function(){this.parentNode.innerText=\'AP\'}"></div><div><div class="fn">Apex Trader Funding</div><div class="fco">🇺🇸 2021</div></div></div></td><td><span class="po">$249</span><span class="pn">$25</span><span class="px warn">-90% +$99 act.</span></td><td><span class="b bx">EOD / Intra</span></td><td><span class="b bg">100%</span></td><td><span class="b bg">5j</span></td><td><span class="b bb">NinjaTrader</span> <span class="b bx">Rithmic</span></td><td><div class="sr"><span class="ss">★★★★☆</span><span class="snum">4.4</span></div></td><td><span class="b br">No bots</span> <span class="b bg">News ✓</span></td><td><span class="bbn" onclick="openModal('apex')">🚫 77+</span></td><td><div class="pt" onclick="copy()">PANDA</div></td><td><div class="brow"><a href="#" class="btn">→</a><button class="btn2" data-fr>Détails</button><button class="btn2" data-en>Details</button></div></td></tr>
-<tr data-tags="nq gc es ninja no-act news"><td><div class="fc"><div class="fav"><img style="width:100%;height:100%;object-fit:contain;padding:3px" src="https://logo.clearbit.com/takeprofittrader.com" onerror="this.src=\'https://www.google.com/s2/favicons?domain=takeprofittrader.com&sz=128\';this.onerror=function(){this.parentNode.innerText=\'TP\'}"></div><div><div class="fn">TakeProfit Trader</div><div class="fco">🇺🇸 2020</div></div></div></td><td><span class="po">$150</span><span class="pn">$90</span><span class="px">-40%</span></td><td><span class="b bx">EOD Trail</span></td><td><span class="b bg">80%</span></td><td><span class="b bg">7j</span></td><td><span class="b bb">NinjaTrader</span></td><td><div class="sr"><span class="ss">★★★★☆</span><span class="snum">4.3</span></div></td><td><span class="b br">No bots</span> <span class="b bg">News ✓</span></td><td><span class="bbn" onclick="openModal('tpt')">🚫 ~45</span></td><td><div class="pt" onclick="copy()">PANDA</div></td><td><div class="brow"><a href="#" class="btn">→</a><button class="btn2" data-fr>Détails</button><button class="btn2" data-en>Details</button></div></td></tr>
-<tr data-tags="nq gc es rithmic no-act news"><td><div class="fc"><div class="fav"><img style="width:100%;height:100%;object-fit:contain;padding:3px" src="https://logo.clearbit.com/tradeday.com" onerror="this.src=\'https://www.google.com/s2/favicons?domain=tradeday.com&sz=128\';this.onerror=function(){this.parentNode.innerText=\'TD\'}"></div><div><div class="fn">TradeDay</div><div class="fco">🇺🇸 2020</div></div></div></td><td><span class="po">$169</span><span class="pn">$99</span><span class="px">-41%</span></td><td><span class="b bx">EOD / Intra</span></td><td><span class="b by">80–95%</span></td><td><span class="b bg">5j</span></td><td><span class="b bx">Rithmic</span></td><td><div class="sr"><span class="ss">★★★★☆</span><span class="snum">4.2</span></div></td><td><span class="b br">No bots</span> <span class="b bg">News ✓</span></td><td><span class="bbn" onclick="openModal('tradeday')">🚫 100+</span></td><td><div class="pt" onclick="copy()">PANDA</div></td><td><div class="brow"><a href="#" class="btn">→</a><button class="btn2" data-fr>Détails</button><button class="btn2" data-en>Details</button></div></td></tr>
-<tr data-tags="nq gc es ninja no-act news"><td><div class="fc"><div class="fav"><img style="width:100%;height:100%;object-fit:contain;padding:3px" src="https://logo.clearbit.com/earn2trade.com" onerror="this.src=\'https://www.google.com/s2/favicons?domain=earn2trade.com&sz=128\';this.onerror=function(){this.parentNode.innerText=\'E2\'}"></div><div><div class="fn">Earn2Trade</div><div class="fco">🇺🇸 2018</div></div></div></td><td><span class="po">$185</span><span class="pn">$111</span><span class="px">-40%</span></td><td><span class="b bx">EOD Trail</span></td><td><span class="b bg">80%</span></td><td><span class="b bg">7j</span></td><td><span class="b bb">NinjaTrader</span></td><td><div class="sr"><span class="ss">★★★★☆</span><span class="snum">4.1</span></div></td><td><span class="b br">No bots</span> <span class="b bg">News ✓</span></td><td><span class="bbn" onclick="openModal('earn2trade')">🚫 ~30</span></td><td><div class="pt" onclick="copy()">PANDA</div></td><td><div class="brow"><a href="#" class="btn">→</a><button class="btn2" data-fr>Détails</button><button class="btn2" data-en>Details</button></div></td></tr>
-<tr data-tags="nq gc es ninja rithmic no-act news"><td><div class="fc"><div class="fav"><img style="width:100%;height:100%;object-fit:contain;padding:3px" src="https://logo.clearbit.com/e8markets.com" onerror="this.src=\'https://www.google.com/s2/favicons?domain=e8markets.com&sz=128\';this.onerror=function(){this.parentNode.innerText=\'E8\'}"></div><div><div class="fn">E8 Markets Futures</div><div class="fco">🇺🇸 2022</div></div></div></td><td><span class="po">$148</span><span class="pn">$89</span><span class="px">-40%</span></td><td><span class="b bx">EOD Trail</span></td><td><span class="b bg">85%</span></td><td><span class="b bg">7j</span></td><td><span class="b bb">NinjaTrader</span> <span class="b bx">Rithmic</span></td><td><div class="sr"><span class="ss">★★★★☆</span><span class="snum">4.2</span></div></td><td><span class="b br">No bots</span> <span class="b bg">News ✓</span></td><td><span class="bbn" onclick="openModal('e8f')">🚫 ~40</span></td><td><div class="pt" onclick="copy()">PANDA</div></td><td><div class="brow"><a href="#" class="btn">→</a><button class="btn2" data-fr>Détails</button><button class="btn2" data-en>Details</button></div></td></tr>
-<tr data-tags="nq gc es ninja no-act instant news bots"><td><div class="fc"><div class="fav"><img style="width:100%;height:100%;object-fit:contain;padding:3px" src="https://logo.clearbit.com/bulenox.com" onerror="this.src=\'https://www.google.com/s2/favicons?domain=bulenox.com&sz=128\';this.onerror=function(){this.parentNode.innerText=\'BN\'}"></div><div><div class="fn">Bulenox</div><div class="fco">🇺🇸 2021</div></div></div></td><td><span class="po">$119</span><span class="pn">$71</span><span class="px">-40%</span></td><td><span class="b bx">EOD Trail</span></td><td><span class="b bg">80%</span></td><td><span class="b bg">7j</span></td><td><span class="b bb">NinjaTrader</span></td><td><div class="sr"><span class="ss">★★★★☆</span><span class="snum">4.1</span></div></td><td><span class="b br">No bots</span> <span class="b bg">News ✓</span></td><td><span class="bbn" onclick="openModal('bulenox')">🚫 ~35</span></td><td><div class="pt" onclick="copy()">PANDA</div></td><td><div class="brow"><a href="#" class="btn">→</a><button class="btn2" data-fr>Détails</button><button class="btn2" data-en>Details</button></div></td></tr>
-<tr data-tags="nq gc es ninja rithmic no-act bots news"><td><div class="fc"><div class="fav"><img style="width:100%;height:100%;object-fit:contain;padding:3px" src="https://logo.clearbit.com/toponefutures.com" onerror="this.src=\'https://www.google.com/s2/favicons?domain=toponefutures.com&sz=128\';this.onerror=function(){this.parentNode.innerText=\'T1\'}"></div><div><div class="fn">Top One Futures</div><div class="fco">🇺🇸 2022</div></div></div></td><td><span class="po">$132</span><span class="pn">$79</span><span class="px">-40%</span></td><td><span class="b bx">EOD Trail</span></td><td><span class="b bg">90%</span></td><td><span class="b by">On-demand</span></td><td><span class="b bb">NinjaTrader</span> <span class="b bx">Rithmic</span></td><td><div class="sr"><span class="ss">★★★★☆</span><span class="snum">4.3</span></div></td><td><span class="b bg">Bots ✓</span> <span class="b bg">News ✓</span></td><td><span class="bbn" onclick="openModal('topone')">🚫 ~40</span></td><td><div class="pt" onclick="copy()">PANDA</div></td><td><div class="brow"><a href="#" class="btn">→</a><button class="btn2" data-fr>Détails</button><button class="btn2" data-en>Details</button></div></td></tr>
+<tr class="ft" data-tags="nq gc es daily ninja no-act bots news"><td><div class="fc"><div class="fav"><div style="width:100%;height:100%;background:#0d1a2e;border-radius:8px;display:flex;align-items:center;justify-content:center;overflow:hidden">
+<svg viewBox="0 0 60 40" width="56" height="38" xmlns="http://www.w3.org/2000/svg">
+  <text x="4" y="26" font-family="Arial Black,sans-serif" font-weight="900" font-size="13" fill="white" letter-spacing="-0.5">Tradeify</text>
+</svg></div> onerror="this.src=\'https://www.google.com/s2/favicons?domain=tradeify.co&sz=128\';this.onerror=function(){this.parentNode.innerText=\'TY\'}"></div><div><div class="ftag">★ Top</div><div class="fn">Tradeify</div><div class="fco">🇺🇸 2023</div></div></div></td><td><span class="po">$145</span><span class="pn">$87</span><span class="px">-40% · sans activation</span></td><td><span class="b bx">EOD Trail</span></td><td><span class="b bg">90%</span></td><td><span class="b bg">Daily</span></td><td><span class="b bb">NinjaTrader</span> <span class="b bx">Tradovate</span></td><td><div class="sr"><span class="ss">★★★★★</span><span class="snum">4.7</span></div></td><td><span class="b bg">Bots ✓</span> <span class="b bg">News ✓</span></td><td><span class="bbn" onclick="openModal('tradeify')">🚫 58</span></td><td><div class="pt" onclick="copy()">PANDA</div></td><td><a href="#" class="btn">→</a></td></tr>
+<tr data-tags="nq gc es ninja rithmic no-act news"><td><div class="fc"><div class="fav"><div style="width:100%;height:100%;background:linear-gradient(135deg,#0d1117,#1a2030);border-radius:8px;display:flex;align-items:center;justify-content:center;overflow:hidden">
+<svg viewBox="0 0 56 56" width="48" height="48" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="28" cy="28" r="20" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+  <circle cx="28" cy="28" r="20" fill="url(#lg)"/>
+  <defs>
+    <radialGradient id="lg" cx="35%" cy="30%">
+      <stop offset="0%" stop-color="#4a5568"/>
+      <stop offset="40%" stop-color="#1a202c"/>
+      <stop offset="100%" stop-color="#0d1117"/>
+    </radialGradient>
+  </defs>
+  <ellipse cx="22" cy="22" rx="8" ry="7" fill="rgba(255,255,255,0.25)" transform="rotate(-20,22,22)"/>
+</svg></div> onerror="this.src=\'https://www.google.com/s2/favicons?domain=lucidtrading.com&sz=128\';this.onerror=function(){this.parentNode.innerText=\'LT\'}"></div><div><div class="fn">Lucid Trading</div><div class="fco">🇺🇸 2025</div></div></div></td><td><span class="po">$140</span><span class="pn">$84</span><span class="px">-40%</span></td><td><span class="b bx">EOD Trail</span></td><td><span class="b bg">90%</span></td><td><span class="b by">~15 min</span></td><td><span class="b bb">NinjaTrader</span> <span class="b bx">Rithmic</span></td><td><div class="sr"><span class="ss">★★★★★</span><span class="snum">4.7</span></div></td><td><span class="b br">No bots</span> <span class="b bg">News ✓</span></td><td><span class="bbn" onclick="openModal('lucid')">🚫 ~40</span></td><td><div class="pt" onclick="copy()">PANDA</div></td><td><div class="brow"><a href="#" class="btn">→</a><button class="btn2" data-fr>Détails</button><button class="btn2" data-en>Details</button></div></td></tr>
+<tr data-tags="nq es ninja rithmic split100 news"><td><div class="fc"><div class="fav"><div style="width:100%;height:100%;background:linear-gradient(135deg,#0a0e1a,#141e35);border-radius:8px;display:flex;align-items:center;justify-content:center;overflow:hidden">
+<svg viewBox="0 0 56 56" width="48" height="48" xmlns="http://www.w3.org/2000/svg">
+  <polygon points="28,6 50,46 6,46" fill="none" stroke="#ff6b00" stroke-width="4"/>
+  <polygon points="28,16 42,42 14,42" fill="none" stroke="#ff8c00" stroke-width="2.5"/>
+  <line x1="28" y1="18" x2="28" y2="38" stroke="#ff6b00" stroke-width="3"/>
+</svg></div> onerror="this.src=\'https://www.google.com/s2/favicons?domain=apextraderfunding.com&sz=128\';this.onerror=function(){this.parentNode.innerText=\'AP\'}"></div><div><div class="fn">Apex Trader Funding</div><div class="fco">🇺🇸 2021</div></div></div></td><td><span class="po">$249</span><span class="pn">$25</span><span class="px warn">-90% +$99 act.</span></td><td><span class="b bx">EOD / Intra</span></td><td><span class="b bg">100%</span></td><td><span class="b bg">5j</span></td><td><span class="b bb">NinjaTrader</span> <span class="b bx">Rithmic</span></td><td><div class="sr"><span class="ss">★★★★☆</span><span class="snum">4.4</span></div></td><td><span class="b br">No bots</span> <span class="b bg">News ✓</span></td><td><span class="bbn" onclick="openModal('apex')">🚫 77+</span></td><td><div class="pt" onclick="copy()">PANDA</div></td><td><div class="brow"><a href="#" class="btn">→</a><button class="btn2" data-fr>Détails</button><button class="btn2" data-en>Details</button></div></td></tr>
+<tr data-tags="nq gc es ninja no-act news"><td><div class="fc"><div class="fav"><div style="width:100%;height:100%;background:#0a0f1e;border-radius:8px;display:flex;align-items:center;justify-content:center;overflow:hidden">
+<svg viewBox="0 0 60 30" width="58" height="28" xmlns="http://www.w3.org/2000/svg">
+  <text x="2" y="22" font-family="Arial Black,sans-serif" font-weight="900" font-size="10" fill="white" letter-spacing="0.5">TAKEPROFIT</text>
+  <text x="8" y="29" font-family="Arial,sans-serif" font-weight="400" font-size="7" fill="#8899bb" letter-spacing="2">TRADER</text>
+</svg></div> onerror="this.src=\'https://www.google.com/s2/favicons?domain=takeprofittrader.com&sz=128\';this.onerror=function(){this.parentNode.innerText=\'TP\'}"></div><div><div class="fn">TakeProfit Trader</div><div class="fco">🇺🇸 2020</div></div></div></td><td><span class="po">$150</span><span class="pn">$90</span><span class="px">-40%</span></td><td><span class="b bx">EOD Trail</span></td><td><span class="b bg">80%</span></td><td><span class="b bg">7j</span></td><td><span class="b bb">NinjaTrader</span></td><td><div class="sr"><span class="ss">★★★★☆</span><span class="snum">4.3</span></div></td><td><span class="b br">No bots</span> <span class="b bg">News ✓</span></td><td><span class="bbn" onclick="openModal('tpt')">🚫 ~45</span></td><td><div class="pt" onclick="copy()">PANDA</div></td><td><div class="brow"><a href="#" class="btn">→</a><button class="btn2" data-fr>Détails</button><button class="btn2" data-en>Details</button></div></td></tr>
+<tr data-tags="nq gc es rithmic no-act news"><td><div class="fc"><div class="fav"><div style="width:100%;height:100%;background:linear-gradient(135deg,#0a1520,#0d2040);border-radius:8px;display:flex;align-items:center;justify-content:center;overflow:hidden">
+<svg viewBox="0 0 60 40" width="56" height="38" xmlns="http://www.w3.org/2000/svg">
+  <text x="4" y="20" font-family="Arial Black,sans-serif" font-weight="900" font-size="12" fill="white">Trade</text>
+  <text x="4" y="34" font-family="Arial,sans-serif" font-weight="700" font-size="12" fill="#4db8ff">Day</text>
+</svg></div> onerror="this.src=\'https://www.google.com/s2/favicons?domain=tradeday.com&sz=128\';this.onerror=function(){this.parentNode.innerText=\'TD\'}"></div><div><div class="fn">TradeDay</div><div class="fco">🇺🇸 2020</div></div></div></td><td><span class="po">$169</span><span class="pn">$99</span><span class="px">-41%</span></td><td><span class="b bx">EOD / Intra</span></td><td><span class="b by">80–95%</span></td><td><span class="b bg">5j</span></td><td><span class="b bx">Rithmic</span></td><td><div class="sr"><span class="ss">★★★★☆</span><span class="snum">4.2</span></div></td><td><span class="b br">No bots</span> <span class="b bg">News ✓</span></td><td><span class="bbn" onclick="openModal('tradeday')">🚫 100+</span></td><td><div class="pt" onclick="copy()">PANDA</div></td><td><div class="brow"><a href="#" class="btn">→</a><button class="btn2" data-fr>Détails</button><button class="btn2" data-en>Details</button></div></td></tr>
+<tr data-tags="nq gc es ninja no-act news"><td><div class="fc"><div class="fav"><div style="width:100%;height:100%;background:linear-gradient(135deg,#1a0d3a,#2d1560);border-radius:8px;display:flex;align-items:center;justify-content:center;overflow:hidden">
+<svg viewBox="0 0 60 40" width="56" height="38" xmlns="http://www.w3.org/2000/svg">
+  <text x="3" y="17" font-family="Arial Black,sans-serif" font-weight="900" font-size="9" fill="white">Earn2</text>
+  <text x="3" y="30" font-family="Arial Black,sans-serif" font-weight="900" font-size="9" fill="#b388ff">Trade</text>
+</svg></div> onerror="this.src=\'https://www.google.com/s2/favicons?domain=earn2trade.com&sz=128\';this.onerror=function(){this.parentNode.innerText=\'E2\'}"></div><div><div class="fn">Earn2Trade</div><div class="fco">🇺🇸 2018</div></div></div></td><td><span class="po">$185</span><span class="pn">$111</span><span class="px">-40%</span></td><td><span class="b bx">EOD Trail</span></td><td><span class="b bg">80%</span></td><td><span class="b bg">7j</span></td><td><span class="b bb">NinjaTrader</span></td><td><div class="sr"><span class="ss">★★★★☆</span><span class="snum">4.1</span></div></td><td><span class="b br">No bots</span> <span class="b bg">News ✓</span></td><td><span class="bbn" onclick="openModal('earn2trade')">🚫 ~30</span></td><td><div class="pt" onclick="copy()">PANDA</div></td><td><div class="brow"><a href="#" class="btn">→</a><button class="btn2" data-fr>Détails</button><button class="btn2" data-en>Details</button></div></td></tr>
+<tr data-tags="nq gc es ninja rithmic no-act news"><td><div class="fc"><div class="fav"><div style="width:100%;height:100%;background:linear-gradient(135deg,#001a2a,#003040);border-radius:8px;display:flex;align-items:center;justify-content:center;overflow:hidden">
+<svg viewBox="0 0 56 56" width="48" height="48" xmlns="http://www.w3.org/2000/svg">
+  <text x="50%" y="60%" font-family="Arial Black,sans-serif" font-weight="900" font-size="28" fill="#00e5ff" text-anchor="middle" dominant-baseline="middle">E8</text>
+</svg></div> onerror="this.src=\'https://www.google.com/s2/favicons?domain=e8markets.com&sz=128\';this.onerror=function(){this.parentNode.innerText=\'E8\'}"></div><div><div class="fn">E8 Markets Futures</div><div class="fco">🇺🇸 2022</div></div></div></td><td><span class="po">$148</span><span class="pn">$89</span><span class="px">-40%</span></td><td><span class="b bx">EOD Trail</span></td><td><span class="b bg">85%</span></td><td><span class="b bg">7j</span></td><td><span class="b bb">NinjaTrader</span> <span class="b bx">Rithmic</span></td><td><div class="sr"><span class="ss">★★★★☆</span><span class="snum">4.2</span></div></td><td><span class="b br">No bots</span> <span class="b bg">News ✓</span></td><td><span class="bbn" onclick="openModal('e8f')">🚫 ~40</span></td><td><div class="pt" onclick="copy()">PANDA</div></td><td><div class="brow"><a href="#" class="btn">→</a><button class="btn2" data-fr>Détails</button><button class="btn2" data-en>Details</button></div></td></tr>
+<tr data-tags="nq gc es ninja no-act instant news bots"><td><div class="fc"><div class="fav"><div style="width:100%;height:100%;background:linear-gradient(135deg,#1a0505,#2a0808);border-radius:8px;display:flex;align-items:center;justify-content:center;overflow:hidden">
+<svg viewBox="0 0 60 40" width="56" height="38" xmlns="http://www.w3.org/2000/svg">
+  <text x="50%" y="55%" font-family="Arial Black,sans-serif" font-weight="900" font-size="10" fill="#ff4444" text-anchor="middle" dominant-baseline="middle" letter-spacing="0.5">BULENOX</text>
+</svg></div> onerror="this.src=\'https://www.google.com/s2/favicons?domain=bulenox.com&sz=128\';this.onerror=function(){this.parentNode.innerText=\'BN\'}"></div><div><div class="fn">Bulenox</div><div class="fco">🇺🇸 2021</div></div></div></td><td><span class="po">$119</span><span class="pn">$71</span><span class="px">-40%</span></td><td><span class="b bx">EOD Trail</span></td><td><span class="b bg">80%</span></td><td><span class="b bg">7j</span></td><td><span class="b bb">NinjaTrader</span></td><td><div class="sr"><span class="ss">★★★★☆</span><span class="snum">4.1</span></div></td><td><span class="b br">No bots</span> <span class="b bg">News ✓</span></td><td><span class="bbn" onclick="openModal('bulenox')">🚫 ~35</span></td><td><div class="pt" onclick="copy()">PANDA</div></td><td><div class="brow"><a href="#" class="btn">→</a><button class="btn2" data-fr>Détails</button><button class="btn2" data-en>Details</button></div></td></tr>
+<tr data-tags="nq gc es ninja rithmic no-act bots news"><td><div class="fc"><div class="fav"><div style="width:100%;height:100%;background:linear-gradient(135deg,#0a1a05,#142800);border-radius:8px;display:flex;align-items:center;justify-content:center;overflow:hidden">
+<svg viewBox="0 0 60 40" width="56" height="38" xmlns="http://www.w3.org/2000/svg">
+  <text x="6" y="18" font-family="Arial Black,sans-serif" font-weight="900" font-size="9" fill="#76ff03">TOP ONE</text>
+  <text x="6" y="32" font-family="Arial,sans-serif" font-weight="600" font-size="8" fill="rgba(255,255,255,0.6)" letter-spacing="1">FUTURES</text>
+</svg></div> onerror="this.src=\'https://www.google.com/s2/favicons?domain=toponefutures.com&sz=128\';this.onerror=function(){this.parentNode.innerText=\'T1\'}"></div><div><div class="fn">Top One Futures</div><div class="fco">🇺🇸 2022</div></div></div></td><td><span class="po">$132</span><span class="pn">$79</span><span class="px">-40%</span></td><td><span class="b bx">EOD Trail</span></td><td><span class="b bg">90%</span></td><td><span class="b by">On-demand</span></td><td><span class="b bb">NinjaTrader</span> <span class="b bx">Rithmic</span></td><td><div class="sr"><span class="ss">★★★★☆</span><span class="snum">4.3</span></div></td><td><span class="b bg">Bots ✓</span> <span class="b bg">News ✓</span></td><td><span class="bbn" onclick="openModal('topone')">🚫 ~40</span></td><td><div class="pt" onclick="copy()">PANDA</div></td><td><div class="brow"><a href="#" class="btn">→</a><button class="btn2" data-fr>Détails</button><button class="btn2" data-en>Details</button></div></td></tr>
         </tbody>
       </table>
     </div>
@@ -1129,13 +1209,45 @@ footer{position:relative;z-index:2;background:var(--bg1);border-top:1px solid va
           <th>Code</th><th></th>
         </tr></thead>
         <tbody id="tbody-cfd">
-<tr class="ft" data-tags="2phase gold nas100 fast news swing mt5"><td><div class="fc"><div class="fav"><img style="width:100%;height:100%;object-fit:contain;padding:3px" src="https://logo.clearbit.com/ftmo.com" onerror="this.src=\'https://www.google.com/s2/favicons?domain=ftmo.com&sz=128\';this.onerror=function(){this.parentNode.innerText=\'FT\'}"></div><div><div class="ftag">★ Top</div><div class="fn">FTMO</div><div class="fco">🇨🇿 2015</div></div></div></td><td><span class="b bb">2-Phase</span></td><td><span class="po">€540</span><span class="pn">€243</span><span class="px">-55%</span></td><td><span class="b br">5%/10%</span></td><td><span class="b bg">90%</span></td><td><span class="b bg">14j</span></td><td><div class="sr"><span class="ss">★★★★★</span><span class="snum">4.8</span></div></td><td><span class="b bg">News ✓</span> <span class="b bg">Swing ✓</span></td><td><span class="bbn" onclick="openModal('ftmo')">🚫 ~20</span></td><td><div class="pt" onclick="copy()">PANDA</div></td><td><a href="#" class="btn">→</a></td></tr>
-<tr data-tags="2phase gold nas100 split100 news swing mt5"><td><div class="fc"><div class="fav"><img style="width:100%;height:100%;object-fit:contain;padding:3px" src="https://logo.clearbit.com/the5ers.com" onerror="this.src=\'https://www.google.com/s2/favicons?domain=the5ers.com&sz=128\';this.onerror=function(){this.parentNode.innerText=\'5%\'}"></div><div><div class="fn">The 5%ers</div><div class="fco">🇮🇱 2016</div></div></div></td><td><span class="b bb">2-Phase</span></td><td><span class="po">$299</span><span class="pn">$155</span><span class="px">-48%</span></td><td><span class="b br">4%/8%</span></td><td><span class="b bg">100%</span></td><td><span class="b by">7j</span></td><td><div class="sr"><span class="ss">★★★★☆</span><span class="snum">4.5</span></div></td><td><span class="b bg">News ✓</span> <span class="b bg">Swing ✓</span></td><td><span class="bbn" onclick="openModal('5ers')">🚫 ~25</span></td><td><div class="pt" onclick="copy()">PANDA</div></td><td><div class="brow"><a href="#" class="btn">→</a><button class="btn2" data-fr>Détails</button><button class="btn2" data-en>Details</button></div></td></tr>
-<tr data-tags="1phase gold nas100 fast news swing mt5"><td><div class="fc"><div class="fav"><img style="width:100%;height:100%;object-fit:contain;padding:3px" src="https://logo.clearbit.com/myfundedfx.com" onerror="this.src=\'https://www.google.com/s2/favicons?domain=myfundedfx.com&sz=128\';this.onerror=function(){this.parentNode.innerText=\'MF\'}"></div><div><div class="fn">MyFundedFX</div><div class="fco">🇬🇧 2022</div></div></div></td><td><span class="b bg">1-Phase</span></td><td><span class="po">$588</span><span class="pn">$294</span><span class="px">-50%</span></td><td><span class="b br">5%/10%</span></td><td><span class="b bg">85%</span></td><td><span class="b bg">48h</span></td><td><div class="sr"><span class="ss">★★★★☆</span><span class="snum">4.3</span></div></td><td><span class="b bg">News ✓</span> <span class="b bg">Swing ✓</span></td><td><span class="bbn" onclick="openModal('myfunded')">🚫 ~30</span></td><td><div class="pt" onclick="copy()">PANDA</div></td><td><div class="brow"><a href="#" class="btn">→</a><button class="btn2" data-fr>Détails</button><button class="btn2" data-en>Details</button></div></td></tr>
-<tr data-tags="2phase gold nas100 fast news swing mt5"><td><div class="fc"><div class="fav"><img style="width:100%;height:100%;object-fit:contain;padding:3px" src="https://logo.clearbit.com/fundingpips.com" onerror="this.src=\'https://www.google.com/s2/favicons?domain=fundingpips.com&sz=128\';this.onerror=function(){this.parentNode.innerText=\'FP\'}"></div><div><div class="fn">Funding Pips</div><div class="fco">🇦🇪 2022</div></div></div></td><td><span class="b bb">2-Phase</span></td><td><span class="po">$499</span><span class="pn">$219</span><span class="px">-56%</span></td><td><span class="b br">4%/8%</span></td><td><span class="b bg">90%</span></td><td><span class="b by">7j</span></td><td><div class="sr"><span class="ss">★★★★☆</span><span class="snum">4.4</span></div></td><td><span class="b bg">News ✓</span> <span class="b bg">Swing ✓</span></td><td><span class="bbn" onclick="openModal('fundingpips')">🚫 ~15</span></td><td><div class="pt" onclick="copy()">PANDA</div></td><td><div class="brow"><a href="#" class="btn">→</a><button class="btn2" data-fr>Détails</button><button class="btn2" data-en>Details</button></div></td></tr>
-<tr data-tags="2phase gold nas100 mt5"><td><div class="fc"><div class="fav"><img style="width:100%;height:100%;object-fit:contain;padding:3px" src="https://logo.clearbit.com/e8markets.com" onerror="this.src=\'https://www.google.com/s2/favicons?domain=e8markets.com&sz=128\';this.onerror=function(){this.parentNode.innerText=\'E8\'}"></div><div><div class="fn">E8 Markets CFD</div><div class="fco">🇺🇸 2022</div></div></div></td><td><span class="b bb">2-Phase</span></td><td><span class="po">$248</span><span class="pn">$124</span><span class="px">-50%</span></td><td><span class="b br">5%/8%</span></td><td><span class="b bg">80%</span></td><td><span class="b bg">14j</span></td><td><div class="sr"><span class="ss">★★★★☆</span><span class="snum">4.2</span></div></td><td><span class="b bg">News ✓</span> <span class="b bg">Swing ✓</span></td><td><span class="bbn" onclick="openModal('e8cfd')">🚫 ~35</span></td><td><div class="pt" onclick="copy()">PANDA</div></td><td><div class="brow"><a href="#" class="btn">→</a><button class="btn2" data-fr>Détails</button><button class="btn2" data-en>Details</button></div></td></tr>
-<tr data-tags="instant gold nas100 fast news mt5"><td><div class="fc"><div class="fav"><img style="width:100%;height:100%;object-fit:contain;padding:3px" src="https://logo.clearbit.com/instantfunding.com" onerror="this.src=\'https://www.google.com/s2/favicons?domain=instantfunding.com&sz=128\';this.onerror=function(){this.parentNode.innerText=\'IF\'}"></div><div><div class="fn">Instant Funding</div><div class="fco">🇨🇾 2021</div></div></div></td><td><span class="b by">Instant</span></td><td><span class="po">$999</span><span class="pn">$599</span><span class="px">-40%</span></td><td><span class="b br">5%/10%</span></td><td><span class="b bg">75%</span></td><td><span class="b bg">48h</span></td><td><div class="sr"><span class="ss">★★★★☆</span><span class="snum">4.1</span></div></td><td><span class="b bg">News ✓</span> <span class="b br">No swing</span></td><td><span class="bbn" onclick="openModal('instantcfd')">🚫 ~30</span></td><td><div class="pt" onclick="copy()">PANDA</div></td><td><div class="brow"><a href="#" class="btn">→</a><button class="btn2" data-fr>Détails</button><button class="btn2" data-en>Details</button></div></td></tr>
-<tr data-tags="2phase gold nas100 news swing mt5"><td><div class="fc"><div class="fav"><img style="width:100%;height:100%;object-fit:contain;padding:3px" src="https://logo.clearbit.com/trueforexfunds.com" onerror="this.src=\'https://www.google.com/s2/favicons?domain=trueforexfunds.com&sz=128\';this.onerror=function(){this.parentNode.innerText=\'TF\'}"></div><div><div class="fn">True Forex Funds</div><div class="fco">🇭🇺 2021</div></div></div></td><td><span class="b bb">2-Phase</span></td><td><span class="po">$490</span><span class="pn">$220</span><span class="px">-55%</span></td><td><span class="b br">5%/10%</span></td><td><span class="b bg">85%</span></td><td><span class="b by">7j</span></td><td><div class="sr"><span class="ss">★★★★☆</span><span class="snum">4.0</span></div></td><td><span class="b bg">News ✓</span> <span class="b bg">Swing ✓</span></td><td><span class="bbn" onclick="openModal('tff')">🚫 ~25</span></td><td><div class="pt" onclick="copy()">PANDA</div></td><td><div class="brow"><a href="#" class="btn">→</a><button class="btn2" data-fr>Détails</button><button class="btn2" data-en>Details</button></div></td></tr>
+<tr class="ft" data-tags="2phase gold nas100 fast news swing mt5"><td><div class="fc"><div class="fav"><div style="width:100%;height:100%;background:#1a1a1a;border-radius:8px;display:flex;align-items:center;justify-content:center;overflow:hidden">
+<svg viewBox="0 0 56 56" width="48" height="48" xmlns="http://www.w3.org/2000/svg">
+  <rect x="20" y="8" width="16" height="16" transform="rotate(45,28,16)" fill="none" stroke="white" stroke-width="2.5"/>
+  <line x1="28" y1="12" x2="28" y2="24" stroke="white" stroke-width="2"/>
+  <line x1="22" y1="18" x2="34" y2="18" stroke="white" stroke-width="2"/>
+  <text x="50%" y="80%" font-family="Arial Black,sans-serif" font-weight="900" font-size="10" fill="white" text-anchor="middle" dominant-baseline="middle" letter-spacing="1">FTMO</text>
+</svg></div> onerror="this.src=\'https://www.google.com/s2/favicons?domain=ftmo.com&sz=128\';this.onerror=function(){this.parentNode.innerText=\'FT\'}"></div><div><div class="ftag">★ Top</div><div class="fn">FTMO</div><div class="fco">🇨🇿 2015</div></div></div></td><td><span class="b bb">2-Phase</span></td><td><span class="po">€540</span><span class="pn">€243</span><span class="px">-55%</span></td><td><span class="b br">5%/10%</span></td><td><span class="b bg">90%</span></td><td><span class="b bg">14j</span></td><td><div class="sr"><span class="ss">★★★★★</span><span class="snum">4.8</span></div></td><td><span class="b bg">News ✓</span> <span class="b bg">Swing ✓</span></td><td><span class="bbn" onclick="openModal('ftmo')">🚫 ~20</span></td><td><div class="pt" onclick="copy()">PANDA</div></td><td><a href="#" class="btn">→</a></td></tr>
+<tr data-tags="2phase gold nas100 split100 news swing mt5"><td><div class="fc"><div class="fav"><div style="width:100%;height:100%;background:#1a1f4a;border-radius:8px;display:flex;align-items:center;justify-content:center;overflow:hidden">
+<svg viewBox="0 0 56 56" width="48" height="48" xmlns="http://www.w3.org/2000/svg">
+  <text x="6" y="26" font-family="Arial Black,sans-serif" font-weight="900" font-size="11" fill="#8899cc">The</text>
+  <text x="50%" y="72%" font-family="Arial Black,sans-serif" font-weight="900" font-size="22" fill="#f0c040" text-anchor="middle" dominant-baseline="middle">5%</text>
+</svg></div> onerror="this.src=\'https://www.google.com/s2/favicons?domain=the5ers.com&sz=128\';this.onerror=function(){this.parentNode.innerText=\'5%\'}"></div><div><div class="fn">The 5%ers</div><div class="fco">🇮🇱 2016</div></div></div></td><td><span class="b bb">2-Phase</span></td><td><span class="po">$299</span><span class="pn">$155</span><span class="px">-48%</span></td><td><span class="b br">4%/8%</span></td><td><span class="b bg">100%</span></td><td><span class="b by">7j</span></td><td><div class="sr"><span class="ss">★★★★☆</span><span class="snum">4.5</span></div></td><td><span class="b bg">News ✓</span> <span class="b bg">Swing ✓</span></td><td><span class="bbn" onclick="openModal('5ers')">🚫 ~25</span></td><td><div class="pt" onclick="copy()">PANDA</div></td><td><div class="brow"><a href="#" class="btn">→</a><button class="btn2" data-fr>Détails</button><button class="btn2" data-en>Details</button></div></td></tr>
+<tr data-tags="1phase gold nas100 fast news swing mt5"><td><div class="fc"><div class="fav"><div style="width:100%;height:100%;background:linear-gradient(135deg,#000510,#000e28);border-radius:8px;display:flex;align-items:center;justify-content:center;overflow:hidden">
+<svg viewBox="0 0 60 40" width="56" height="38" xmlns="http://www.w3.org/2000/svg">
+  <text x="3" y="18" font-family="Arial Black,sans-serif" font-weight="900" font-size="8.5" fill="white" letter-spacing="-0.3">MyFunded</text>
+  <text x="3" y="31" font-family="Arial Black,sans-serif" font-weight="900" font-size="8.5" fill="#536dfe" letter-spacing="-0.3">FX</text>
+</svg></div> onerror="this.src=\'https://www.google.com/s2/favicons?domain=myfundedfx.com&sz=128\';this.onerror=function(){this.parentNode.innerText=\'MF\'}"></div><div><div class="fn">MyFundedFX</div><div class="fco">🇬🇧 2022</div></div></div></td><td><span class="b bg">1-Phase</span></td><td><span class="po">$588</span><span class="pn">$294</span><span class="px">-50%</span></td><td><span class="b br">5%/10%</span></td><td><span class="b bg">85%</span></td><td><span class="b bg">48h</span></td><td><div class="sr"><span class="ss">★★★★☆</span><span class="snum">4.3</span></div></td><td><span class="b bg">News ✓</span> <span class="b bg">Swing ✓</span></td><td><span class="bbn" onclick="openModal('myfunded')">🚫 ~30</span></td><td><div class="pt" onclick="copy()">PANDA</div></td><td><div class="brow"><a href="#" class="btn">→</a><button class="btn2" data-fr>Détails</button><button class="btn2" data-en>Details</button></div></td></tr>
+<tr data-tags="2phase gold nas100 fast news swing mt5"><td><div class="fc"><div class="fav"><div style="width:100%;height:100%;background:linear-gradient(135deg,#001420,#002040);border-radius:8px;display:flex;align-items:center;justify-content:center;overflow:hidden">
+<svg viewBox="0 0 56 56" width="48" height="48" xmlns="http://www.w3.org/2000/svg">
+  <rect x="6" y="6" width="44" height="44" rx="10" fill="#0a3060"/>
+  <circle cx="20" cy="22" r="6" fill="white" opacity="0.9"/>
+  <circle cx="20" cy="22" r="3" fill="#0a3060"/>
+  <path d="M26 22 Q36 14 44 22 Q44 36 26 44 Q26 36 26 22" fill="white" opacity="0.9"/>
+  <circle cx="20" cy="38" r="4" fill="white" opacity="0.5"/>
+</svg></div> onerror="this.src=\'https://www.google.com/s2/favicons?domain=fundingpips.com&sz=128\';this.onerror=function(){this.parentNode.innerText=\'FP\'}"></div><div><div class="fn">Funding Pips</div><div class="fco">🇦🇪 2022</div></div></div></td><td><span class="b bb">2-Phase</span></td><td><span class="po">$499</span><span class="pn">$219</span><span class="px">-56%</span></td><td><span class="b br">4%/8%</span></td><td><span class="b bg">90%</span></td><td><span class="b by">7j</span></td><td><div class="sr"><span class="ss">★★★★☆</span><span class="snum">4.4</span></div></td><td><span class="b bg">News ✓</span> <span class="b bg">Swing ✓</span></td><td><span class="bbn" onclick="openModal('fundingpips')">🚫 ~15</span></td><td><div class="pt" onclick="copy()">PANDA</div></td><td><div class="brow"><a href="#" class="btn">→</a><button class="btn2" data-fr>Détails</button><button class="btn2" data-en>Details</button></div></td></tr>
+<tr data-tags="2phase gold nas100 mt5"><td><div class="fc"><div class="fav"><div style="width:100%;height:100%;background:linear-gradient(135deg,#001a2a,#003040);border-radius:8px;display:flex;align-items:center;justify-content:center;overflow:hidden">
+<svg viewBox="0 0 56 56" width="48" height="48" xmlns="http://www.w3.org/2000/svg">
+  <text x="50%" y="60%" font-family="Arial Black,sans-serif" font-weight="900" font-size="28" fill="#00e5ff" text-anchor="middle" dominant-baseline="middle">E8</text>
+</svg></div> onerror="this.src=\'https://www.google.com/s2/favicons?domain=e8markets.com&sz=128\';this.onerror=function(){this.parentNode.innerText=\'E8\'}"></div><div><div class="fn">E8 Markets CFD</div><div class="fco">🇺🇸 2022</div></div></div></td><td><span class="b bb">2-Phase</span></td><td><span class="po">$248</span><span class="pn">$124</span><span class="px">-50%</span></td><td><span class="b br">5%/8%</span></td><td><span class="b bg">80%</span></td><td><span class="b bg">14j</span></td><td><div class="sr"><span class="ss">★★★★☆</span><span class="snum">4.2</span></div></td><td><span class="b bg">News ✓</span> <span class="b bg">Swing ✓</span></td><td><span class="bbn" onclick="openModal('e8cfd')">🚫 ~35</span></td><td><div class="pt" onclick="copy()">PANDA</div></td><td><div class="brow"><a href="#" class="btn">→</a><button class="btn2" data-fr>Détails</button><button class="btn2" data-en>Details</button></div></td></tr>
+<tr data-tags="instant gold nas100 fast news mt5"><td><div class="fc"><div class="fav"><div style="width:100%;height:100%;background:linear-gradient(135deg,#1a1000,#2a1800);border-radius:8px;display:flex;align-items:center;justify-content:center;overflow:hidden">
+<svg viewBox="0 0 60 40" width="56" height="38" xmlns="http://www.w3.org/2000/svg">
+  <text x="3" y="18" font-family="Arial Black,sans-serif" font-weight="900" font-size="7.5" fill="#ffab40" letter-spacing="-0.3">INSTANT</text>
+  <text x="3" y="31" font-family="Arial,sans-serif" font-weight="700" font-size="7.5" fill="rgba(255,255,255,0.7)" letter-spacing="-0.3">FUNDING</text>
+</svg></div> onerror="this.src=\'https://www.google.com/s2/favicons?domain=instantfunding.com&sz=128\';this.onerror=function(){this.parentNode.innerText=\'IF\'}"></div><div><div class="fn">Instant Funding</div><div class="fco">🇨🇾 2021</div></div></div></td><td><span class="b by">Instant</span></td><td><span class="po">$999</span><span class="pn">$599</span><span class="px">-40%</span></td><td><span class="b br">5%/10%</span></td><td><span class="b bg">75%</span></td><td><span class="b bg">48h</span></td><td><div class="sr"><span class="ss">★★★★☆</span><span class="snum">4.1</span></div></td><td><span class="b bg">News ✓</span> <span class="b br">No swing</span></td><td><span class="bbn" onclick="openModal('instantcfd')">🚫 ~30</span></td><td><div class="pt" onclick="copy()">PANDA</div></td><td><div class="brow"><a href="#" class="btn">→</a><button class="btn2" data-fr>Détails</button><button class="btn2" data-en>Details</button></div></td></tr>
+<tr data-tags="2phase gold nas100 news swing mt5"><td><div class="fc"><div class="fav"><div style="width:100%;height:100%;background:linear-gradient(135deg,#001a0a,#002e10);border-radius:8px;display:flex;align-items:center;justify-content:center;overflow:hidden">
+<svg viewBox="0 0 60 40" width="56" height="38" xmlns="http://www.w3.org/2000/svg">
+  <text x="3" y="14" font-family="Arial Black,sans-serif" font-weight="900" font-size="7" fill="#b9f6ca" letter-spacing="-0.3">TRUE FOREX</text>
+  <text x="3" y="30" font-family="Arial Black,sans-serif" font-weight="900" font-size="11" fill="#00c853" letter-spacing="0.5">FUNDS</text>
+</svg></div> onerror="this.src=\'https://www.google.com/s2/favicons?domain=trueforexfunds.com&sz=128\';this.onerror=function(){this.parentNode.innerText=\'TF\'}"></div><div><div class="fn">True Forex Funds</div><div class="fco">🇭🇺 2021</div></div></div></td><td><span class="b bb">2-Phase</span></td><td><span class="po">$490</span><span class="pn">$220</span><span class="px">-55%</span></td><td><span class="b br">5%/10%</span></td><td><span class="b bg">85%</span></td><td><span class="b by">7j</span></td><td><div class="sr"><span class="ss">★★★★☆</span><span class="snum">4.0</span></div></td><td><span class="b bg">News ✓</span> <span class="b bg">Swing ✓</span></td><td><span class="bbn" onclick="openModal('tff')">🚫 ~25</span></td><td><div class="pt" onclick="copy()">PANDA</div></td><td><div class="brow"><a href="#" class="btn">→</a><button class="btn2" data-fr>Détails</button><button class="btn2" data-en>Details</button></div></td></tr>
         </tbody>
       </table>
     </div>
@@ -1333,7 +1445,8 @@ function setLang(lang,btn){
 /* ══ DEALS TAB ══ */
 function swDeals(type,btn){
   document.querySelectorAll('.dtab').forEach(b=>b.classList.remove('on'));
-  document.querySelectorAll('.deal-panel').forEach(p=>p.classList.remove('on'));
+  document.getElementById('deal-futures').classList.remove('on');
+  document.getElementById('deal-cfd').classList.remove('on');
   btn.classList.add('on');
   document.getElementById('deal-'+type).classList.add('on');
 }
