@@ -56,11 +56,7 @@ body::before{
 @media(max-width:900px){.bamboo-decor{display:none}}
 
 /* ── PANDA LOGO SVG ── */
-.panda-logo{
-  width:34px;height:34px;flex-shrink:0;
-  animation:pandaBob 3s ease-in-out infinite;
-}
-@keyframes pandaBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+.panda-logo{width:34px;height:34px;flex-shrink:0}
 
 /* ── BAMBOO LEAF ACCENT ── */
 .leaf-accent{
@@ -142,10 +138,10 @@ nav{position:fixed;top:36px;left:0;right:0;z-index:200;
 .hero{position:relative;z-index:2;min-height:100vh;
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   padding:126px 20px 56px;text-align:center}
-.hero-glow{position:absolute;top:42%;left:50%;transform:translate(-50%,-50%);
-  width:600px;height:480px;
-  background:radial-gradient(ellipse,rgba(0,214,143,.07) 0%,transparent 68%);
-  pointer-events:none}
+.hero-glow{position:absolute;top:55%;left:50%;transform:translate(-50%,-50%);
+  width:700px;height:400px;
+  background:radial-gradient(ellipse,rgba(0,214,143,.05) 0%,transparent 65%);
+  pointer-events:none;border-radius:50%}
 .pill{display:inline-flex;align-items:center;gap:8px;
   background:rgba(255,255,255,.04);border:1px solid var(--border2);
   border-radius:100px;padding:6px 16px;font-size:11px;font-weight:600;
@@ -622,7 +618,7 @@ footer{position:relative;z-index:2;background:var(--bg1);border-top:1px solid va
   <div class="hero-glow"></div>
   <!-- Panda floating hero icon -->
   <div style="margin-bottom:16px;animation:fup .6s ease forwards;opacity:0">
-    <svg width="80" height="80" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter:drop-shadow(0 0 20px rgba(92,207,122,.3))">
+    <svg width="80" height="80" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:.95">
       <circle cx="9" cy="10" r="6" fill="#1a1a1a"/>
       <circle cx="31" cy="10" r="6" fill="#1a1a1a"/>
       <circle cx="9" cy="10" r="3.5" fill="#2a2a2a"/>
