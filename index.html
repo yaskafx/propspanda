@@ -1026,6 +1026,144 @@ footer{position:relative;z-index:2;background:var(--bg1);border-top:1px solid va
   </div>
 </div>
 
+<!-- ═══════ CFD PANEL ═══════ -->
+<div id="panel-cfd" class="panel" style="display:none!important">
+<section class="sec" id="cfd">
+  <div class="inner">
+    <div class="sh rev">
+      <div class="slbl">Forex · XAUUSD Gold · NAS100 · Indices</div>
+      <div class="sttl"><span data-fr>PROPFIRMS <span class="ac">CFD</span></span><span data-en>CFD <span class="ac">PROP FIRMS</span></span></div>
+    </div>
+    <div class="filters-wrap rev">
+      <div class="search-row">
+        <input type="text" class="search-box" placeholder="🔍 Search / Rechercher..." oninput="applyFilters('cfd')" id="search-cfd">
+        <span class="rc"><span id="rc-cfd-n">7</span> <span data-fr>firms affichées</span><span data-en>firms shown</span></span>
+      </div>
+      <div class="filter-row">
+        <span class="fl" data-fr>Filtrer :</span><span class="fl" data-en>Filter:</span>
+        <button class="fb on" data-f="all" onclick="setFilter('cfd','all',this)" data-fr>Toutes</button>
+        <button class="fb on" data-f="all" onclick="setFilter('cfd','all',this)" data-en>All</button>
+        <button class="fb" data-f="1phase" onclick="setFilter('cfd','1phase',this)">1-Phase</button>
+        <button class="fb" data-f="2phase" onclick="setFilter('cfd','2phase',this)">2-Phase</button>
+        <button class="fb" data-f="instant" onclick="setFilter('cfd','instant',this)">Instant</button>
+        <button class="fb" data-f="gold" onclick="setFilter('cfd','gold',this)">Gold XAUUSD</button>
+        <button class="fb" data-f="nas100" onclick="setFilter('cfd','nas100',this)">NAS100</button>
+        <button class="fb" data-f="fast" onclick="setFilter('cfd','fast',this)" data-fr>Payout rapide</button>
+        <button class="fb" data-f="fast" onclick="setFilter('cfd','fast',this)" data-en>Fast payout</button>
+        <button class="fb" data-f="split100" onclick="setFilter('cfd','split100',this)">100% Split</button>
+        <button class="fb" data-f="mt5" onclick="setFilter('cfd','mt5',this)">MT5</button>
+        <button class="fb" data-f="swing" onclick="setFilter('cfd','swing',this)">Swing OK</button>
+        <button class="fb" data-f="news" onclick="setFilter('cfd','news',this)">News OK</button>
+      </div>
+    </div>
+    <div class="tw rev">
+      <table id="tbl-cfd">
+        <thead><tr>
+          <th><span data-fr>Firm</span><span data-en>Firm</span></th>
+          <th>Type</th>
+          <th><span data-fr>$100k avec code</span><span data-en>$100k with code</span></th>
+          <th>Drawdown</th>
+          <th>Split</th>
+          <th>Payout</th>
+          <th><span data-fr>Note</span><span data-en>Rating</span></th>
+          <th><span data-fr>Règles</span><span data-en>Rules</span></th>
+          <th><span data-fr>Pays bannis</span><span data-en>Banned</span></th>
+          <th>Code</th><th></th>
+        </tr></thead>
+        <tbody id="tbody-cfd">
+
+<tr class="ft" data-tags="2phase gold nas100 fast news swing mt5">
+  <td><div class="fc"><div style="width:40px;height:40px;border-radius:9px;background:#1a1a1a url('https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://ftmo.com&size=128') center/28px no-repeat;border:1px solid rgba(255,255,255,.12);flex-shrink:0;min-width:40px;max-width:40px"></div><div><div class="ftag">★ Top</div><div class="fn">FTMO</div><div class="fco">🇨🇿 2015</div></div></div></td>
+  <td><span class="b bb">2-Phase</span></td>
+  <td><span class="po">€540</span><span class="pn">€243</span><span class="px">-55%</span></td>
+  <td><span class="b br">5%/10%</span></td><td><span class="b bg">90%</span></td><td><span class="b bg">14j</span></td>
+  <td><div class="sr"><span class="ss">★★★★★</span><span class="snum">4.8</span></div></td>
+  <td><span class="b bg">News ✓</span> <span class="b bg">Swing ✓</span></td>
+  <td><span class="bbn" onclick="openModal('ftmo')">🚫 ~20</span></td>
+  <td><div class="pt" onclick="copy()">PANDA</div></td>
+  <td><a href="#" class="btn">→</a></td>
+</tr>
+
+<tr data-tags="2phase gold nas100 split100 news swing mt5">
+  <td><div class="fc"><div style="width:40px;height:40px;border-radius:9px;background:#1a1f4a url('https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://the5ers.com&size=128') center/28px no-repeat;border:1px solid rgba(255,255,255,.12);flex-shrink:0;min-width:40px;max-width:40px"></div><div><div class="fn">The 5%ers</div><div class="fco">🇮🇱 2016</div></div></div></td>
+  <td><span class="b bb">2-Phase</span></td>
+  <td><span class="po">$299</span><span class="pn">$155</span><span class="px">-48%</span></td>
+  <td><span class="b br">4%/8%</span></td><td><span class="b bg">100%</span></td><td><span class="b by">7j</span></td>
+  <td><div class="sr"><span class="ss">★★★★☆</span><span class="snum">4.5</span></div></td>
+  <td><span class="b bg">News ✓</span> <span class="b bg">Swing ✓</span></td>
+  <td><span class="bbn" onclick="openModal('5ers')">🚫 ~25</span></td>
+  <td><div class="pt" onclick="copy()">PANDA</div></td>
+  <td><div class="brow"><a href="#" class="btn">→</a><button class="btn2">Détails</button></div></td>
+</tr>
+
+<tr data-tags="1phase gold nas100 fast news swing mt5">
+  <td><div class="fc"><div style="width:40px;height:40px;border-radius:9px;background:#000510 url('https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://myfundedfx.com&size=128') center/28px no-repeat;border:1px solid rgba(255,255,255,.12);flex-shrink:0;min-width:40px;max-width:40px"></div><div><div class="fn">MyFundedFX</div><div class="fco">🇬🇧 2022</div></div></div></td>
+  <td><span class="b bg">1-Phase</span></td>
+  <td><span class="po">$588</span><span class="pn">$294</span><span class="px">-50%</span></td>
+  <td><span class="b br">5%/10%</span></td><td><span class="b bg">85%</span></td><td><span class="b bg">48h</span></td>
+  <td><div class="sr"><span class="ss">★★★★☆</span><span class="snum">4.3</span></div></td>
+  <td><span class="b bg">News ✓</span> <span class="b bg">Swing ✓</span></td>
+  <td><span class="bbn" onclick="openModal('myfunded')">🚫 ~30</span></td>
+  <td><div class="pt" onclick="copy()">PANDA</div></td>
+  <td><div class="brow"><a href="#" class="btn">→</a><button class="btn2">Détails</button></div></td>
+</tr>
+
+<tr data-tags="2phase gold nas100 fast news swing mt5">
+  <td><div class="fc"><div style="width:40px;height:40px;border-radius:9px;background:#001420 url('https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://fundingpips.com&size=128') center/28px no-repeat;border:1px solid rgba(255,255,255,.12);flex-shrink:0;min-width:40px;max-width:40px"></div><div><div class="fn">Funding Pips</div><div class="fco">🇦🇪 2022</div></div></div></td>
+  <td><span class="b bb">2-Phase</span></td>
+  <td><span class="po">$499</span><span class="pn">$219</span><span class="px">-56%</span></td>
+  <td><span class="b br">4%/8%</span></td><td><span class="b bg">90%</span></td><td><span class="b by">7j</span></td>
+  <td><div class="sr"><span class="ss">★★★★☆</span><span class="snum">4.4</span></div></td>
+  <td><span class="b bg">News ✓</span> <span class="b bg">Swing ✓</span></td>
+  <td><span class="bbn" onclick="openModal('fundingpips')">🚫 ~15</span></td>
+  <td><div class="pt" onclick="copy()">PANDA</div></td>
+  <td><div class="brow"><a href="#" class="btn">→</a><button class="btn2">Détails</button></div></td>
+</tr>
+
+<tr data-tags="2phase gold nas100 mt5">
+  <td><div class="fc"><div style="width:40px;height:40px;border-radius:9px;background:#001a2a url('https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://e8markets.com&size=128') center/28px no-repeat;border:1px solid rgba(255,255,255,.12);flex-shrink:0;min-width:40px;max-width:40px"></div><div><div class="fn">E8 Markets CFD</div><div class="fco">🇺🇸 2022</div></div></div></td>
+  <td><span class="b bb">2-Phase</span></td>
+  <td><span class="po">$248</span><span class="pn">$124</span><span class="px">-50%</span></td>
+  <td><span class="b br">5%/8%</span></td><td><span class="b bg">80%</span></td><td><span class="b bg">14j</span></td>
+  <td><div class="sr"><span class="ss">★★★★☆</span><span class="snum">4.2</span></div></td>
+  <td><span class="b bg">News ✓</span> <span class="b bg">Swing ✓</span></td>
+  <td><span class="bbn" onclick="openModal('e8cfd')">🚫 ~35</span></td>
+  <td><div class="pt" onclick="copy()">PANDA</div></td>
+  <td><div class="brow"><a href="#" class="btn">→</a><button class="btn2">Détails</button></div></td>
+</tr>
+
+<tr data-tags="instant gold nas100 fast news mt5">
+  <td><div class="fc"><div style="width:40px;height:40px;border-radius:9px;background:#1a1000 url('https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://instantfunding.com&size=128') center/28px no-repeat;border:1px solid rgba(255,255,255,.12);flex-shrink:0;min-width:40px;max-width:40px"></div><div><div class="fn">Instant Funding</div><div class="fco">🇨🇾 2021</div></div></div></td>
+  <td><span class="b by">Instant</span></td>
+  <td><span class="po">$999</span><span class="pn">$599</span><span class="px">-40%</span></td>
+  <td><span class="b br">5%/10%</span></td><td><span class="b bg">75%</span></td><td><span class="b bg">48h</span></td>
+  <td><div class="sr"><span class="ss">★★★★☆</span><span class="snum">4.1</span></div></td>
+  <td><span class="b bg">News ✓</span> <span class="b br">No swing</span></td>
+  <td><span class="bbn" onclick="openModal('instantcfd')">🚫 ~30</span></td>
+  <td><div class="pt" onclick="copy()">PANDA</div></td>
+  <td><div class="brow"><a href="#" class="btn">→</a><button class="btn2">Détails</button></div></td>
+</tr>
+
+<tr data-tags="2phase gold nas100 news swing mt5">
+  <td><div class="fc"><div style="width:40px;height:40px;border-radius:9px;background:#001a0a url('https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://trueforexfunds.com&size=128') center/28px no-repeat;border:1px solid rgba(255,255,255,.12);flex-shrink:0;min-width:40px;max-width:40px"></div><div><div class="fn">True Forex Funds</div><div class="fco">🇭🇺 2021</div></div></div></td>
+  <td><span class="b bb">2-Phase</span></td>
+  <td><span class="po">$490</span><span class="pn">$220</span><span class="px">-55%</span></td>
+  <td><span class="b br">5%/10%</span></td><td><span class="b bg">85%</span></td><td><span class="b by">7j</span></td>
+  <td><div class="sr"><span class="ss">★★★★☆</span><span class="snum">4.0</span></div></td>
+  <td><span class="b bg">News ✓</span> <span class="b bg">Swing ✓</span></td>
+  <td><span class="bbn" onclick="openModal('tff')">🚫 ~25</span></td>
+  <td><div class="pt" onclick="copy()">PANDA</div></td>
+  <td><div class="brow"><a href="#" class="btn">→</a><button class="btn2">Détails</button></div></td>
+</tr>
+
+        </tbody>
+      </table>
+    </div>
+    <div class="no-res" id="nores-cfd"><strong data-fr>Aucune firm trouvée</strong><strong data-en>No firm found</strong></div>
+  </div>
+</section>
+</div>
+
 <!-- ═══════ FUTURES TABLE PANEL ═══════ -->
 <div id="panel-futures" class="panel on">
 <section class="sec" id="futures">
@@ -1087,7 +1225,7 @@ footer{position:relative;z-index:2;background:var(--bg1);border-top:1px solid va
         </tbody>
       </table>
     </div>
-    <div class="no-res" id="nores-cfd"><strong data-fr>Aucune firm trouvée</strong><strong data-en>No firm found</strong></div>
+    <div class="no-res" id="nores-futures"><strong data-fr>Aucune firm trouvée</strong><strong data-en>No firm found</strong></div>
   </div>
 </section>
 </div>
@@ -1371,9 +1509,18 @@ function swDeals(type,btn){
 /* ══ PANEL SWITCH ══ */
 function swPanel(type,btn){
   document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));
-  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
   btn.classList.add('on');
-  document.getElementById('panel-'+type).classList.add('on');
+  // Hide all panels
+  const pf=document.getElementById('panel-futures');
+  const pc=document.getElementById('panel-cfd');
+  pf.classList.remove('on');
+  pc.classList.remove('on');
+  pf.style.cssText='display:none!important';
+  pc.style.cssText='display:none!important';
+  // Show chosen
+  const target=document.getElementById('panel-'+type);
+  target.classList.add('on');
+  target.style.cssText='display:block!important';
   setTimeout(rc,50);
 }
 
