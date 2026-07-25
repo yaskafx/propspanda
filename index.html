@@ -467,7 +467,6 @@
     <nav class="nav">
       <a href="#" class="active" data-page="classroom">Formation</a>
       <a href="#" data-page="community">Communauté</a>
-      <a href="#" data-page="calendar">Calendrier</a>
       <a href="#" data-page="members">Membres</a>
     </nav>
     <div class="right">
@@ -543,16 +542,21 @@
 /* =====================================================================
    YASKA ROOM — plateforme de formation
    ---------------------------------------------------------------------
-   ⚙️  CE QUE TU DOIS MODIFIER :
-   1) MEMBERS  → la liste des membres autorisés (email / mot de passe)
-   2) MODULES  → tes modules + leçons + liens vidéos (YouTube/Vimeo/mp4)
-   Pour une vidéo, mets dans "video" :
-     - un lien YouTube  : "https://www.youtube.com/watch?v=XXXX"
-     - un lien Vimeo    : "https://vimeo.com/123456789"
-     - un fichier .mp4  : "videos/module1-leçon1.mp4"
-     - ou laisse ""     : un placeholder s'affiche
-   ⚠️ Sécurité : sur un site statique (GitHub Pages) ce login bloque
-      le public mais n'est PAS infaillible. Voir mes notes de fin.
+   ⚙️  AJOUTER UNE VIDÉO À UN MODULE :
+   Dans MODULES ci-dessous, trouve le module voulu et remplis le champ
+   "video" de sa leçon. Exemples :
+     video:"https://www.youtube.com/watch?v=XXXXXXXXXXX"   (YouTube)
+     video:"https://vimeo.com/123456789"                  (Vimeo)
+     video:"videos/strategie.mp4"                          (fichier local)
+   Laisse video:"" pour afficher un emplacement vide en attendant.
+
+   ➕  PLUSIEURS VIDÉOS DANS UN MÊME MODULE :
+   Ajoute une ligne dans "lessons" (copie une leçon existante et change
+   id, title, video). Chaque leçon = une vidéo dans le module.
+
+   👤  MEMBRES : modifie la liste MEMBERS (email / mot de passe).
+   ⚠️  Sécurité : ce login bloque le public mais n'est pas infaillible
+       sur un site statique. Voir mes notes de fin.
    ===================================================================== */
 
 const MEMBERS = [
@@ -565,98 +569,116 @@ const MODULES = [
     id:"intro", title:"Introduction",
     desc:"Les bases à connaître dès le départ.",
     lessons:[
-      { id:"i1", title:"Bienvenue dans YASKA ROOM", dur:"6 min", video:"",
+      { id:"i1", title:"Bienvenue dans YASKA ROOM", dur:"", video:"",
         desc:"Ce qui t'attend, comment utiliser la plateforme et poser les bonnes fondations." },
-      { id:"i2", title:"Les marchés : Gold (XAUUSD) & NQ100", dur:"12 min", video:"",
+      { id:"i2", title:"Les marchés : Gold (XAUUSD) & NQ100", dur:"", video:"",
         desc:"Pourquoi on trade ces deux actifs, leurs comportements et leurs sessions." },
-      { id:"i3", title:"Le vocabulaire essentiel", dur:"10 min", video:"",
+      { id:"i3", title:"Le vocabulaire essentiel", dur:"", video:"",
         desc:"Pips, spread, lot, RR, liquidité… le lexique pour tout comprendre." },
-      { id:"i4", title:"Configurer TradingView", dur:"9 min", video:"",
-        desc:"Mise en place propre de ton espace de travail et de l'indicateur YASKA ROOM." },
     ]
   },
   {
-    id:"mindset", title:"Mindset",
-    desc:"Le module qui garantit tes résultats.",
+    id:"strategie", title:"Stratégie complète",
+    desc:"La méthode YASKA de A à Z.",
     lessons:[
-      { id:"m1", title:"La psychologie du trader", dur:"14 min", video:"",
-        desc:"Pourquoi 90% du résultat se joue dans la tête, pas dans la stratégie." },
-      { id:"m2", title:"Gérer ses émotions", dur:"11 min", video:"",
-        desc:"Peur, avidité, revenge trading : les reconnaître et les neutraliser." },
-      { id:"m3", title:"Discipline & routine", dur:"9 min", video:"",
-        desc:"Construire une routine qui rend la discipline automatique." },
+      { id:"str1", title:"La stratégie complète", dur:"", video:"",
+        desc:"L'intégralité du système de trading YASKA, étape par étape." },
     ]
   },
   {
-    id:"structure", title:"Structure",
-    desc:"Structure de marché & bias multi-timeframe.",
-    lessons:[
-      { id:"s1", title:"Lire la structure de marché", dur:"16 min", video:"",
-        desc:"Highs, lows, BOS, CHoCH sur M15 / H1 / H4 / Daily / Weekly." },
-      { id:"s2", title:"Le bias multi-timeframe (EMA50)", dur:"13 min", video:"",
-        desc:"Aligner les timeframes pour trader dans le sens du flux dominant." },
-      { id:"s3", title:"Les zones de polarité", dur:"12 min", video:"",
-        desc:"Repérer les zones qui basculent support/résistance et les exploiter." },
-    ]
-  },
-  {
-    id:"obfvg", title:"Order Blocks & FVG",
+    id:"ob-fvg", title:"Order Block & FVG",
     desc:"Les zones institutionnelles qui font la différence.",
     lessons:[
-      { id:"o1", title:"Les Order Blocks", dur:"15 min", video:"",
-        desc:"Identifier les OB valides et distinguer les vrais des pièges." },
-      { id:"o2", title:"Fair Value Gaps & mitigation", dur:"14 min", video:"",
-        desc:"Détecter les FVG, comprendre leur comblement et leur logique." },
-      { id:"o3", title:"Placement des stops", dur:"10 min", video:"",
-        desc:"Où placer ton SL avec OB/FVG pour un risque minimal et propre." },
+      { id:"ob1", title:"Order Blocks & Fair Value Gaps", dur:"", video:"",
+        desc:"Repérer les OB et FVG valides et les exploiter à l'entrée." },
     ]
   },
   {
-    id:"strategy", title:"Stratégie Trendline",
-    desc:"Le cœur du système : Break TL & Retest TL.",
+    id:"ebook", title:"Ebook Break Trendline",
+    desc:"Le guide complet de la stratégie Break Trendline.",
     lessons:[
-      { id:"t1", title:"Détecter la trendline", dur:"12 min", video:"",
-        desc:"Tracer des trendlines valides et fiables, sans forcer le dessin." },
-      { id:"t2", title:"Le Break TL", dur:"15 min", video:"",
-        desc:"Le setup de cassure : conditions d'entrée, invalidation, exemples." },
-      { id:"t3", title:"Le Retest TL", dur:"15 min", video:"",
-        desc:"Attendre le retest pour une entrée plus précise et un meilleur RR." },
-      { id:"t4", title:"Fibonacci & confluences", dur:"13 min", video:"",
-        desc:"Superposer Fibo, polarité et OB/FVG pour des entrées A+." },
+      { id:"eb1", title:"Ebook Break Trendline", dur:"", video:"",
+        desc:"La stratégie Break Trendline expliquée en détail (vidéo ou lien de l'ebook)." },
     ]
   },
   {
-    id:"money", title:"Money Management",
-    desc:"Gestion du risque & prop firms.",
+    id:"proba", title:"Probabilités",
+    desc:"Penser en probabilités et gérer une série de trades.",
     lessons:[
-      { id:"g1", title:"Le risk management (RR 1:2)", dur:"12 min", video:"",
-        desc:"Calibrer ton risque par trade et raisonner en RR, pas en euros." },
-      { id:"g2", title:"Breakeven à TP1", dur:"9 min", video:"",
-        desc:"Sécuriser le trade et laisser courir sans stresser." },
-      { id:"g3", title:"Passer une évaluation prop firm", dur:"16 min", video:"",
-        desc:"Stratégie pour valider une éval (Tradeify, Alpha Futures…) proprement." },
+      { id:"pr1", title:"Raisonner en probabilités", dur:"", video:"",
+        desc:"Accepter les pertes, gérer une série et rester constant sur la durée." },
     ]
   },
   {
-    id:"backtest", title:"Backtesting",
-    desc:"Backtesting & tenue du journal.",
+    id:"indicateurs", title:"Indicateurs YASKA",
+    desc:"Installer et utiliser les indicateurs de la room.",
     lessons:[
-      { id:"b1", title:"La méthode de backtest", dur:"14 min", video:"",
-        desc:"Backtester le système correctement pour avoir une vraie confiance." },
-      { id:"b2", title:"Le journal de trades", dur:"11 min", video:"",
-        desc:"Quoi noter, comment l'analyser et progresser trade après trade." },
+      { id:"in1", title:"Les indicateurs YASKA", dur:"", video:"",
+        desc:"Mise en place et lecture des indicateurs (Bias, OB, FVG, polarité)." },
     ]
   },
   {
-    id:"live", title:"Passage à l'action",
-    desc:"Analyses & setups en direct.",
+    id:"checklist", title:"Checklist stratégie",
+    desc:"La checklist à valider avant chaque entrée.",
     lessons:[
-      { id:"l1", title:"Analyses live", dur:"20 min", video:"",
-        desc:"Décortiquer le marché en direct avec la méthode complète." },
-      { id:"l2", title:"Setups en direct", dur:"18 min", video:"",
-        desc:"Exécuter des trades en temps réel, du repérage à la sortie." },
-      { id:"l3", title:"Bilan hebdomadaire", dur:"12 min", video:"",
-        desc:"Faire le point chaque semaine pour rester sur la bonne trajectoire." },
+      { id:"ch1", title:"La checklist avant trade", dur:"", video:"",
+        desc:"Les conditions à cocher avant de prendre un trade, sans exception." },
+    ]
+  },
+  {
+    id:"psycho", title:"Psychologie",
+    desc:"Maîtriser le mental et les émotions du trader.",
+    lessons:[
+      { id:"ps1", title:"Psychologie du trader", dur:"", video:"",
+        desc:"Gérer la peur, l'avidité et la discipline pour tenir dans le temps." },
+    ]
+  },
+  {
+    id:"risk", title:"Risk & System Prop Firm",
+    desc:"Gestion du risque et système pour les prop firms.",
+    lessons:[
+      { id:"rk1", title:"Risk management & prop firms", dur:"", video:"",
+        desc:"Calibrer le risque et valider une évaluation prop firm proprement." },
+    ]
+  },
+  {
+    id:"scaling", title:"Scaling 10k/mois",
+    desc:"Passer à l'échelle et viser 10k par mois.",
+    lessons:[
+      { id:"sc1", title:"Scaling vers 10k/mois", dur:"", video:"",
+        desc:"Augmenter la taille et le nombre de comptes pour scaler tes revenus." },
+    ]
+  },
+  {
+    id:"backtest", title:"Backtest",
+    desc:"Backtester le système pour bâtir ta confiance.",
+    lessons:[
+      { id:"bt1", title:"La méthode de backtest", dur:"", video:"",
+        desc:"Backtester correctement le système et tenir ton journal de trades." },
+    ]
+  },
+  {
+    id:"ressources", title:"Ressources",
+    desc:"Tous les fichiers, liens et outils utiles.",
+    lessons:[
+      { id:"rs1", title:"Ressources de la room", dur:"", video:"",
+        desc:"Les fichiers, templates et liens à télécharger." },
+    ]
+  },
+  {
+    id:"classement", title:"Classement Prop Firms",
+    desc:"Le comparatif des meilleures prop firms.",
+    lessons:[
+      { id:"cl1", title:"Classement des prop firms", dur:"", video:"",
+        desc:"Le comparatif à jour (Tradeify, Alpha Futures…) avec les codes promo." },
+    ]
+  },
+  {
+    id:"tradingview", title:"Trader sur TradingView",
+    desc:"Configurer TradingView et exécuter tes trades.",
+    lessons:[
+      { id:"tv1", title:"Trader sur TradingView", dur:"", video:"",
+        desc:"Paramétrer TradingView et passer tes ordres. (Renomme ce module si besoin.)" },
     ]
   },
 ];
@@ -723,7 +745,6 @@ function showPage(page){
     $("#genericPage").classList.remove("hidden");
     const map = {
       community:["Communauté","Ici viendra le flux de la communauté : discussions, wins des membres et annonces."],
-      calendar:["Calendrier","Les lives, sessions d'analyse et événements de la room s'afficheront ici."],
       members:["Membres","La liste des membres de YASKA ROOM et le leaderboard arriveront ici."],
     };
     const [t,x] = map[page] || ["Bientôt disponible",""];
@@ -839,7 +860,7 @@ function renderLesson(){
       <span class="lr-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span>
       <span class="lr-body">
         <span class="lr-title">${i+1}. ${l.title}</span>
-        <span class="lr-dur">${l.dur}</span>
+        ${l.dur?`<span class="lr-dur">${l.dur}</span>`:""}
       </span>`;
     row.addEventListener("click", ()=>{ current.lessonId=l.id; renderLesson(); });
     list.appendChild(row);
