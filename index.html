@@ -330,6 +330,15 @@
   .player .ph .p-note{font-size:12.5px;color:rgba(245,240,230,.55);margin-top:8px}
 
   .lesson-info{margin-top:22px}
+  .video-fallback{
+    display:none;align-items:center;gap:6px;
+    margin-top:12px;font-size:13px;font-weight:500;
+    color:var(--muted);text-decoration:none;width:fit-content;
+    transition:color .15s;
+  }
+  .video-fallback.show{display:inline-flex}
+  .video-fallback:hover{color:var(--clay)}
+  .video-fallback svg{width:14px;height:14px}
   .lesson-info .l-eyebrow{
     font-size:12px;letter-spacing:.14em;text-transform:uppercase;
     color:var(--clay);font-weight:600;
@@ -501,6 +510,7 @@
         <div class="lesson-layout">
           <div>
             <div class="player" id="player"></div>
+            <a class="video-fallback" id="videoLink" target="_blank" rel="noopener"></a>
             <div class="lesson-info">
               <div class="l-eyebrow" id="lessonModLabel"></div>
               <h2 id="lessonTitle"></h2>
@@ -581,7 +591,7 @@ const MODULES = [
     id:"strategie", title:"Stratégie complète",
     desc:"La méthode YASKA de A à Z.",
     lessons:[
-      { id:"str1", title:"La stratégie complète", dur:"", video:"",
+      { id:"str1", title:"La stratégie complète", dur:"", video:"https://youtu.be/b9rr9bm0tz4",
         desc:"L'intégralité du système de trading YASKA, étape par étape." },
     ]
   },
@@ -828,6 +838,17 @@ function renderLesson(){
       <div class="p-t">${lesson.title}</div>
       <div class="p-note">Ajoute le lien de ta vidéo dans le code (champ « video »).</div>
     </div>`;
+
+  // lien de secours "ouvrir sur YouTube/Vimeo"
+  const vlink = $("#videoLink");
+  if(lesson.video && !/\.(mp4|webm|mov)$/i.test(lesson.video)){
+    vlink.href = lesson.video;
+    const label = /vimeo\.com/.test(lesson.video) ? "Ouvrir sur Vimeo" : "Ouvrir sur YouTube";
+    vlink.innerHTML = `${label} <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H9M17 7v8"/></svg>`;
+    vlink.classList.add("show");
+  } else {
+    vlink.classList.remove("show");
+  }
 
   // info
   $("#lessonModLabel").textContent = `Module ${MODULES.indexOf(m)+1} · ${m.title}`;
