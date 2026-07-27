@@ -559,16 +559,73 @@
 
   /* ============ RESPONSIVE ============ */
   @media (max-width:900px){
-    .lesson-layout{grid-template-columns:1fr}
+    .lesson-layout{grid-template-columns:1fr;gap:22px}
     .lessons-panel{position:static}
-    .nav{display:none}
   }
+
+  /* --- tablette : la barre d'onglets passe sous le logo --- */
+  @media (max-width:720px){
+    .topbar{
+      height:auto;flex-wrap:wrap;align-items:center;
+      padding:11px 18px 0;gap:12px;
+    }
+    .topbar .brand{order:1}
+    .topbar .right{order:2;margin-left:auto}
+    .nav{
+      order:3;flex-basis:100%;width:100%;margin:6px 0 0;
+      display:flex;border-top:1px solid var(--line);
+    }
+    .nav a{flex:1;text-align:center;padding:13px 6px;border-radius:0}
+    .nav a:hover{background:transparent}
+    .nav a.active::after{left:50%;transform:translateX(-50%);right:auto;width:30px;bottom:0}
+  }
+
+  /* --- mobile : espacements et tailles harmonisés --- */
   @media (max-width:560px){
-    .container{padding:0 18px}
-    .topbar{padding:0 16px;gap:12px}
-    .page-head h1{font-size:30px}
-    .thumb .t-title{font-size:25px}
-    .auth-card{padding:36px 26px 28px}
+    .container{padding:0 16px}
+    .main{padding:26px 0 60px}
+    .topbar{padding:11px 16px 0}
+    .topbar .brand .wordmark{font-size:15px;letter-spacing:.12em}
+    .logout{font-size:12.5px;padding:6px 8px}
+
+    .page-head{margin-bottom:24px}
+    .page-head h1{font-size:28px}
+    .page-head p{font-size:14.5px}
+    .global-progress{margin-top:18px}
+
+    .grid{grid-template-columns:1fr;gap:16px}
+    .thumb .t-title{font-size:26px}
+    .card-body{padding:16px 18px 18px}
+
+    .back{margin-bottom:16px}
+    .player .ph .p-t{font-size:18px}
+    .lesson-info{margin-top:18px}
+    .lesson-info h2{font-size:23px}
+    .lesson-info p{font-size:14.5px}
+
+    /* actions : bouton principal pleine largeur, prev/next symétriques */
+    .lesson-actions{gap:10px;margin-top:20px}
+    .btn-done{flex-basis:100%;justify-content:center}
+    .btn-ghost{flex:1;text-align:center}
+
+    /* cartes de contenu plus aérées */
+    .content-card{padding:22px 18px}
+    .content-card > h3{font-size:21px}
+    .pf-section{margin-top:20px;padding-top:18px}
+    .pf-offer{padding:16px}
+    .pf-btn{flex:1;justify-content:center}
+    .mindset-item{padding:14px 15px;gap:13px}
+    .tip-card{padding:14px 16px}
+    .pdf-reader iframe{height:62vh;min-height:380px}
+
+    .auth-card{padding:34px 24px 26px}
+  }
+
+  /* --- très petits écrans --- */
+  @media (max-width:380px){
+    .pf-rank li{flex-wrap:wrap}
+    .pf-rank .pf-code{margin-left:42px;margin-top:2px}
+    .card-meta{font-size:12px}
   }
 
   @media (prefers-reduced-motion:reduce){
