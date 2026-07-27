@@ -256,6 +256,24 @@
     display:flex;flex-direction:column;
   }
   .module-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);border-color:#2E4A82}
+  /* carte verrouillée */
+  .module-card.locked{cursor:not-allowed;opacity:.72}
+  .module-card.locked:hover{transform:none;box-shadow:var(--shadow);border-color:var(--line)}
+  .module-card.locked .thumb{filter:grayscale(.55) brightness(.82)}
+  .module-card.locked .play{display:none}
+  .lock-badge{
+    position:absolute;z-index:3;inset:0;display:grid;place-items:center;
+    background:rgba(7,11,20,.55);backdrop-filter:blur(1px);
+  }
+  .lock-badge .lock-circle{
+    width:52px;height:52px;border-radius:50%;
+    background:rgba(15,22,38,.85);border:1px solid rgba(147,197,253,.35);
+    display:grid;place-items:center;color:#93C5FD;
+    box-shadow:0 6px 20px rgba(0,0,0,.4);
+  }
+  .lock-badge svg{width:24px;height:24px}
+  .card-lock-note{color:var(--muted);font-size:12.5px;font-weight:500;display:inline-flex;align-items:center;gap:6px}
+  .card-lock-note svg{width:13px;height:13px}
 
   .thumb{
     position:relative;aspect-ratio:16/9;
@@ -357,6 +375,11 @@
     border-radius:11px;padding:11px 15px;font-size:15px;font-weight:500;color:var(--ink);
   }
   .pf-rank .medal{font-size:19px;line-height:1;flex:none}
+  .pf-rank .pf-code{
+    margin-left:auto;font-size:11.5px;font-weight:700;letter-spacing:.02em;
+    color:#86EFAC;background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.32);
+    padding:3px 10px;border-radius:99px;white-space:nowrap;
+  }
   .pf-rank .rk{font-size:12px;color:var(--muted);font-weight:600;width:16px;flex:none}
   .pf-list{list-style:none;display:flex;flex-wrap:wrap;gap:8px}
   .pf-list li{
@@ -716,7 +739,7 @@ const MEMBERS = [
 
 const MODULES = [
   {
-    id:"intro", title:"Introduction",
+    id:"intro", title:"Introduction", locked:true,
     desc:"Les bases à connaître dès le départ.",
     lessons:[
       { id:"i1", title:"Bienvenue dans YASKA ROOM", dur:"", video:"",
@@ -931,7 +954,7 @@ const MODULES = [
     ]
   },
   {
-    id:"ressources", title:"Ressources",
+    id:"ressources", title:"Ressources", locked:true,
     desc:"Tous les fichiers, liens et outils utiles.",
     lessons:[
       { id:"rs1", title:"Toutes les ressources", dur:"", video:"",
@@ -965,9 +988,9 @@ const MODULES = [
           <div class="pf-section">
             <h4>🔹 Prop Firms Futures (marchés à terme)</h4>
             <ol class="pf-rank">
-              <li><span class="medal">🥇</span> Lucid</li>
-              <li><span class="medal">🥈</span> Tradeify</li>
-              <li><span class="medal">🥉</span> Alpha Futures</li>
+              <li><span class="medal">🥇</span> Tradeify <span class="pf-code">CODE YASKA · -40%</span></li>
+              <li><span class="medal">🥈</span> Alpha Futures <span class="pf-code">CODE YASKA · -40%</span></li>
+              <li><span class="medal">🥉</span> My Funded Futures</li>
             </ol>
             <p class="pf-note">Ces prop firms offrent des conditions solides, une bonne exécution et des règles adaptées aux traders sérieux.</p>
           </div>
@@ -983,11 +1006,11 @@ const MODULES = [
           </div>
 
           <div class="pf-offer">
-            <h4>🎯 Offres spéciales négociées pour toi</h4>
-            <p>En passant par ces liens, tu bénéficies de la meilleure promotion disponible actuellement.</p>
+            <h4>🎯 Offres spéciales — Code YASKA</h4>
+            <p>Utilise le code <strong>YASKA</strong> pour bénéficier de <strong>-40%</strong> sur Tradeify et Alpha Futures. En passant par ces liens, la réduction est appliquée automatiquement.</p>
             <div class="pf-btns">
-              <a class="pf-btn" href="https://app.alpha-futures.com/signup/SidAhmed019241/" target="_blank" rel="noopener">Rejoindre Alpha Futures →</a>
-              <a class="pf-btn" href="https://tradeify.co/?ref=YASKA" target="_blank" rel="noopener">Tradeify <span class="code">YASKA</span> →</a>
+              <a class="pf-btn" href="https://tradeify.co/?ref=YASKA" target="_blank" rel="noopener">Tradeify <span class="code">YASKA · -40%</span> →</a>
+              <a class="pf-btn" href="https://app.alpha-futures.com/signup/SidAhmed019241/" target="_blank" rel="noopener">Alpha Futures <span class="code">YASKA · -40%</span> →</a>
             </div>
           </div>
 
@@ -1033,8 +1056,9 @@ const mod = id => MODULES.find(m => m.id === id);
 const moduleDone = m => m.lessons.filter(l => progress[l.id]).length;
 const modulePct  = m => Math.round(moduleDone(m) / m.lessons.length * 100);
 function globalPct(){
-  const total = MODULES.reduce((a,m)=>a+m.lessons.length,0);
-  const done  = MODULES.reduce((a,m)=>a+moduleDone(m),0);
+  const active = MODULES.filter(m => !m.locked);
+  const total = active.reduce((a,m)=>a+m.lessons.length,0);
+  const done  = active.reduce((a,m)=>a+moduleDone(m),0);
   return total ? Math.round(done/total*100) : 0;
 }
 function initials(name){
@@ -1093,8 +1117,9 @@ function renderGrid(){
     const pct = modulePct(m);
     const done = moduleDone(m);
     const card = document.createElement("button");
-    card.className = "module-card";
-    card.setAttribute("aria-label", `Ouvrir le module ${m.title}`);
+    card.className = "module-card" + (m.locked ? " locked" : "");
+    card.setAttribute("aria-label", m.locked ? `${m.title} — verrouillé` : `Ouvrir le module ${m.title}`);
+    if(m.locked) card.setAttribute("aria-disabled","true");
     card.innerHTML = `
       <div class="thumb" style="background:
         radial-gradient(58% 68% at ${18+(i%3)*24}% ${18+(i%2)*20}%, rgba(59,130,246,.45), transparent 62%),
@@ -1104,17 +1129,23 @@ function renderGrid(){
           <span class="t-mod">Module ${i+1}</span>
         </div>
         <span class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+        ${m.locked ? `<div class="lock-badge"><div class="lock-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4.5" y="10.5" width="15" height="10" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg></div></div>` : ``}
       </div>
       <div class="card-body">
         <h3>${m.title}</h3>
         <div class="desc">${m.desc}</div>
         <div class="card-meta">
-          <span>${pct}%</span>
-          <span class="done">${done}/${m.lessons.length} leçons</span>
+          ${m.locked
+            ? `<span class="card-lock-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4.5" y="10.5" width="15" height="10" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg> Verrouillé</span><span class="done"></span>`
+            : `<span>${pct}%</span><span class="done">${done}/${m.lessons.length} leçons</span>`}
         </div>
-        <div class="track"><div class="fill" style="width:${pct}%"></div></div>
+        <div class="track"><div class="fill" style="width:${m.locked ? 0 : pct}%"></div></div>
       </div>`;
-    card.addEventListener("click", ()=>openModule(m.id));
+    if(m.locked){
+      card.disabled = true;
+    } else {
+      card.addEventListener("click", ()=>openModule(m.id));
+    }
     grid.appendChild(card);
   });
   const g = globalPct();
