@@ -104,18 +104,19 @@
     font-size:14.5px;
     margin:9px 0 28px;
   }
-  .field{margin-bottom:15px}
+  .field{margin-bottom:16px}
   .field label{
-    display:block;font-size:12.5px;font-weight:500;
-    color:var(--ink-soft);margin-bottom:6px;letter-spacing:.01em;
+    display:block;font-size:12px;font-weight:500;
+    color:var(--muted);margin-bottom:7px;letter-spacing:.03em;
+    text-transform:uppercase;
   }
   .field input{
     width:100%;
-    padding:12px 14px;
+    padding:13px 15px;
     font-size:15px;font-family:inherit;
     background:var(--paper-2);
     border:1px solid var(--line);
-    border-radius:11px;
+    border-radius:12px;
     color:var(--ink);
     transition:border-color .15s, background .15s, box-shadow .15s;
   }
@@ -125,10 +126,20 @@
     border-color:var(--clay);
     box-shadow:0 0 0 3px rgba(59,130,246,.18);
   }
+  .pw-wrap{position:relative}
+  .pw-wrap input{padding-right:46px}
+  .pw-toggle{
+    position:absolute;right:8px;top:50%;transform:translateY(-50%);
+    width:32px;height:32px;display:grid;place-items:center;
+    color:var(--muted);border-radius:9px;transition:color .15s,background .15s;
+  }
+  .pw-toggle:hover{color:var(--ink);background:var(--cream)}
+  .pw-toggle svg{width:18px;height:18px}
+
   .btn-primary{
     width:100%;
-    margin-top:8px;
-    padding:13px;
+    margin-top:10px;
+    padding:14px;
     font-size:15px;font-weight:600;
     color:#fff;
     background:linear-gradient(180deg,var(--clay),var(--clay-deep));
@@ -153,19 +164,53 @@
   @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
 
   .auth-foot{
-    margin-top:24px;padding-top:20px;
+    margin-top:22px;padding-top:20px;
     border-top:1px solid var(--line-soft);
     text-align:center;font-size:13.5px;color:var(--muted);
   }
   .auth-foot a{color:var(--clay);font-weight:500;text-decoration:none}
   .auth-foot a:hover{text-decoration:underline}
-  .demo-hint{
-    margin-top:16px;font-size:12px;color:#A39D8E;
-    text-align:center;line-height:1.55;
+
+  /* carte identifiants de démo */
+  .demo-card{
+    margin-top:20px;border:1px solid var(--line);
+    border-radius:14px;overflow:hidden;background:var(--paper-2);
   }
-  .demo-hint code{
-    background:var(--paper-2);border:1px solid var(--line);
-    padding:1px 6px;border-radius:5px;font-size:11.5px;color:var(--ink-soft);
+  .demo-head{
+    display:flex;align-items:center;justify-content:space-between;gap:10px;
+    padding:11px 14px;border-bottom:1px solid var(--line);
+  }
+  .demo-head > span{
+    font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--muted);font-weight:600;
+  }
+  .demo-fill{
+    font-size:12px;font-weight:600;color:var(--clay);
+    padding:5px 11px;border-radius:8px;transition:background .15s;white-space:nowrap;
+  }
+  .demo-fill:hover{background:rgba(59,130,246,.12)}
+  .cred-row{
+    display:flex;align-items:center;gap:12px;width:100%;text-align:left;
+    padding:12px 14px;transition:background .15s;
+  }
+  .cred-row + .cred-row{border-top:1px solid var(--line)}
+  .cred-row:hover{background:rgba(255,255,255,.03)}
+  .cred-label{font-size:11.5px;color:var(--muted);width:88px;flex:none;letter-spacing:.02em}
+  .cred-val{
+    flex:1;min-width:0;font-size:13.5px;color:var(--ink);
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  }
+  .cred-copy{
+    flex:none;display:inline-flex;align-items:center;gap:5px;
+    font-size:11.5px;font-weight:600;color:var(--clay);
+    background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.25);
+    padding:5px 9px;border-radius:8px;transition:all .15s;
+  }
+  .cred-copy svg{width:13px;height:13px}
+  .cred-row:hover .cred-copy{background:rgba(59,130,246,.18)}
+  .cred-row.copied .cred-copy{
+    color:#4ADE80;background:rgba(34,197,94,.12);border-color:rgba(34,197,94,.3);
   }
 
   /* ============ APP SHELL ============ */
@@ -557,6 +602,45 @@
   .empty h2{font-family:var(--serif);font-weight:600;font-size:24px;color:#F5F8FF}
   .empty p{color:var(--muted);font-size:15px;margin-top:10px}
 
+  /* ============ FOOTER LÉGAL ============ */
+  .site-footer{
+    border-top:1px solid var(--line);
+    background:var(--paper-2);
+    padding:32px 0 40px;
+    margin-top:auto;
+  }
+  .risk-notice{
+    background:linear-gradient(155deg,#1B1206,#241708);
+    border:1px solid #4A3820;border-radius:14px;
+    padding:18px 20px;
+  }
+  .risk-notice strong{
+    display:flex;align-items:center;gap:8px;
+    color:#FBBF24;font-size:13.5px;font-weight:700;
+    letter-spacing:.02em;margin-bottom:8px;
+  }
+  .risk-notice p{color:#C9BCA0;font-size:12.5px;line-height:1.65;margin:0}
+  .footer-bottom{
+    display:flex;flex-wrap:wrap;gap:6px 18px;
+    justify-content:space-between;align-items:center;
+    margin-top:20px;
+  }
+  .footer-bottom span{color:var(--muted);font-size:12.5px}
+  .footer-bottom .fb-brand{color:var(--ink-soft);font-weight:500}
+  .footer-links{display:flex;gap:16px}
+  .footer-links a{color:var(--muted);font-size:12.5px;text-decoration:none;transition:color .15s}
+  .footer-links a:hover{color:var(--clay)}
+  @media (max-width:560px){
+    .site-footer{padding:24px 0 32px}
+    .footer-bottom{flex-direction:column;align-items:flex-start;gap:8px}
+  }
+
+  /* mention légale sur l'écran de connexion */
+  .auth-legal{
+    margin-top:18px;text-align:center;
+    font-size:11px;color:#5A6478;line-height:1.55;
+  }
+
   /* ============ RESPONSIVE ============ */
   @media (max-width:900px){
     .lesson-layout{grid-template-columns:1fr;gap:22px}
@@ -653,18 +737,36 @@
     </div>
     <div class="field">
       <label for="password">Mot de passe</label>
-      <input type="password" id="password" placeholder="••••••••" autocomplete="current-password" />
+      <div class="pw-wrap">
+        <input type="password" id="password" placeholder="••••••••" autocomplete="current-password" />
+        <button type="button" class="pw-toggle" id="pwToggle" aria-label="Afficher le mot de passe">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+        </button>
+      </div>
     </div>
     <button class="btn-primary" id="loginBtn">Se connecter</button>
     <div class="auth-error" id="authError">Email ou mot de passe incorrect.</div>
 
-    <div class="auth-foot">
-      Pas encore membre ?
-      <a href="https://yaskaroom.com" target="_blank" rel="noopener">Rejoindre YASKA ROOM</a>
+    <div class="demo-card">
+      <div class="demo-head">
+        <span>Identifiants de démo</span>
+        <button type="button" class="demo-fill" id="demoFill">Remplir automatiquement</button>
+      </div>
+      <button type="button" class="cred-row" data-copy="membre@yaskaroom.com">
+        <span class="cred-label">Email</span>
+        <span class="cred-val">membre@yaskaroom.com</span>
+        <span class="cred-copy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>Copier</span>
+      </button>
+      <button type="button" class="cred-row" data-copy="yaska2025">
+        <span class="cred-label">Mot de passe</span>
+        <span class="cred-val">yaska2025</span>
+        <span class="cred-copy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>Copier</span>
+      </button>
     </div>
-    <p class="demo-hint">
-      Démo — identifiants de test :<br>
-      <code>membre@yaskaroom.com</code> · <code>yaska2025</code>
+
+    <p class="auth-legal">
+      © 2026 YASKA ROOM — Tous droits réservés.<br>
+      Contenu éducatif uniquement — ne constitue pas un conseil en investissement. Le trading comporte un risque de perte en capital.
     </p>
   </div>
 </div>
@@ -752,6 +854,21 @@
 
     </div>
   </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="risk-notice">
+        <strong><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:15px;height:15px"><path d="M12 9v4m0 4h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg> Avertissement sur les risques</strong>
+        <p>YASKA ROOM propose un contenu strictement éducatif et pédagogique. Aucun élément présent sur cette plateforme (vidéos, documents, indicateurs, analyses, exemples) ne constitue un conseil en investissement, une recommandation personnalisée, une sollicitation ou une incitation à acheter ou vendre un quelconque actif financier. Le trading sur les marchés (Forex, CFD, futures, indices, matières premières, crypto) comporte un risque élevé de perte en capital et ne convient pas à tous les investisseurs. Les performances passées ne préjugent en rien des performances futures et aucun résultat n'est garanti. Vous êtes seul responsable de vos décisions et ne devez engager que des sommes que vous pouvez vous permettre de perdre. En cas de doute, consultez un conseiller financier agréé.</p>
+      </div>
+      <div class="footer-bottom">
+        <span class="fb-brand">© 2026 YASKA ROOM — Tous droits réservés.</span>
+        <div class="footer-links">
+          <span>Contenu réservé aux membres · Reproduction interdite</span>
+        </div>
+      </div>
+    </div>
+  </footer>
 </div>
 
 <script>
@@ -1102,6 +1219,14 @@ const MODULES = [
         desc:"Passer et gérer tes trades depuis l'application mobile TradingView." },
     ]
   },
+  {
+    id:"rediffusion", title:"Rediffusion",
+    desc:"Les rediffusions des lives et sessions de la room.",
+    lessons:[
+      { id:"redif1", title:"Rediffusion — Live", dur:"", video:"https://youtu.be/dzxG7gSrfko",
+        desc:"Revois le live de la room en rediffusion." },
+    ]
+  },
 ];
 
 /* ---------- persistance légère (fonctionne en déploiement) ---------- */
@@ -1344,6 +1469,50 @@ $("#prevBtn").addEventListener("click", ()=>goRel(-1));
 $("#nextBtn").addEventListener("click", ()=>goRel(1));
 document.querySelectorAll(".nav a").forEach(a=>{
   a.addEventListener("click", e=>{ e.preventDefault(); showPage(a.dataset.page); });
+});
+
+/* --- login : copier identifiants, remplir auto, afficher mdp --- */
+function copyText(t){
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    return navigator.clipboard.writeText(t).catch(()=>fallbackCopy(t));
+  }
+  return fallbackCopy(t);
+}
+function fallbackCopy(t){
+  try{
+    const ta=document.createElement("textarea");
+    ta.value=t; ta.style.position="fixed"; ta.style.opacity="0";
+    document.body.appendChild(ta); ta.select();
+    document.execCommand("copy"); ta.remove();
+  }catch(e){}
+  return Promise.resolve();
+}
+document.querySelectorAll(".cred-row").forEach(row=>{
+  row.addEventListener("click", ()=>{
+    copyText(row.dataset.copy);
+    row.classList.add("copied");
+    const c=row.querySelector(".cred-copy");
+    const original=c.innerHTML;
+    c.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Copié`;
+    setTimeout(()=>{ row.classList.remove("copied"); c.innerHTML=original; }, 1500);
+  });
+});
+const demoFill=$("#demoFill");
+if(demoFill) demoFill.addEventListener("click", ()=>{
+  $("#email").value="membre@yaskaroom.com";
+  $("#password").value="yaska2025";
+  $("#authError").classList.remove("show");
+  $("#loginBtn").focus();
+});
+const pwToggle=$("#pwToggle");
+if(pwToggle) pwToggle.addEventListener("click", ()=>{
+  const p=$("#password");
+  const show = p.type==="password";
+  p.type = show ? "text" : "password";
+  pwToggle.setAttribute("aria-label", show ? "Masquer le mot de passe" : "Afficher le mot de passe");
+  pwToggle.innerHTML = show
+    ? `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-6.5 0-10-7-10-7a18.5 18.5 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c6.5 0 10 7 10 7a18.5 18.5 0 0 1-2.16 3.19M1 1l22 22"/><path d="M9.5 9.5a3 3 0 0 0 4 4"/></svg>`
+    : `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>`;
 });
 
 /* ----------------------------- BOOT ------------------------------ */
