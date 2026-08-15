@@ -328,6 +328,11 @@
       linear-gradient(155deg,var(--espresso-1),var(--espresso-2) 52%,var(--espresso-3));
     overflow:hidden;
   }
+  /* secours pour navigateurs sans aspect-ratio (webviews Instagram/TikTok, anciens Safari) */
+  @supports not (aspect-ratio: 1 / 1){
+    .thumb{aspect-ratio:auto;height:0;padding-bottom:56.25%;display:block}
+    .thumb .t-inner{position:absolute;top:50%;left:0;right:0;transform:translateY(-50%)}
+  }
   .thumb::after{
     content:"";position:absolute;inset:0;
     background:linear-gradient(0deg,rgba(0,0,0,.42),transparent 55%);
