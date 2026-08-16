@@ -2,6 +2,8 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8" />
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+<meta name="referrer" content="strict-origin-when-cross-origin" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>YASKA ROOM — Formation</title>
 <meta name="robots" content="noindex, nofollow" />
@@ -1692,6 +1694,9 @@ function renderLesson(){
     : `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg> Marquer comme terminé`;
 
   // prev / next
+  const single = m.lessons.length <= 1;
+  $("#prevBtn").style.display = single ? "none" : "";
+  $("#nextBtn").style.display = single ? "none" : "";
   $("#prevBtn").disabled = idx===0;
   $("#nextBtn").disabled = idx===m.lessons.length-1;
 
