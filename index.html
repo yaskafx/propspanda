@@ -339,11 +339,12 @@
     content:"";position:absolute;inset:0;
     background:linear-gradient(0deg,rgba(0,0,0,.42),transparent 55%);
   }
-  .thumb .t-inner{position:relative;z-index:1;text-align:center;padding:14px}
+  .thumb .t-inner{position:relative;z-index:1;text-align:center;padding:18px 26px;max-width:100%}
   .thumb .t-title{
     font-family:var(--serif);font-weight:600;color:#F5F8FF;
-    font-size:28px;line-height:1.1;letter-spacing:-.005em;
+    font-size:24px;line-height:1.15;letter-spacing:-.005em;
     text-shadow:0 2px 24px rgba(0,0,0,.5);
+    text-wrap:balance;overflow-wrap:break-word;hyphens:auto;
   }
   .thumb .t-mod{
     display:block;margin-top:8px;font-size:12px;
@@ -853,7 +854,7 @@
     .global-progress{margin-top:18px}
 
     .grid{grid-template-columns:1fr;gap:16px}
-    .thumb .t-title{font-size:26px}
+    .thumb .t-title{font-size:23px}
     .card-body{padding:16px 18px 18px}
 
     .back{margin-bottom:16px}
@@ -1414,7 +1415,7 @@ const MODULES = [
     ]
   },
   {
-    id:"backtest", title:"Backtest",
+    id:"backtest", title:"Journaling",
     desc:"Backtester le système pour bâtir ta confiance.",
     lessons:[
       { id:"bt1", title:"Le backtest YASKA ROOM", dur:"", video:"",
@@ -1522,7 +1523,7 @@ const MODULES = [
     ]
   },
   {
-    id:"backtest-2025", title:"Backtest Or 2025",
+    id:"backtest-2025", title:"Backtest 2025/2026",
     desc:"Série de trades backtestés sur XAU (janv. 2025 → janv. 2026).",
     lessons:[
       { id:"bt2025", title:"Backtest XAU — Jan 2025 → Jan 2026", dur:"", video:"",
@@ -1675,7 +1676,7 @@ function renderGrid(){
     if(m.locked) card.setAttribute("aria-disabled","true");
     card.innerHTML = `
       <div class="thumb" style="background:
-        radial-gradient(58% 68% at ${18+(i%3)*24}% ${18+(i%2)*20}%, rgba(59,130,246,.45), transparent 62%),
+        radial-gradient(62% 75% at 30% 22%, rgba(59,130,246,.42), transparent 60%),
         linear-gradient(155deg,var(--espresso-1),var(--espresso-2) 52%,var(--espresso-3));">
         <div class="t-inner">
           <div class="t-title">${m.title}</div>
