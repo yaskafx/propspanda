@@ -633,6 +633,28 @@
     justify-content:space-between;align-items:center;
     margin-top:20px;
   }
+  .footer-social{
+    display:flex;flex-wrap:wrap;gap:10px;justify-content:center;
+    padding-bottom:22px;border-bottom:1px solid var(--line-soft);
+  }
+  .soc{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:10px 16px;border-radius:11px;
+    font-size:13.5px;font-weight:500;color:var(--ink-soft);text-decoration:none;
+    background:var(--paper);border:1px solid var(--line);
+    transition:transform .15s,border-color .15s,color .15s,background .15s;
+  }
+  .soc svg{width:17px;height:17px;flex:none}
+  .soc:hover{transform:translateY(-2px)}
+  .soc-ig:hover{color:#E1306C;border-color:#E1306C66}
+  .soc-tt:hover{color:#25F4EE;border-color:#25F4EE66}
+  .soc-dc:hover{color:#5865F2;border-color:#5865F266}
+  .soc-tg:hover{color:#29A9EA;border-color:#29A9EA66}
+  .soc-yt:hover{color:#FF0000;border-color:#FF000066}
+  @media (max-width:480px){
+    .footer-social{gap:8px}
+    .soc{flex:1;min-width:calc(50% - 8px);justify-content:center;padding:11px 10px}
+  }
   .footer-bottom span{color:var(--muted);font-size:12.5px}
   .footer-bottom .fb-brand{color:var(--ink-soft);font-weight:500}
   .footer-links{display:flex;gap:16px}
@@ -920,23 +942,6 @@
     <button class="btn-primary" id="loginBtn">Se connecter</button>
     <div class="auth-error" id="authError">Email ou mot de passe incorrect.</div>
 
-    <div class="demo-card">
-      <div class="demo-head">
-        <span>Identifiants de démo</span>
-        <button type="button" class="demo-fill" id="demoFill">Remplir automatiquement</button>
-      </div>
-      <button type="button" class="cred-row" data-copy="membre@yaskaroom.com">
-        <span class="cred-label">Email</span>
-        <span class="cred-val">membre@yaskaroom.com</span>
-        <span class="cred-copy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>Copier</span>
-      </button>
-      <button type="button" class="cred-row" data-copy="yaska2025">
-        <span class="cred-label">Mot de passe</span>
-        <span class="cred-val">yaska2025</span>
-        <span class="cred-copy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>Copier</span>
-      </button>
-    </div>
-
     <p class="auth-legal">
       © 2026 YASKA ROOM — Tous droits réservés.<br>
       Contenu éducatif uniquement — ne constitue pas un conseil en investissement. Le trading comporte un risque de perte en capital.
@@ -1101,6 +1106,28 @@
       <div class="risk-notice">
         <strong><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:15px;height:15px"><path d="M12 9v4m0 4h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg> Avertissement sur les risques</strong>
         <p>YASKA ROOM propose un contenu strictement éducatif et pédagogique. Aucun élément présent sur cette plateforme (vidéos, documents, indicateurs, analyses, exemples) ne constitue un conseil en investissement, une recommandation personnalisée, une sollicitation ou une incitation à acheter ou vendre un quelconque actif financier. Le trading sur les marchés (Forex, CFD, futures, indices, matières premières, crypto) comporte un risque élevé de perte en capital et ne convient pas à tous les investisseurs. Les performances passées ne préjugent en rien des performances futures et aucun résultat n'est garanti. Vous êtes seul responsable de vos décisions et ne devez engager que des sommes que vous pouvez vous permettre de perdre. En cas de doute, consultez un conseiller financier agréé.</p>
+      </div>
+      <div class="footer-social">
+        <a class="soc soc-ig" href="https://www.instagram.com/yaskafx" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+          <span>Instagram</span>
+        </a>
+        <a class="soc soc-tt" href="https://www.tiktok.com/@yaska.fx" target="_blank" rel="noopener" aria-label="TikTok">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 3c.3 2.1 1.5 3.8 3.5 4.2v2.5c-1.3.1-2.5-.3-3.6-1v5.8c0 3.4-2.6 5.7-5.7 5.5A5.4 5.4 0 0 1 5.4 15c-.2-3 2.2-5.6 5.2-5.6.3 0 .6 0 .9.1v2.6c-.3-.1-.6-.2-.9-.2A2.9 2.9 0 0 0 8 14.9c.1 1.4 1.2 2.5 2.6 2.5 1.5 0 2.6-1.1 2.6-2.7V3h3.3z"/></svg>
+          <span>TikTok</span>
+        </a>
+        <a class="soc soc-yt" href="https://youtube.com/@yaskafx" target="_blank" rel="noopener" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.2-.4-4.7a2.5 2.5 0 0 0-1.7-1.7C19.4 5.2 12 5.2 12 5.2s-7.4 0-8.9.4A2.5 2.5 0 0 0 1.4 7.3C1 8.8 1 12 1 12s0 3.2.4 4.7a2.5 2.5 0 0 0 1.7 1.7c1.5.4 8.9.4 8.9.4s7.4 0 8.9-.4a2.5 2.5 0 0 0 1.7-1.7C23 15.2 23 12 23 12zM9.8 15.3V8.7l5.7 3.3-5.7 3.3z"/></svg>
+          <span>YouTube</span>
+        </a>
+        <a class="soc soc-dc" href="https://discord.gg/wkJd683duC" target="_blank" rel="noopener" aria-label="Discord">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 5.3A17 17 0 0 0 15.9 4l-.2.4a12 12 0 0 1 3.7 1.9 15.9 15.9 0 0 0-13.7 0A12 12 0 0 1 9.4 4.4L9.1 4A17 17 0 0 0 5 5.3C2.4 9.2 1.7 13 2 16.7a17 17 0 0 0 5.2 2.6l.4-.6a11 11 0 0 1-1.8-.9l.4-.3a12 12 0 0 0 10.3 0l.4.3c-.6.4-1.2.7-1.8.9l.4.6a17 17 0 0 0 5.2-2.6c.4-4.3-.6-8.1-3-11.4zM8.9 14.5c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2zm6.2 0c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2z"/></svg>
+          <span>Discord</span>
+        </a>
+        <a class="soc soc-tg" href="https://t.me/+lGs6fWmi5a82ZGU0" target="_blank" rel="noopener" aria-label="Telegram">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.9 4.3 18.6 20c-.2 1-.9 1.3-1.7.8l-4.6-3.4-2.2 2.1c-.3.3-.5.5-.9.5l.3-4.6 8.4-7.6c.4-.3-.1-.5-.6-.2L6.9 13.2l-4.5-1.4c-1-.3-1-1 .2-1.5l17.6-6.8c.8-.3 1.5.2 1.2 1.5z"/></svg>
+          <span>Telegram</span>
+        </a>
       </div>
       <div class="footer-bottom">
         <span class="fb-brand">© 2026 YASKA ROOM — Tous droits réservés.</span>
