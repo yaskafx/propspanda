@@ -1231,15 +1231,30 @@ const MEMBERS = [
 
 const MODULES = [
   {
-    id:"intro", title:"Introduction", locked:true,
-    desc:"Les bases à connaître dès le départ.",
+    id:"intro", title:"Introduction",
+    desc:"Bienvenue — la méthode pour réussir la formation.",
     lessons:[
       { id:"i1", title:"Bienvenue dans YASKA ROOM", dur:"", video:"",
-        desc:"Ce qui t'attend, comment utiliser la plateforme et poser les bonnes fondations." },
-      { id:"i2", title:"Les marchés : Gold (XAUUSD) & NQ100", dur:"", video:"",
-        desc:"Pourquoi on trade ces deux actifs, leurs comportements et leurs sessions." },
-      { id:"i3", title:"Le vocabulaire essentiel", dur:"", video:"",
-        desc:"Pips, spread, lot, RR, liquidité… le lexique pour tout comprendre." },
+        desc:"Comment tirer le maximum de la formation et de l'accompagnement.",
+        content:`
+        <div class="content-card">
+          <h3>👋 Bienvenue dans YASKA ROOM</h3>
+          <p class="intro">Tu rejoins une <strong>formation complète</strong> (stratégie, psychologie, money management, méthode prop firm) accompagnée d'un <strong>suivi personnalisé en 1:1</strong>. Ici, l'objectif n'est pas de te donner des signaux magiques, mais de faire de toi un trader <strong>autonome et rentable</strong>, capable de passer et gérer des comptes prop firm dans la durée.</p>
+
+          <div class="tip-card">
+            <h5>🎯 L'accompagnement</h5>
+            <p>Je suis là pour te guider à chaque étape : questions, analyses, corrections et ajustements de ta méthode. Profite des groupes privés (Discord / Telegram) et n'hésite jamais à demander.</p>
+          </div>
+
+          <p class="reader-label" style="margin-top:24px">Comment réussir la formation</p>
+          <div class="mindset-list">
+            <div class="mindset-item"><div class="mindset-num">1</div><div class="mindset-body"><h5>Regarde TOUS les modules, dans l'ordre</h5><p>Ne saute aucun module. Chaque brique (structure, OB/FVG, stratégie trendline, psychologie, money management…) s'appuie sur la précédente. Prends des notes et reviens dessus autant de fois que nécessaire.</p></div></div>
+            <div class="mindset-item"><div class="mindset-num">2</div><div class="mindset-body"><h5>Établis un backtest manuel sur au moins 2 ans</h5><p>Une fois la stratégie assimilée, backteste-la <strong>à la main sur minimum 2 ans</strong> d'historique (Gold / NQ100). Note chaque trade : setup, entrée, SL, TP, résultat (SL/BE/TP) et RR. C'est ce qui construit ta confiance et prouve la fiabilité de la méthode. Sers-toi du module <strong>Journaling</strong> et de l'onglet <strong>Journal</strong> pour tout consigner.</p></div></div>
+            <div class="mindset-item"><div class="mindset-num">3</div><div class="mindset-body"><h5>Envoie-moi ton backtest — je le corrige</h5><p>Quand ton backtest sur 2 ans est prêt, <strong>envoie-le-moi</strong>. Je le passe en revue personnellement, je corrige tes erreurs et je valide que tu es prêt à passer en réel / sur prop firm. C'est l'étape clé avant de risquer le moindre euro.</p></div></div>
+          </div>
+
+          <div class="bt-note" style="margin-top:22px">⚠️ Ne brûle pas les étapes : pas de compte prop firm ni de trading en réel tant que ton backtest sur 2 ans n'a pas été fait <strong>et corrigé</strong>. La patience ici te fera gagner beaucoup de temps (et d'argent) ensuite.</div>
+        </div>` },
     ]
   },
   {
@@ -1550,7 +1565,9 @@ const MODULES = [
     id:"rediffusion", title:"Rediffusion",
     desc:"Les rediffusions des lives et sessions de la room.",
     lessons:[
-      { id:"redif1", title:"Rediffusion — Live", dur:"", video:"https://youtu.be/dzxG7gSrfko",
+      { id:"redif1", title:"Rediffusion — Live 1", dur:"", video:"https://youtu.be/dzxG7gSrfko",
+        desc:"Revois le live de la room en rediffusion." },
+      { id:"redif2", title:"Rediffusion — Live 2", dur:"", video:"https://youtu.be/Vva1KDDA-Lc",
         desc:"Revois le live de la room en rediffusion." },
     ]
   },
