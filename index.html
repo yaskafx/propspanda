@@ -666,6 +666,42 @@
   }
 
   /* mention légale sur l'écran de connexion */
+  /* --- bloc "Pas encore membre ?" + bouton en relief --- */
+  .auth-join{
+    margin-top:22px;padding-top:20px;
+    border-top:1px solid var(--line-soft);
+    text-align:center;
+  }
+  .auth-join-q{
+    display:block;font-size:13.5px;color:var(--ink-soft);margin-bottom:12px;
+  }
+  .btn-join{
+    display:inline-flex;align-items:center;justify-content:center;gap:9px;
+    width:100%;padding:14px 18px;
+    font-size:15px;font-weight:700;letter-spacing:.01em;
+    color:#04130B;text-decoration:none;
+    border-radius:13px;
+    background:linear-gradient(180deg,#5BE39B 0%,#35D07B 48%,#1FA862 100%);
+    border:1px solid #17894E;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.55),
+      inset 0 -2px 4px rgba(4,30,18,.35),
+      0 6px 0 #146B3D,
+      0 10px 22px rgba(20,120,60,.45);
+    transform:translateY(0);
+    transition:transform .08s ease, box-shadow .08s ease, filter .15s ease;
+  }
+  .btn-join:hover{filter:brightness(1.05)}
+  .btn-join:active{
+    transform:translateY(4px);
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.5),
+      inset 0 -1px 3px rgba(4,30,18,.35),
+      0 2px 0 #146B3D,
+      0 4px 12px rgba(20,120,60,.4);
+  }
+  .btn-join svg{width:17px;height:17px;flex:none}
+
   .auth-legal{
     margin-top:18px;text-align:center;
     font-size:11px;color:#5A6478;line-height:1.55;
@@ -1001,6 +1037,14 @@
     </div>
     <button class="btn-primary" id="loginBtn">Se connecter</button>
     <div class="auth-error" id="authError">Email ou mot de passe incorrect.</div>
+
+    <div class="auth-join">
+      <span class="auth-join-q">Pas encore membre ?</span>
+      <a class="btn-join" href="https://yaskaroom.com" target="_blank" rel="noopener">
+        Adhérer à la YASKA ROOM
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
 
     <p class="auth-legal">
       © 2026 YASKA ROOM — Tous droits réservés.<br>
